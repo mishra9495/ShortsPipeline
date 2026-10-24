@@ -4,7 +4,7 @@
 
 $GIT  = "C:\Program Files\Git\cmd\git.exe"
 $BLENDER = "C:\Program Files\Blender Foundation\Blender 5.2\blender.exe"
-$PYTHON  = "C:\Users\ANKIT MISHRA\AppData\Local\Programs\Python\Python312\python.exe"
+$PYTHON  = "C:\Users\ANKIT MISHRA\AppData\Local\Programs\Python\Python311\python.exe"
 $FFMPEG  = "ffmpeg"
 $ROOT = "D:\ShortsPipeline"
 $LOG  = "$ROOT\logs\daily_$(Get-Date -Format 'yyyyMMdd_HHmm').log"
@@ -148,12 +148,11 @@ if (Test-Path $metaFile) {
 }
 Log "Saved to: $titleDir\$videoTitle.mp4"
 
-# 17. Upload to YouTube (requires one-time auth via youtube_auth.py)
-$py311 = "C:\Users\ANKIT MISHRA\AppData\Local\Programs\Python\Python311\python.exe"
+# 17. Upload to YouTube as unlisted (requires one-time auth via youtube_auth.py)
 $credsFile = "$ROOT\secrets\yt_credentials.json"
 if (Test-Path $credsFile) {
     Log "Uploading to YouTube..."
-    & $py311 -I "$ROOT\scripts\youtube_upload.py" "$titleDir\$videoTitle.mp4" "$titleDir\$videoTitle - YouTube Metadata.txt" 2>&1 | ForEach-Object { Log $_ }
+    & $PYTHON -I "$ROOT\scripts\youtube_upload.py" "$titleDir\$videoTitle.mp4" "$titleDir\$videoTitle - YouTube Metadata.txt" 2>&1 | ForEach-Object { Log $_ }
 } else {
     Log "YouTube credentials not found - skipping upload. Run scripts\youtube_auth.py once to enable."
 }

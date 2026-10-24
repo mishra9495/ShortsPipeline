@@ -148,4 +148,14 @@ if (Test-Path $metaFile) {
 }
 Log "Saved to: $titleDir\$videoTitle.mp4"
 
+# 17. Upload to YouTube (requires one-time auth via youtube_auth.py)
+$py311 = "C:\Users\ANKIT MISHRA\AppData\Local\Programs\Python\Python311\python.exe"
+$credsFile = "$ROOT\secrets\yt_credentials.json"
+if (Test-Path $credsFile) {
+    Log "Uploading to YouTube..."
+    & $py311 -I "$ROOT\scripts\youtube_upload.py" "$titleDir\$videoTitle.mp4" "$titleDir\$videoTitle - YouTube Metadata.txt" 2>&1 | ForEach-Object { Log $_ }
+} else {
+    Log "YouTube credentials not found - skipping upload. Run scripts\youtube_auth.py once to enable."
+}
+
 Log "=== Done: $titleDir\$videoTitle.mp4 ==="

@@ -122,12 +122,30 @@ Move-Item "$queueDir\$slug" $doneDir -Force
 & $GIT commit -m "Completed: $slug" 2>&1 | Out-Null
 & $GIT push origin main 2>&1 | Out-Null
 
-# 16. Copy to user's Videos folder
-$videosOut = "C:\Users\ANKIT MISHRA\Videos\CONTENT\3D SHORTS ANIMATION\Animation"
-Copy-Item $finalMp4 "$videosOut\${slug}_final.mp4" -Force
-if (Test-Path $metaFile) {
-    Copy-Item "$ROOT\final\${slug}_youtube_metadata.txt" "$videosOut\${slug}_youtube_metadata.txt" -Force
-}
-Log "Copied to: $videosOut\${slug}_final.mp4"
+# 16. Copy to user's Videos folder inside a titled subfolder
+$videosBase = "C:\Users\ANKIT MISHRA\Videos\CONTENT\3D SHORTS ANIMATION\Animation"
 
-Log "=== Done: $videosOut\${slug}_final.mp4 ==="
+# Extract recommended title (line after "TITLE (pick one", strip "1. " prefix)
+$videoTitle = $slug  # fallback
+if (Test-Path $metaFile) {
+    $lines = Get-Content $metaFile
+    for ($li = 0; $li -lt $lines.Count - 1; $li++) {
+        if ($lines[$li] -match "TITLE \(pick one") {
+            $raw = $lines[$li + 1] -replace '^\d+\.\s*', ''
+            # Sanitize: remove chars forbidden in Windows filenames
+            $videoTitle = $raw -replace '[\\/:*?"<>|]', '' -replace '\s+', ' '
+            $videoTitle = $videoTitle.Trim()
+            break
+        }
+    }
+}
+
+$titleDir = "$videosBase\$videoTitle"
+New-Item -ItemType Directory -Force $titleDir | Out-Null
+Copy-Item $finalMp4 "$titleDir\$videoTitle.mp4" -Force
+if (Test-Path $metaFile) {
+    Copy-Item "$ROOT\final\${slug}_youtube_metadata.txt" "$titleDir\$videoTitle - YouTube Metadata.txt" -Force
+}
+Log "Saved to: $titleDir\$videoTitle.mp4"
+
+Log "=== Done: $titleDir\$videoTitle.mp4 ==="

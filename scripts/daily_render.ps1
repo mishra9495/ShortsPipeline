@@ -122,4 +122,12 @@ Move-Item "$queueDir\$slug" $doneDir -Force
 & $GIT commit -m "Completed: $slug" 2>&1 | Out-Null
 & $GIT push origin main 2>&1 | Out-Null
 
-Log "=== Done: $ROOT\final\${slug}_final.mp4 ==="
+# 16. Copy to user's Videos folder
+$videosOut = "C:\Users\ANKIT MISHRA\Videos\CONTENT\3D SHORTS ANIMATION\Animation"
+Copy-Item $finalMp4 "$videosOut\${slug}_final.mp4" -Force
+if (Test-Path $metaFile) {
+    Copy-Item "$ROOT\final\${slug}_youtube_metadata.txt" "$videosOut\${slug}_youtube_metadata.txt" -Force
+}
+Log "Copied to: $videosOut\${slug}_final.mp4"
+
+Log "=== Done: $videosOut\${slug}_final.mp4 ==="

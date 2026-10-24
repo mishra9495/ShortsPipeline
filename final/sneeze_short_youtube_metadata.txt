@@ -1,0 +1,41 @@
+YOUTUBE SHORT METADATA: "Held In A Sneeze"
+Video file: sneeze_short_final.mp4 (1080x1920, 30 fps, ~39 s)
+Narration: ElevenLabs "Daniel" voice, pauses trimmed and tempo +15% (word-for-word verified against the script).
+
+TITLE (pick one; first is recommended)
+1. He Held In A Sneeze… And Tore A Hole In His Windpipe
+2. Why You Should NEVER Hold In A Sneeze
+3. This Man Held In A Sneeze While Driving. Big Mistake.
+
+DESCRIPTION
+A man in his 30s held in a sneeze while driving: he pinched his nose and clamped his mouth shut. The trapped blast of air tore a tiny hole in his windpipe (trachea). His neck swelled up, and doctors could feel air crackling under his skin. Luckily it healed on its own, without surgery, in about five weeks.
+
+Doctors say it's the first known case of its kind. So next time a sneeze is coming, let it out (into a tissue or your elbow).
+
+Source: BMJ Case Reports (2023), a case treated at Ninewells Hospital, Dundee, Scotland. Covered by Gizmodo, Interesting Engineering and others.
+https://gizmodo.com/man-held-in-sneeze-tore-windpipe-trachea-injury-1851097014
+https://interestingengineering.com/health/man-rips-windpipe-suppressing-sneeze
+
+This is a 3D animated dramatization made for education and entertainment. It is not medical advice.
+
+#shorts #sneeze #humanbody #medicalfacts #didyouknow #3danimation #science
+
+TAGS (comma-separated, paste into the Tags field)
+holding in a sneeze, hold in sneeze, sneeze windpipe, tracheal tear, torn windpipe, sneeze injury, why you shouldn't hold in a sneeze, human body facts, medical facts, crazy medical cases, 3d animation, animated explainer, hay fever, body facts, science shorts
+
+UPLOAD SETTINGS
+- Category: Education
+- Audience: Not made for kids
+- Altered or synthetic content: the narration is AI text-to-speech and the scene is a 3D dramatization of a real event. Recommended answer: "Yes". The animation is clearly stylized, but the realistic depiction of a real medical event makes disclosure the safe choice.
+- Language: English
+- Comments: On
+- Suggested pinned comment: "Have you ever held in a sneeze? 👀 (Doctors say: don't.)"
+
+FACT CHECK (every claim in the narration, with its source)
+- Man held in a sneeze while driving, hay fever, pinched nose and closed mouth: BMJ Case Reports 2023 via Gizmodo / Interesting Engineering ✔
+- Tear in the windpipe (trachea), reported as ~2 mm x 2 mm: Interesting Engineering ✔ (the size isn't spoken, only "a tear")
+- "Up to twenty times the normal pressure" with mouth and nose closed: Interesting Engineering, citing the case report ✔
+- Neck swelled and he had trouble moving it: Gizmodo ("swollen and stiff"), Interesting Engineering ("trouble moving easily") ✔
+- Crackling when examined (crepitus / air trapped under the skin): multiple reports of the case ✔
+- No surgery, healed in five weeks (confirmed by CT): Gizmodo / Interesting Engineering ✔
+- Artistic license: the X-ray shots show the tear larger than 2 mm so it's visible, and the sneeze spray at the end is stylized.

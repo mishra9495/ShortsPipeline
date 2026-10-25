@@ -1,0 +1,70 @@
+SCENE NOTES: tooth-in-eye  (~42 s total, 10 beats)
+
+ANIMATION LIBRARY NOTE
+The repo has no animation/ folder, so `ls animation/` failed. The only retargeted Mixamo clips the
+pipeline references are in D:\ShortsPipeline\blend\anims\ (see scripts/apply_retargeted_action.py):
+  - Walking.blend   (action "Walking")
+  - FallingIdle.blend (action "FallingIdle")
+Every beat below uses one of these two, or the base rig held in a static pose ("HOLD: rest pose",
+posed by hand on the mixamorig bones). If more Mixamo FBX files get downloaded (e.g. Sitting Idle, Looking
+Around, Rubbing Eyes, Lying Down), swap them in where marked "PREFERRED IF AVAILABLE".
+
+BEAT 1: "Doctors put this man's tooth inside his eye, to cure his blindness."  (~4.5 s)
+- Camera: extreme close-up on one eye, then a fast pull-back to a mid-shot of his face.
+- Character animation: HOLD rest pose with slight head turn (keyframed on mixamorig:Head).
+- Key visual: x-ray overlay over the eye showing a tooth silhouette where the cornea should be. Text pop "TOOTH 🦷 → EYE 👁️".
+- Lighting mood: dramatic, cold rim light, dark background.
+
+BEAT 2: "At thirteen, a reaction to ibuprofen blinded him."  (~3.5 s)
+- Camera: mid-shot, slight dolly in. Younger version of the character (scale 0.85).
+- Character animation: FallingIdle (trim to the first ~1 s for a stumble/sway), then HOLD.
+- Key visual: a pill drops in, then a red rash spreads over the skin and both corneas cloud milky white. Text pop "AGE 13".
+- Lighting mood: warm, then a sharp shift to cold blue as the eyes cloud.
+
+BEAT 3: "Cornea transplants failed for twenty years."  (~3 s)
+- Camera: wide shot, time-lapse.
+- Character animation: Walking (slow, in place on a treadmill loop) while the character ages up.
+- Key visual: counter ticking "1… 12 transplants" plus a calendar flipping to "20 YEARS". The cornea graft turns cloudy again each time.
+- Lighting mood: cold, desaturated.
+
+BEAT 4: "So surgeons pulled his canine tooth, with a sliver of jawbone."  (~4 s)
+- Camera: POV from inside the mouth looking at the upper canine; cut to a cross-section of the jaw.
+- Character animation: HOLD lying pose (rotate rig 90° onto a surgical table; PREFERRED IF AVAILABLE: Mixamo "Lying Down").
+- Key visual: cross-section highlight in yellow on the canine plus a thin bone layer, which lifts out. Text pop "CANINE TOOTH".
+- Lighting mood: clinical white surgical light from above.
+
+BEAT 5: "They shaved it into a tiny block and drilled in a plastic lens."  (~4.5 s)
+- Camera: macro close-up on the tooth on a tray, rotating turntable.
+- Character animation: none (prop-only shot).
+- Key visual: tooth shaved down into a rectangular block, a drill bores through, then a clear acrylic cylinder slides in with a glint. Text pop "4 mm".
+- Lighting mood: clinical, crisp specular highlights.
+
+BEAT 6: "Then they sewed it into his cheek for months to grow blood vessels."  (~4.5 s)
+- Camera: close-up of the face at 3/4 angle with an x-ray overlay on the cheek.
+- Character animation: HOLD rest pose, small idle breathing (scale the spine bone by about 1%).
+- Key visual: the tooth-lens block glows under the cheek skin while red vessels branch into it. Calendar text pop "~3 MONTHS".
+- Lighting mood: warm, soft.
+
+BEAT 7: "Finally, it went into his eye."  (~2.5 s)
+- Camera: snap zoom from cheek to eye.
+- Character animation: HOLD lying pose (surgery table).
+- Key visual: the block slides out of the cheek, the cloudy cornea surface peels away, the block seats into the eye, then quick stitches.
+- Lighting mood: dramatic, high contrast.
+
+BEAT 8: "His body is less likely to reject his own tooth."  (~3.5 s)
+- Camera: internal "body view" wide shot.
+- Character animation: none (internal cutaway).
+- Key visual: immune cells (green blobs) approach the tooth, sniff it, and turn away. Text pop "SELF ✔".
+- Lighting mood: warm, glowing bioluminescent.
+
+BEAT 9: "And it worked. He made eye contact with his surgeon."  (~4.5 s)
+- Camera: POV through the lens: a blurry then sharp image of the surgeon's face. Cut to an over-the-shoulder two-shot.
+- Character animation: HOLD rest pose with a head lift toward the surgeon. Surgeon character uses Walking (2-3 steps in, then stop).
+- Key visual: a vignette circle that matches the small lens field of view. The world snaps into focus.
+- Lighting mood: warm golden, emotional.
+
+BEAT 10: "Turns out, your teeth are a backup plan for your eyes."  (~4 s)
+- Camera: close-up face to camera, then pull back to a mid-shot. The character wears sunglasses (he has glare issues).
+- Character animation: Walking (out of the hospital toward camera).
+- Key visual: the character smiles, then glints a canine; text pop "🦷 = 👁️ BACKUP".
+- Lighting mood: bright daylight, warm.

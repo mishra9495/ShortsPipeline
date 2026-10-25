@@ -1,0 +1,25 @@
+MIX NOTES: tooth-in-eye
+
+OVERALL MUSIC
+- Mood: eerie-curious build into a hopeful, emotional lift at beat 9.
+- Genre suggestion: dark minimal synth/pulse (beats 1-7), then a warm piano and strings swell (beats 9-10).
+- Level: music ducked -18 dB under VO, rising to -12 dB in gaps. Hard cut to near-silence for 0.3 s right before "And it worked."
+
+PER-BEAT SFX
+1. Deep impact "boom" on "tooth", whoosh on the pull-back, low heartbeat starts.
+2. Pill rattle and pill drop "tick"; a skin "sizzle" swell for the rash; a muffled, high-pass filter sweep as the eyes cloud.
+3. Clock ticking, fast-forward. A soft "fail" thud (low tom) each time a transplant clouds over.
+4. Surgical ambience (monitor beep). A gritty "crack/pop" as the tooth leaves the jaw.
+5. Dental drill whine (short, sharp), grinding rasp for the shaving, a glassy "clink" as the lens seats.
+6. Soft wet organic squelch on the stitch-in, a slow heartbeat plus a "flowing" swell as vessels grow.
+7. Snap-zoom whoosh, a wet peel, a satisfying "click-seat" impact, quick stitch "zips".
+8. Bubbly organic ambience, a light "sniff" cartoon SFX, a positive "ding" on "SELF ✔".
+9. Silence break, then a lens-focus "shimmer" rise. Music swells. Soft room tone.
+10. Outdoor daylight ambience (birds), a "sparkle" glint on the tooth, a final music hit.
+
+VOICE NOTES
+- Casual, amazed delivery, like telling a friend.
+- Punch "tooth" and "eye" in line 1.
+- Slight dry pause after "Finally," (beat 7).
+- Warm and slower on "And it worked." Then a lighter, smiling read on the closer.
+- No reverb on VO except a subtle muffled filter during beat 2's blindness moment (optional).

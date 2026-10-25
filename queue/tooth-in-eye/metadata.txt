@@ -1,0 +1,47 @@
+YOUTUBE SHORT METADATA: "Tooth In His Eye"
+Video file: tooth-in-eye.mp4 (1080x1920, 30 fps, ~42 s)
+Narration: TTS per daily pipeline (scripts/tts.py), pauses trimmed, word-for-word verified against script.txt.
+
+TITLE (pick one; first is recommended)
+1. Doctors Put His Tooth In His Eye… So He Could See Again
+2. This Blind Man Now Sees Through His Own Tooth
+3. Why Surgeons Sewed A Tooth Into This Man's Cheek
+
+DESCRIPTION
+Brent Chapman lost his sight at 13 after a rare, severe reaction to ibuprofen (Stevens-Johnson syndrome). For about 20 years, cornea transplants couldn't restore his vision. So in 2025, surgeons in Vancouver tried a last-resort operation called osteo-odonto-keratoprosthesis, better known as "tooth-in-eye" surgery.
+
+They removed his canine tooth with a thin layer of jawbone, shaped it into a small block, and drilled a plastic optical lens through it. The tooth-and-lens was sewn into his cheek for a few months to grow its own blood supply, then implanted into his eye. Because it's his own tissue, his body is less likely to reject it. It worked: he can see again, and says he and his surgeon made eye contact.
+
+Source: Dr. Greg Moloney's team, Mount Saint Joseph Hospital, Vancouver, the first tooth-in-eye surgeries in Canada (2025). Covered by CBC, CTV, NBC and Smithsonian.
+https://www.ctvnews.ca/vancouver/article/victoria-woman-becomes-1st-canadian-to-receive-rare-tooth-in-eye-surgery/
+https://www.smithsonianmag.com/smart-news/surgeons-are-conducting-rare-tooth-in-eye-surgeries-to-restore-vision-to-blind-patients-in-canada-180986177/
+https://www.nbcsandiego.com/news/health/man-has-tooth-implanted-in-eye-to-restore-vision/3899563/
+https://www.optimax.co.uk/blog/what-is-tooth-in-eye-surgery
+
+This is a 3D animated dramatization made for education and entertainment. It is not medical advice.
+
+#shorts #tootheye #humanbody #medicalfacts #didyouknow #3danimation #science
+
+TAGS (comma-separated, paste into the Tags field)
+tooth in eye surgery, tooth in eye, osteo-odonto-keratoprosthesis, OOKP, blind man sees again, tooth implanted in eye, Stevens-Johnson syndrome, ibuprofen reaction, cornea transplant, medical facts, crazy medical cases, human body facts, 3d animation, animated explainer, science shorts
+
+UPLOAD SETTINGS
+- Category: Education
+- Audience: Not made for kids
+- Altered or synthetic content: the narration is AI text-to-speech and the scene is a 3D dramatization of a real event. Recommended answer: "Yes". The animation is clearly stylized, but the realistic depiction of a real medical procedure makes disclosure the safe choice.
+- Language: English
+- Comments: On
+- Suggested pinned comment: "Would you give up a tooth to see again? 🦷👁️"
+
+FACT CHECK (every claim in the narration, with its source)
+- Doctors put his tooth inside his eye to treat blindness (OOKP): CTV, Smithsonian, NBC ✔
+- Blinded at 13 by a reaction to ibuprofen (Stevens-Johnson syndrome): CTV / NBC ("lost his vision at age 13 after a reaction to ibuprofen") ✔
+- Cornea transplants failed for about twenty years: reports cite 12 corneal transplants over 20 years without restoring vision (CTV/Smithsonian); NBC cites ~50 procedures total ✔
+- Canine tooth removed with a sliver of jawbone: Optimax / Smithsonian ("canine… along with a thin layer of bone") ✔
+- Shaved into a block (~4 mm) and drilled to hold a plastic optical cylinder: Optimax / Upworthy ✔
+- Sewn into the cheek for months to grow a blood supply: reports say about three months (CTV/Smithsonian) to about four months (general OOKP descriptions); script says "for months" ✔
+- Then implanted into the eye: all sources ✔
+- Own tissue, so less likely to be rejected: NBC / Optimax ✔ (script says "less likely", not "never")
+- It worked; he made eye contact with his surgeon: NBC/CBC, August 2025: Chapman quoted "Dr. Moloney and I made eye contact"; vision about 20/30-20/40 in that eye ✔
+- Closer "your teeth are a backup plan for your eyes" is a playful framing, not a medical claim. OOKP is a rare last resort (roughly 800 people worldwide).
+- Artistic license: the lens and tooth block are shown oversized in close-ups for visibility; the real patient is not depicted by likeness.

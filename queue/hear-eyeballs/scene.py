@@ -29,7 +29,7 @@ if unknown or any("=" not in a for a in argv[1:]):
     raise SystemExit(f"usage: <out.blend> [stills=1,2] [pct=100] [samples=40] [assets=dir]; got {argv[1:]}")
 STILLS = [int(f) for f in opts["stills"].split(",")] if opts.get("stills") else []
 PCT = int(opts.get("pct", 100))
-SAMPLES = int(opts.get("samples", 40))
+SAMPLES = int(opts.get("samples", 28))
 ASSETS = opts.get("assets", os.path.join(HERE, "..", "..", "blend"))
 print(f"ARGS out={OUT} stills={STILLS} pct={PCT} samples={SAMPLES} assets={ASSETS}")
 
@@ -91,7 +91,14 @@ scene.frame_start, scene.frame_end = 1, END
 P.setup_render(scene, samples=SAMPLES)
 scene.render.resolution_percentage = PCT
 scene.render.use_persistent_data = True
-scene.cycles.transparent_max_bounces = 24
+scene.cycles.transparent_max_bounces = 16
+scene.cycles.adaptive_threshold = 0.035
+scene.cycles.max_bounces = 5
+scene.cycles.diffuse_bounces = 2
+scene.cycles.glossy_bounces = 2
+scene.cycles.transmission_bounces = 2
+scene.cycles.use_denoising = True
+scene.cycles.denoising_input_passes = "RGB_ALBEDO_NORMAL"
 scene.view_settings.look = "AgX - Medium High Contrast"
 scene.view_settings.exposure = 0.0
 scene.render.motion_blur_shutter = 0.4
@@ -278,6 +285,15 @@ hb.inputs["Coat Weight"].default_value = 0.0
 hb.inputs["Sheen Weight"].default_value = 0.4
 hb.inputs["Sheen Tint"].default_value = (0.9, 0.75, 0.6, 1)
 
+# smooth the low-poly MakeHuman meshes so close-ups have clean silhouettes (after the armature)
+for nm, lv in (("Hero.body", 2), ("Hero.short02", 2), ("Hero.male_casualsuit05", 1), ("Hero.shoes02", 1),
+               ("Hero.HighPolyEyes", 1), ("Hero.Teeth_Base", 1)):
+    o = bpy.data.objects.get(nm)
+    if o:
+        sub = o.modifiers.new("Smooth", "SUBSURF")
+        sub.levels = 0
+        sub.render_levels = lv
+        sub.quality = 2
 eye_m = bpy.data.objects["Hero.HighPolyEyes"].active_material
 eye_b = mat_bsdf(eye_m)
 eye_b.inputs["Roughness"].default_value = 0.15
@@ -726,7 +742,7 @@ hole = bpy.context.active_object; hole.name = "HoleRim"; hole.data.materials.app
 hole.rotation_euler = (0, 0, 0)
 HOLE_LOCAL = hole.location.copy()
 bpy.ops.mesh.primitive_uv_sphere_add(radius=0.0014, location=HOLE_LOCAL)
-patch = bpy.context.active_object; patch.name = "BonePatch"; patch.scale = (1.25, 1.25, 0.45)
+patch = bpy.context.active_object; patch.name = "BonePatch"; patch.scale = (1.0, 1.0, 0.4)
 patch.data.materials.append(M_PATCH); link(patch, EAR)
 for p in patch.data.polygons:
     p.use_smooth = True
@@ -744,6 +760,7 @@ ear_root.matrix_parent_inverse = (b.matrix_local @ Matrix.Translation((0, b.leng
 SEAL = SH["seal"] + 14
 hole_glow = [12.0 * (0.65 + 0.35 * math.sin(f * 0.5)) * (1 - ramp(f, SEAL, SEAL + 6)) for f in FRAMES]
 bake(M_HOLE.node_tree, 'nodes["Emission"].inputs[1].default_value', hole_glow)
+bake_vec(hole, "scale", [(1, 1, 1) if f < SEAL + 4 else (0.001, 0.001, 0.001) for f in FRAMES], interp="CONSTANT")
 pa = SH["seal"]
 patch_off = [Vector((0.0, -0.004, 0.012)) * (1 - ramp(f, pa + 2, SEAL)) for f in FRAMES]
 bake_vec(patch, "location", [HOLE_LOCAL + v + Vector((0, 0, 0.0004)) for v in patch_off])
@@ -1106,14 +1123,12 @@ for nm, pts, col, shots in [
     ("PulseEyeL", [EL + Vector((0, 0.012, 0)), EL + Vector((0.012, 0.04, 0.004)), ear_pt], (0.55, 0.9, 1.0), ("xray_head",)),
     ("PulseEyeR", [ER + Vector((0, 0.012, 0)), ER + Vector((0.02, 0.06, 0.02)), (EL + ear_pt) / 2 + Vector((0, 0.02, 0.03)), ear_pt], (0.55, 0.9, 1.0), ("xray_head",)),
     ("PulseHeart", [Vector((0.02, chest_h.y - 0.02, chest_h.z - 0.02)), Vector((0.03, neck_h.y + 0.01, neck_h.z)),
-                    Vector((0.035, hero_eye[0].y + 0.11, hero_eye[0].z - 0.09)), ear_pt], (1.0, 0.2, 0.12), ("xray_heart", "ear_flow")),
-    ("PulseJaw", [Vector((0.03, hero_eye[0].y + 0.035, hero_eye[0].z - 0.085)), Vector((0.04, hero_eye[0].y + 0.07, hero_eye[0].z - 0.05)), ear_pt],
-     (1.0, 0.6, 0.15), ("ear_flow",)),
-    ("PulseEyeFlow", [EL + Vector((0, 0.012, 0)), EL + Vector((0.012, 0.045, 0.002)), ear_pt], (0.55, 0.9, 1.0), ("ear_flow",)),
+                    Vector((0.035, hero_eye[0].y + 0.11, hero_eye[0].z - 0.09)), ear_pt], (1.0, 0.2, 0.12), ("xray_heart",)),
 ]:
     on = min(shot_range(s)[0] for s in shots)
     off = max(shot_range(s)[1] for s in shots) + 1
-    o = pulse_path(nm, [tuple(p_) for p_ in pts], col, XP, on + 2, off, speed=1.2, width=0.0012 if "Eye" in nm else 0.0018)
+    wdt = 0.00035 if nm.startswith("Flow") else (0.0012 if "Eye" in nm else 0.0018)
+    o = pulse_path(nm, [tuple(p_) for p_ in pts], col, XP, on + 2, off, speed=1.2 if not nm.startswith("Flow") else 0.8, width=wdt)
     b = rig.data.bones["head"]
     o.parent, o.parent_type, o.parent_bone = rig, "BONE", "head"
     o.matrix_parent_inverse = (b.matrix_local @ Matrix.Translation((0, b.length, 0))).inverted()
@@ -1198,6 +1213,37 @@ for f in FRAMES:
     sp_ = rig.pose.bones["spine01"]
     CHEST[f] = rig.matrix_world @ sp_.matrix @ sp_.bone.matrix_local.inverted() @ Vector((0.02, chest_h.y - 0.01, chest_h.z))
 FACE_R = Vector((0, hero_eye[0].y + 0.02, hero_eye[0].z - 0.02))
+
+
+def inflow_rings():
+    """Inner-ear close-up: sound rings from the body shrinking into the hole (alternating sources)."""
+    fa, fb = shot_range("ear_flow")
+    mats = [M_RING_HEART, M_RING_SCRATCH, M_RING_LOUD]
+    life = 16
+    for k, t0 in enumerate(range(fa + 6, fb - 6, 6)):
+        bpy.ops.mesh.primitive_torus_add(major_radius=1.0, minor_radius=0.05, major_segments=96, minor_segments=6)
+        o = bpy.context.active_object
+        o.name = f"Inflow_{k}"
+        o.data.materials.append(mats[k % 3])
+        link(o, FX)
+        fs = range(t0, min(END, t0 + life) + 1)
+        sc, col, loc, rot = [], [], [], []
+        for f in fs:
+            x = min(max((f - t0) / life, 0), 1)
+            rr = 0.012 * (1 - x) ** 1.3 + 0.0008
+            m3 = HM[f].to_3x3()
+            n = (m3 @ Vector((1, 0, 0))).normalized()
+            sc.append((rr, rr, rr))
+            col.append((min(1.0, 3 * x) * (1 - x) ** 0.5, 0, 0, 1))
+            loc.append(HM[f] @ ear_pt + n * 0.0015)
+            rot.append(n.to_track_quat("Z", "Y").to_euler())
+        bake_vec(o, "scale", sc, frames=fs)
+        bake_vec(o, "color", col, n=4, frames=fs)
+        bake_vec(o, "location", loc, frames=fs)
+        bake_vec(o, "rotation_euler", rot, frames=fs)
+        for f, hv in ((1, True), (t0, False), (min(END, t0 + life + 1, fb + 1), True)):
+            o.hide_render = hv
+            o.keyframe_insert("hide_render", frame=f)
 EYE_R = hero_eye[0]
 EAR_R = ear_pt
 
@@ -1213,6 +1259,7 @@ def hcam(name, keys, lens, fstop, aim, shake=0.0):
                up_fn=lambda f: (HM[f].to_3x3() @ Vector((0, 0, 1))).normalized())
 
 
+inflow_rings()
 cams = {}
 a, b_ = shot_range("bed_cu")
 cams["bed_cu"] = hcam("CamBedCU", [(a, FACE_R, (0.2, -0.36, 0.1)), (b_, FACE_R, (0.15, -0.27, 0.075))], 45, 2.8,
@@ -1248,7 +1295,7 @@ a, b_ = shot_range("or")
 cams["or"] = hcam("CamOR", [(a, EAR_R, (0.42, -0.2, 0.16)), (b_, EAR_R, (0.3, -0.14, 0.11))], 35, 4,
                   hs((EAR_R + FACE_R) / 2), shake=0.001)
 a, b_ = shot_range("seal")
-cams["seal"] = hcam("CamSeal", [(a, EAR_R, (0.02, -0.022, 0.036)), (b_, EAR_R, (0.016, -0.018, 0.03))], 50, 11,
+cams["seal"] = hcam("CamSeal", [(a, EAR_R, (0.046, 0.004, 0.022)), (b_, EAR_R, (0.038, 0.003, 0.018))], 50, 11,
                     hs(EAR_R, (0, 0, -0.002)), shake=0.0002)
 a, b_ = shot_range("morning")
 cams["morning"] = hcam("CamMorning", [(a, FACE_R, (0.3, -0.55, 0.04)), (b_, FACE_R, (0.19, -0.36, 0.03))], 45, 2.8,

@@ -6,17 +6,21 @@ from mathutils import Vector
 def setup_render(scene, samples=128, w=1080, h=1920, fps=30):
     scene.render.engine = "CYCLES"
     prefs = bpy.context.preferences.addons["cycles"].preferences
-    prefs.compute_device_type = "OPTIX"
-    prefs.refresh_devices()
+    try:
+        prefs.compute_device_type = "OPTIX"
+        prefs.refresh_devices()
+        gpu = any(d.type == "OPTIX" for d in prefs.devices)
+    except TypeError:               # no NVIDIA driver (e.g. the cloud box): CPU + OpenImageDenoise
+        gpu = False
     for d in prefs.devices:
         d.use = d.type == "OPTIX"
     c = scene.cycles
-    c.device = "GPU"
+    c.device = "GPU" if gpu else "CPU"
     c.samples = samples
     c.use_adaptive_sampling = True
     c.adaptive_threshold = 0.025
     c.use_denoising = True
-    c.denoiser = "OPTIX"            # GPU AI denoiser (was CPU OpenImageDenoise) - much faster per frame
+    c.denoiser = "OPTIX" if gpu else "OPENIMAGEDENOISE"  # GPU AI denoiser on the render PC
     c.denoising_prefilter = "ACCURATE"
     c.max_bounces = 6               # was 8
     c.diffuse_bounces = 2            # was 3

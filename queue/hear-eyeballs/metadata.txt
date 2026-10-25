@@ -1,0 +1,45 @@
+YOUTUBE SHORT METADATA: "He Could Hear His Eyeballs Move"
+Video file: hear-eyeballs_final.mp4 (1080x1920, 30 fps, ~17.5 s)
+Narration: Kokoro TTS "am_fenrir", hand-tuned pacing (hook slower, "Gone." on its own), tight joins, cleaned and levelled.
+
+TITLE (pick one; first is recommended)
+1. This Man Could Hear His Own Eyeballs Moving
+2. He Heard His Eyeballs Scrape Like Sandpaper
+3. A Tiny Hole In His Skull Let Him Hear His Eyes
+
+DESCRIPTION
+Stephen Mabbutt, a 57-year-old from Charlton near Banbury, England, could hear his own eyeballs moving. Every time he looked around he heard a scratchy noise "like sandpaper rubbed on wood". His heartbeat thumped in his ear and chewing became deafening.
+
+A CT scan found the cause: a tiny hole in the bone over the balance canal of his inner ear, a rare condition called superior canal dehiscence syndrome (SCDS). The gap lets sounds from inside the body reach the inner ear far too loudly. Surgeons sealed it using a piece of his own bone, and the noises stopped. "It's made a big difference to my life," he said.
+
+Sources: Live Science, Fox News and Shortlist coverage of the 2011 case (treated by consultant Richard Irving); SCDS overview: Ward et al., "Superior Canal Dehiscence Syndrome: Lessons from the First 20 Years", Frontiers in Neurology (2017).
+https://www.livescience.com/15875-medical-mystery-hear-eyeballs-move.html
+https://www.shortlist.com/news/man-could-hear-his-eyeballs-roll
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5408023/
+
+This is a 3D animated dramatization made for education and entertainment. It is not medical advice.
+Anatomy models: open-anatomy-3d (CC BY 4.0), adapted. Character: MakeHuman assets.
+
+#shorts #humanbody #medicalfacts #didyouknow #3danimation #science #innerear
+
+TAGS (comma-separated, paste into the Tags field)
+hear my eyeballs move, superior canal dehiscence, SCDS, inner ear, hole in skull, weird medical case, strange medical condition, human body facts, medical facts, ear condition, hearing your heartbeat, 3d animation, animated explainer, body facts, science shorts
+
+UPLOAD SETTINGS
+- Category: Education
+- Audience: Not made for kids
+- Altered or synthetic content: the narration is AI text-to-speech and the scenes are a 3D dramatization of a real case. Recommended answer: "Yes".
+- Language: English
+- Comments: On
+- Suggested pinned comment: "Would you rather hear your eyeballs or your heartbeat all day? 👀❤️"
+
+FACT CHECK (every spoken claim, with its source)
+- "This man could hear his own eyeballs moving": Stephen Mabbutt, 57, Charlton near Banbury, England, could hear his eyes move in their sockets (Live Science, Fox News, Shortlist, 2011) ✔
+- "Every glance sounded like sandpaper on wood": he described "a scratchy sound, like sandpaper rubbed on wood" each time he moved his eyes (Shortlist / Fox News) ✔
+- "His heartbeat pounded, and chewing was deafening": he could hear his heartbeat, and the noise of chewing became deafening (Shortlist / Fox News) ✔
+- "Doctors found a tiny hole in the bone above his inner ear": a CT scan showed a tiny hole in the temporal bone over the superior semicircular canal (superior canal dehiscence) (Live Science; Frontiers in Neurology review) ✔
+- "So sounds from inside his body leaked straight in": simplified description of the mechanism; the gap acts as a "third window" so internal body sounds (eye movements, pulse, chewing, own voice) are abnormally loud, i.e. conductive hyperacusis (Frontiers in Neurology review; Mass Eye and Ear) ✔ (simplified)
+- "Surgeons sealed it with a piece of his own bone": the operation reached the balance organ through the bone and used the patient's own bone to seal the defect (Shortlist / Live Science) ✔
+- "And the eyeball noise? Gone.": he was cured of hearing his eyeballs move; "It's made a big difference to my life" (Shortlist / Fox News) ✔
+- Not used: a news claim that "fluid leaked into his brain" (not accurate).
+- Artistic license: the inner ear is drawn ~35% larger than life and stylized; the CT scan and operating room are dramatized; the surgical approach shown is simplified (no incision shown).

@@ -1,0 +1,41 @@
+{
+ "voice": "am_fenrir",
+ "duration": 16.033,
+ "beats": [
+  {
+   "text": "This man could hear his own eyeballs moving.",
+   "start": 0.0,
+   "end": 2.05
+  },
+  {
+   "text": "Every glance sounded like sandpaper on wood.",
+   "start": 2.15,
+   "end": 4.273
+  },
+  {
+   "text": "His heartbeat pounded, and chewing was deafening.",
+   "start": 4.343,
+   "end": 6.547
+  },
+  {
+   "text": "Doctors found a tiny hole in the bone above his inner ear.",
+   "start": 6.637,
+   "end": 9.575
+  },
+  {
+   "text": "So sounds from inside his body leaked straight in.",
+   "start": 9.635,
+   "end": 11.966
+  },
+  {
+   "text": "Surgeons sealed it with a piece of his own bone.",
+   "start": 12.066,
+   "end": 14.331
+  },
+  {
+   "text": "And the eyeball noise? Gone.",
+   "start": 14.431,
+   "end": 16.033
+  }
+ ]
+}

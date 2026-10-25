@@ -2,7 +2,8 @@
 # Join the rendered parts of a Short, lay in the mix and burned captions, master to -14 LUFS.
 #
 # Usage: scripts/assemble_cloud.sh <slug> <parts_dir> <out.mp4> [font_dir]
-#   parts_dir holds part01.mp4..partNN.mp4 (from cloud_render.sh), in frame order by name.
+#   parts_dir holds the part*.mp4 segments (from cloud_render.sh); they are joined in name order.
+#   CAPTIONS=0 skips the burned-in captions.
 # Needs: ffmpeg with libass, python3 with numpy + soundfile (for mix.py).
 set -euo pipefail
 SLUG=$1; PARTS=$2; OUT=$3; FONTS=${4:-$HOME/.fonts}
@@ -16,12 +17,16 @@ frames=$(ffprobe -v error -count_packets -select_streams v:0 -show_entries strea
 echo "JOINED $frames frames"
 
 python3 -I "$Q/mix.py" "$Q/vo.json" "$Q/vo.wav" "$WORK/mix.wav"
-python3 "$ROOT/scripts/make_captions.py" "$Q/vo.json" "$WORK/caps.ass" "${CAPTION_KEYS:-}"
-sed -i 's/Style: Cap,Arial Black,104/Style: Cap,Montserrat Black,100/' "$WORK/caps.ass"
+VF="format=yuv420p"
+if [ "${CAPTIONS:-1}" != "0" ]; then
+  python3 "$ROOT/scripts/make_captions.py" "$Q/vo.json" "$WORK/caps.ass" "${CAPTION_KEYS:-}"
+  sed -i 's/Style: Cap,Arial Black,104/Style: Cap,Montserrat Black,100/' "$WORK/caps.ass"
+  VF="subtitles=caps.ass:fontsdir=$FONTS,format=yuv420p"
+fi
 
 cd "$WORK"  # libass path escaping is fragile; use bare file names
 ffmpeg -loglevel error -y -i video.mp4 -i mix.wav \
-  -vf "subtitles=caps.ass:fontsdir=$FONTS,format=yuv420p" \
+  -vf "$VF" \
   -af "loudnorm=I=-14:TP=-1.0:LRA=11,aresample=48000" \
   -c:v libx264 -preset slow -crf 16 -profile:v high -pix_fmt yuv420p \
   -color_primaries bt709 -color_trc bt709 -colorspace bt709 -movflags +faststart \

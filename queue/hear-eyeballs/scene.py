@@ -1165,6 +1165,23 @@ def shell_fade(f):
 
 
 bake(scene, '["shell_fade"]', [shell_fade(f) for f in FRAMES])
+# Fully faded shells must leave the scene, not just go transparent: every ray in the inner-ear
+# close-ups would otherwise pass through a dozen invisible layers (skin, suit, skull, vessels),
+# hit transparent_max_bounces and come back black (blotches in the void).
+GONE = [shell_fade(f) < 0.02 and shot_at(f) in XRAY_SHOTS for f in FRAMES]
+shell_objs = [o for o in hero_objs if o.type == "MESH"] + list(ANAT.objects)
+keys = [1] + [f for f, g0, g1 in zip(FRAMES[1:], GONE[:-1], GONE[1:]) if g0 != g1]
+for o in shell_objs:
+    vis = {}
+    if o.animation_data and o.animation_data.action:
+        for fc in fcurves_of(o):
+            if fc.data_path == "hide_render":
+                vis = {int(k.co[0]): k.co[1] for k in fc.keyframe_points}
+    base = (lambda f, v=vis: bool(max(((kf, val) for kf, val in v.items() if kf <= f), default=(0, o.hide_render))[1])) if vis else (lambda f: o.hide_render)
+    for f in sorted(set(keys) | set(vis)):
+        o.hide_render = base(f) or GONE[min(f, END) - 1]
+        o.keyframe_insert("hide_render", frame=f)
+print("SHELL_GONE frames", sum(GONE))
 # X-ray key: a soft blue rim so the shell reads
 xr_rim = P.area_light("XrayRim", Vector((0.6, 1.5, 2.2)), Vector((0, 0, 0.8)), 0, 2.0, (0.5, 0.7, 1.0))
 

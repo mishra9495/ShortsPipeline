@@ -106,7 +106,7 @@ def at_beat(i, frac):
 
 
 # SYNC with mix.py
-IMPACT_F, MUCUS_F, CRACK_F, SEAL_F = 0.62, 0.55, 0.40, 0.72
+IMPACT_F, MUCUS_F, CRACK_F, SEAL_F = 0.62, 0.66, 0.40, 0.72
 H1, H2 = at_beat(0, 0.30), at_beat(0, 0.66)          # hook: nose ECU -> X-ray -> home mid
 IMP = at_beat(1, IMPACT_F)
 MUCUS = at_beat(3, MUCUS_F)
@@ -815,9 +815,9 @@ ANAT_OBJS.append(airway)
 side_rot = (math.pi / 2, 0, math.pi / 2)
 lab_csf = text("LabelCSF", "CSF", BR_C + Vector((BR_RX * 1.3, -BR_RY * 0.55, BR_RZ * 0.2)), 0.02,
                glow("LabelBlue", (0.5, 0.85, 1.0), 6), ANAT, rot=side_rot)
-lab_hole = text("LabelHole", "HOLE", HOLE + Vector((0.012, -0.008, -0.018)), 0.009,
+lab_hole = text("LabelHole", "HOLE", HOLE + Vector((0.012, -0.004, 0.014)), 0.008,
                 glow("LabelRed", (1.0, 0.25, 0.15), 8), ANAT, rot=side_rot)
-lab_men = text("LabelMeningitis", "MENINGITIS\nRISK", path_point(0.5) + Vector((0.015, 0.02, -0.012)), 0.006,
+lab_men = text("LabelMeningitis", "MENINGITIS\nRISK", path_point(0.5) + Vector((0.015, 0.009, 0.004)), 0.0048,
                glow("LabelRed2", (1.0, 0.2, 0.12), 8), ANAT, rot=side_rot)
 lab_seal = text("LabelSealed", "SEALED", HOLE + Vector((0.012, -0.008, -0.02)), 0.010,
                 glow("LabelGreen", (0.25, 1.0, 0.4), 8), ANAT, rot=side_rot)

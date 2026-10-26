@@ -30,7 +30,7 @@ music = np.zeros(N, np.float32)
 
 # SYNC with scene.py
 IMPACT_F = 0.62      # beat 2: dashboard impact, fraction into the beat
-MUCUS_F = 0.55       # beat 4: "It wasn't mucus" lands at about this fraction
+MUCUS_F = 0.66       # beat 4: "It wasn't mucus" lands at about this fraction
 CRACK_F = 0.40       # beat 6: crack reveal
 SEAL_F = 0.72        # beat 9: fat graft seats into the hole
 

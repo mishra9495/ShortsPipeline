@@ -100,7 +100,7 @@ function Prepare-Item($slug) {
         # Owner approved a free voice when ElevenLabs is unavailable (2026-10-27): Kokoro am_fenrir is the closest
         # free match to Daniel's pitch and timbre.
         Log "[$slug] Narration: free Kokoro am_fenrir voice (no ElevenLabs key)"
-        & $PYTHON "$ROOT\scripts\tts.py" $script_txt $prefix am_fenrir 1.15 2>&1 | ForEach-Object { Log "$_" }
+        & $PYTHON "$ROOT\scripts\tts.py" $script_txt $prefix am_fenrir auto 2>&1 | ForEach-Object { Log "$_" }
     }
     if (-not (Test-Path $it.vo) -or -not (Test-Path $it.beats)) {
         Log "[$slug] ERROR: narration failed (see the lines above)."

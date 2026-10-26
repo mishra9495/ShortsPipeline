@@ -46,7 +46,8 @@ STEP 4 — Create slug: short lowercase hyphenated name describing the topic (e.
 
 STEP 5 — Write these files to queue/{slug}/:
 - script.txt — narration script, one sentence per line, no timestamps
-- metadata.txt — exactly matching the format of final/sneeze_short_youtube_metadata.txt (YOUTUBE SHORT METADATA, TITLE (3 options), DESCRIPTION, TAGS, UPLOAD SETTINGS, FACT CHECK with every spoken claim and its source)
+- metadata.txt — exactly matching the format of final/sneeze_short_youtube_metadata.txt (YOUTUBE SHORT METADATA, TITLE (3 options), DESCRIPTION, TAGS, UPLOAD SETTINGS, FACT CHECK with every spoken claim and its source). Every title option is 4-7 words with exactly one emoji at the end and no quotes, colons, hashtags or ellipses (scripts/youtube_upload.py checks this and uploads the first option that passes).
+- Direction follows templates/STYLE_GUIDE.md (Zack D research). Build scenes with scripts/shot.py cameras and scripts/actor.py follow/spring/timewarp/bake_gaze.
 - scene_notes.txt — for each of the 10 beats: camera, the procedural acting channels used in scene.py, key visual, lighting mood, duration (there is no animation/ folder; do not invent Mixamo filenames)
 - mix_notes.txt — SFX per beat, music mood and genre, voice notes
 

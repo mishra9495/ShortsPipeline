@@ -62,6 +62,52 @@ def wobble(t, seed, speed=1.0, freqs=(0.21, 0.47, 0.83)):
     return sum(math.sin(t * speed * q * 2 * math.pi + seed * (i + 1.7)) / (i + 1) for i, q in enumerate(freqs))
 
 
+# ------------------------------------------------------------------ overlap, follow-through, slow motion
+def delay(vals, fps, sec):
+    """Shift a per-frame channel later by `sec` (fractional samples), holding the first value."""
+    k = sec * fps
+    out = []
+    for i in range(len(vals)):
+        x = i - k
+        if x <= 0:
+            out.append(vals[0])
+            continue
+        j = int(x)
+        u = x - j
+        out.append(vals[j] if j + 1 >= len(vals) else vals[j] * (1 - u) + vals[j + 1] * u)
+    return out
+
+
+def spring(vals, fps, hz=3.0, zeta=0.4, sub=4):
+    """Second-order follower of a per-frame channel: lag, overshoot and settle (frame-rate independent).
+    Use on necks, heads, hands, hair and props so nothing stops dead."""
+    w = 2 * math.pi * hz
+    dt = 1.0 / (fps * sub)
+    x, v = vals[0], 0.0
+    out = []
+    for target in vals:
+        for _ in range(sub):
+            v += (w * w * (target - x) - 2 * zeta * w * v) * dt
+            x += v * dt
+        out.append(x)
+    return out
+
+
+def follow(vals, fps, sec=0.06, hz=3.5, zeta=0.45):
+    """delay + spring: the standard overlap for the next bone down a chain (spine -> neck -> head)."""
+    return spring(delay(vals, fps, sec), fps, hz, zeta)
+
+
+def timewarp(slo_a, slo_b, act_a, act_b):
+    """Slow-motion map: screen time t in [slo_a, slo_b) plays action time act_a..act_b; identity elsewhere.
+    Evaluate every animated channel at warp(t) inside the slow-mo shot (Zack's single 'money moment')."""
+    def warp(t):
+        if slo_a <= t < slo_b:
+            return act_a + (act_b - act_a) * (t - slo_a) / (slo_b - slo_a)
+        return t
+    return warp
+
+
 # ------------------------------------------------------------------ fcurve baking
 def fcurves_of(idb):
     act = idb.animation_data.action
@@ -309,6 +355,64 @@ class Actor:
         if self.root_loc:
             bake_vec(self.rig, "location", self.root_loc, frames)
             bake_vec(self.rig, "rotation_euler", self.root_rot, frames)
+
+    # ---------------- eyes (ARKit eyeLook* shape keys; the mixamo rig has no eye bones)
+    def bake_gaze(self, frames, T, target_fn, coll, seed=1, step=2, deg_per_unit=(30.0, 25.0)):
+        """Eyes that look at things. Call AFTER self.bake(). target_fn(t) -> world Vector, or None to look ahead.
+        Adds micro-saccades (new offset every 0.5-2 s, up to 1.5 deg). Evaluated every `step` frames."""
+        import random
+        frames = list(frames)
+        rnd = random.Random(seed)
+        mid = (self.eye_l + self.eye_r) / 2
+        eye = self.anchor("EyeMid", "Head", mid, coll)
+        sac, t_next, cur = [], 0.0, (0.0, 0.0)
+        for t in T:
+            if t >= t_next:
+                cur = (rnd.uniform(-1.5, 1.5), rnd.uniform(-1.0, 1.0))
+                t_next = t + rnd.uniform(0.5, 2.0)
+            sac.append(cur)
+        scene = bpy.context.scene
+        yaw, pitch = [], []
+        idx = list(range(0, len(frames), step))
+        if idx[-1] != len(frames) - 1:
+            idx.append(len(frames) - 1)
+        samples = {}
+        for i in idx:
+            tgt = target_fn(T[i])
+            if tgt is None:
+                samples[i] = (0.0, 0.0)
+                continue
+            scene.frame_set(frames[i])
+            M = eye.matrix_world
+            d = M.to_3x3().normalized().inverted() @ (Vector(tgt) - M.translation)
+            samples[i] = (math.degrees(math.atan2(d.x, -d.y)), math.degrees(math.atan2(d.z, math.hypot(d.x, d.y))))
+        for k in range(len(idx) - 1):
+            a, b = idx[k], idx[k + 1]
+            for i in range(a, b):
+                u = (i - a) / (b - a)
+                yaw.append(samples[a][0] * (1 - u) + samples[b][0] * u)
+                pitch.append(samples[a][1] * (1 - u) + samples[b][1] * u)
+        yaw.append(samples[idx[-1]][0])
+        pitch.append(samples[idx[-1]][1])
+        fps = scene.render.fps
+        yaw = spring([y + s[0] for y, s in zip(yaw, sac)], fps, hz=9.0, zeta=0.8)     # fast, slightly damped saccades
+        pitch = spring([p + s[1] for p, s in zip(pitch, sac)], fps, hz=9.0, zeta=0.8)
+        hy, vp = deg_per_unit
+        keys = {
+            "eyeLookOutLeft": [clamp(y / hy) for y in yaw], "eyeLookInRight": [clamp(y / hy) for y in yaw],
+            "eyeLookInLeft": [clamp(-y / hy) for y in yaw], "eyeLookOutRight": [clamp(-y / hy) for y in yaw],
+            "eyeLookUpLeft": [clamp(p / vp) for p in pitch], "eyeLookUpRight": [clamp(p / vp) for p in pitch],
+            "eyeLookDownLeft": [clamp(-p / vp) for p in pitch], "eyeLookDownRight": [clamp(-p / vp) for p in pitch],
+        }
+        n = 0
+        for o in self.faces:
+            kb = o.data.shape_keys.key_blocks
+            for k, vals in keys.items():
+                if k in kb:
+                    bake(o.data.shape_keys, f'key_blocks["{k}"].value', vals, frames)
+                    n += 1
+        print(f"GAZE {self.name}: {n} eyeLook channels baked" + ("" if n else " -- WARN no eyeLook* shape keys found"))
+        return n
 
     # ---------------- materials
     def tint_material(self, obj_suffix, color, amount=0.85):

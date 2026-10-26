@@ -3,9 +3,9 @@ Video file: tooth-in-eye.mp4 (1080x1920, 30 fps, ~42 s)
 Narration: TTS per daily pipeline (scripts/tts.py), pauses trimmed, word-for-word verified against script.txt.
 
 TITLE (pick one; first is recommended)
-1. Doctors Put His Tooth In His Eye… So He Could See Again
-2. This Blind Man Now Sees Through His Own Tooth
-3. Why Surgeons Sewed A Tooth Into This Man's Cheek
+1. Doctors Put His Tooth In His Eye 😳
+2. He Sees Through His Own Tooth 😱
+3. Surgeons Grew A Tooth Into His Eye 🦷
 
 DESCRIPTION
 Brent Chapman lost his sight at 13 after a rare, severe reaction to ibuprofen (Stevens-Johnson syndrome). For about 20 years, cornea transplants couldn't restore his vision. So in 2025, surgeons in Vancouver tried a last-resort operation called osteo-odonto-keratoprosthesis, better known as "tooth-in-eye" surgery.

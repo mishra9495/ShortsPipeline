@@ -21,9 +21,12 @@ $EXTRA_ADD = @()
 
 New-Item -ItemType Directory -Force "$ROOT\logs" | Out-Null
 
+# Log to file + console WITHOUT writing to the output stream: inside a function, pipeline output becomes the
+# function's return value (Tee-Object did that and turned Prepare-Item's result into an array of log lines).
 function Log($msg) {
-    $ts = Get-Date -Format "HH:mm:ss"
-    "$ts  $msg" | Tee-Object -Append -FilePath $LOG
+    $line = "$(Get-Date -Format 'HH:mm:ss')  $msg"
+    Add-Content -Path $LOG -Value $line
+    Write-Host $line
 }
 
 # Push this run's log (plus any preview files) to GitHub, then exit. Called on every exit path.
@@ -93,7 +96,7 @@ foreach ($d in (Get-ChildItem "$ROOT\queue" -Directory -ErrorAction SilentlyCont
     $it = Prepare-Item $d.Name
     $out = "$ROOT\previews\$($d.Name)"
     New-Item -ItemType Directory -Force $out | Out-Null
-    if ($it) {
+    if (($it -is [hashtable]) -and $it.blend -and (Test-Path $it.blend)) {
         $frames = (Get-Content "$($d.FullName)\PREVIEW" -Raw)
         if ($frames) { $frames = $frames.Trim() } else { $frames = "" }
         Log "[$($d.Name)] Preview stills: '$frames'"
@@ -125,13 +128,20 @@ if ($candidates.Count -eq 0) { Finish 0 "No item ready for a full render" }
 $slug = ($candidates | Sort-Object Time, Name | Select-Object -First 1).Name
 Log "Full render: $slug"
 $it = Prepare-Item $slug
-if (-not $it) { Finish 1 "ERROR: could not prepare $slug" }
+if (-not ($it -is [hashtable]) -or -not $it.blend -or -not (Test-Path $it.blend)) { Finish 1 "ERROR: could not prepare $slug (see the narration/scene lines above)" }
 $itemDir = $it.dir
 $FPS = $it.fps
 
 # 4. Render frames (resumes: existing frames are skipped; range clamps to the scene's frame_end)
 $framesDir = "$ROOT\renders\${slug}_frames"
+$sig = ((Get-FileHash "$itemDir\scene.py").Hash + (Get-FileHash $it.beats).Hash + "$FPS")
+$sigFile = "$framesDir\BUILD.txt"
+if ((Test-Path $framesDir) -and (-not (Test-Path $sigFile) -or ((Get-Content $sigFile -Raw).Trim() -ne $sig))) {
+    Log "Removing frames from a different build"
+    Remove-Item $framesDir -Recurse -Force
+}
 New-Item -ItemType Directory -Force $framesDir | Out-Null
+Set-Content -Path $sigFile -Value $sig
 Log "Rendering frames (this takes several hours)..."
 & $BLENDER -b $it.blend --python "$ROOT\scripts\render_anim.py" -- $framesDir 1 99999 2>&1 |
     Select-String "RANGE|FRAME \d*00\b|Error|Traceback" | ForEach-Object { Log "$_" }

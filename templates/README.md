@@ -1,5 +1,7 @@
 # Queue item templates
 
+**Rebuilt pipeline status: NOT yet approved by the owner.** The v2 reference scene is `queue/brain-leaking-nose/scene.py`. It uses `scripts/kit.py` (every model built in Blender) and `scripts/actor.py` (character acting). It is in PREVIEW, so the Windows PC renders full-quality stills for review. The older `scene_template.py` and `mix_template.py` are v1 and were rejected for quality.
+
 Every `queue/<slug>/` needs these files before the nightly Windows render (`scripts/daily_render.ps1`) will pick it up:
 
 | File | Purpose |

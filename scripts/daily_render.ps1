@@ -98,6 +98,10 @@ foreach ($d in (Get-ChildItem "$ROOT\queue" -Directory -ErrorAction SilentlyCont
         Log "[$($d.Name)] Preview stills: '$frames'"
         & $BLENDER -b $it.blend --python "$ROOT\scripts\render_stills.py" -- $out $frames 2>&1 |
             Select-String "STILL|Error|Traceback" | ForEach-Object { Log "$_" }
+        foreach ($png in (Get-ChildItem "$out\still_*.png" -ErrorAction SilentlyContinue)) {   # JPG keeps the repo small
+            & $FFMPEG -y -hide_banner -loglevel error -i $png.FullName -q:v 3 ($png.FullName -replace '\.png$', '.jpg') 2>&1 | Out-Null
+            Remove-Item $png.FullName -Force
+        }
         & $FFMPEG -y -hide_banner -loglevel error -i $it.vo -b:a 128k "$out\voice.mp3" 2>&1 | Out-Null
         Copy-Item $it.beats "$out\beats.json" -Force
     }

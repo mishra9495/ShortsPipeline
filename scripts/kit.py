@@ -1013,12 +1013,12 @@ def _sedan_profile(y):
     return zb, belt, max(top, belt), hw, htop, cabin, arch
 
 
-def car(c, loc=(0, 0, 0), color=(0.12, 0.003, 0.003), name="Car", rot=0.0, interior=True):
+def car(c, loc=(0, 0, 0), color=(0.12, 0.003, 0.003), name="Car", rot=0.0, interior=True, tint=(0.12, 0.14, 0.16)):
     """Modern sedan: one smooth lofted shell (paint, glass, lights, grille as material zones),
     boolean-cut wheel arches, five-spoke wheels, mirrors, handles. Faces -Y. Returns the root Empty."""
     root = empty(name, c, loc, (0, 0, rot))
     paint_m = car_paint(name + "Paint", color)
-    glass_m = glass(name + "Tint", (0.12, 0.14, 0.16), rough=0.0, ior=1.5)
+    glass_m = glass(name + "Tint", tint, rough=0.0, ior=1.5)
     trim = plastic(name + "Trim", (0.012, 0.012, 0.014), 0.45)
     head = emissive(name + "Headlight", (1.0, 0.97, 0.92), 2.5)
     tail = emissive(name + "Taillight", (0.9, 0.02, 0.01), 3.0)

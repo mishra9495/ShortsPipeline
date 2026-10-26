@@ -22,17 +22,18 @@ meta = json.load(open(BEATS_JSON, encoding="utf-8"))
 B = [float(b["start"]) for b in meta["beats"]]
 E = [float(b["end"]) for b in meta["beats"]]
 assert len(B) == 10, f"expected 10 beats, got {len(B)}"
-TAIL = 36 / 30                                  # scene.py holds 36 frames after the narration
+TAIL = 0.8                                      # scene.py holds 0.8 s after the narration
 TOTAL = max(float(meta["duration"]), len(vo) / SR) + TAIL
 N = int(TOTAL * SR) + SR // 2
 mix = np.zeros(N, np.float32)
 music = np.zeros(N, np.float32)
 
-# SYNC with scene.py
-IMPACT_F = 0.62      # beat 2: dashboard impact, fraction into the beat
-MUCUS_F = 0.66       # beat 4: "It wasn't mucus" lands at about this fraction
+# SYNC with scene.py (v2)
+IMPACT_F = 0.48      # beat 2: car B rear-ends her car (exterior)
+FACE_F = 0.80        # beat 2: slow-motion face meets the dashboard
+MUCUS_F = 0.62       # beat 4: "It wasn't mucus" -> test strip turns
 CRACK_F = 0.40       # beat 6: crack reveal
-SEAL_F = 0.72        # beat 9: fat graft seats into the hole
+SEAL_F = 0.78        # beat 9: fat graft seats into the hole
 
 
 def at_beat(i, frac):
@@ -276,14 +277,21 @@ place(whoosh(0.45), at_beat(0, 0.30) - 0.3, -12)
 place(whoosh(0.4, False), at_beat(0, 0.66) - 0.1, -16)
 place(mwomp(), E[0] - 0.3, -11)
 place(heartbeat(B[2] - B[0]), B[0], -20)
-# 2 crash: cabin rumble, screech, dashboard impact + skull crack, slow-mo low-pass after
+# 2 crash: night road ambience, engine rushing in, screech, rear-end impact, slow-mo face hit + skull crack
 imp = at_beat(1, IMPACT_F)
+face = at_beat(1, FACE_F)
 cab = fft_filter(noise(B[2] - B[1]), hi=260)
-place(norm(cab) * env_ar(len(cab), 0.2, 0.2), B[1], -18)
-place(screech(0.55), imp - 0.6, -14)
-place(thud(0.6), imp, -3)
-place(crack(0.3), imp + 0.03, -9)
-place(fft_filter(noise(0.8), lo=2500) * env_ar(int(0.8 * SR), 0.002, 0.6), imp, -22)   # glass hiss
+place(norm(cab) * env_ar(len(cab), 0.2, 0.2), B[1], -20)
+eng_len = max(0.3, imp - B[1])
+tt = np.arange(int(eng_len * SR)) / SR
+eng = np.sin(2 * np.pi * np.cumsum(70 + 90 * (tt / eng_len) ** 2) / SR) * (tt / eng_len) ** 1.5
+place(norm(fft_filter(eng.astype(np.float32) + 0.3 * noise(eng_len)[:len(tt)], hi=900)), B[1], -12)
+place(screech(0.5), imp - 0.5, -12)
+place(thud(0.7), imp, -2)
+place(crack(0.4), imp + 0.01, -8)
+place(fft_filter(noise(0.9), lo=2500) * env_ar(int(0.9 * SR), 0.002, 0.7), imp, -20)   # glass + metal debris
+place(fft_filter(boom(1.0, 38), hi=300), face - 0.02, -4)                              # slow-mo body hit
+place(crack(0.3), face + 0.03, -7)
 # 3 years: sped-up clock, tissue pulls and sniffs
 k = B[2]
 while k < B[3] - 0.1:

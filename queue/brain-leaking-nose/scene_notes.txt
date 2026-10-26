@@ -1,95 +1,35 @@
-SCENE NOTES: brain-leaking-nose  (~44 s total, 10 beats)
+SCENE NOTES: brain-leaking-nose v2 (60 fps, about 28-33 s, 17 shots, no captions or on-screen text)
 
-ANIMATION LIBRARY NOTE
-The repo still has no animation/ folder (`ls animation/` fails: No such file or directory), so there are no
-Mixamo FBX filenames to list from it. The only retargeted Mixamo clips the pipeline references live in
-D:\ShortsPipeline\blend\anims\ (see scripts/apply_retargeted_action.py):
-  - Walking.blend     (action "Walking")
-  - FallingIdle.blend (action "FallingIdle")
-Every beat below uses one of these two, or the base rig held in a hand-posed static pose ("HOLD").
-Where a better Mixamo clip would help, it is marked "PREFERRED IF AVAILABLE" with the Mixamo clip name to
-download, run through scripts/retarget.py, and drop into blend/anims/. Do not reference anything else.
+Everything is modelled in Blender by scene.py (scripts/kit.py): living room, clinic, night road with two cars,
+operating room, and X-ray anatomy with a folded brain. Characters are MPFB humans: HER (female lead, built from
+scripts/preset_heroine.json) and the DOCTOR (char_hero in a white coat, with a stethoscope, plus a cap and mask in the OR).
 
-Character: the usual female hero variant of the rig (or the base rig with a longer hair card from build_hair.py).
-She is a generic character, not a likeness of the real patient.
+BEAT 1 "Her brain was leaking out of her nose, and doctors blamed allergies."
+  a. Nose ECU at home: a glossy droplet swells and falls; slow push-in.
+  b. X-ray side view: glowing brain fluid runs from the skull base down the nose.
+  c. Clinic, over the doctor's shoulder: he shrugs and offers tissues; she sniffs and wipes.
+BEAT 2 "In 2013, Kendra's face hit a dashboard in a crash."
+  a. Night road, low wide shot behind her red car: headlights rush in.
+  b. Impact: the silver car rear-ends hers, with a camera shake and a flash.
+  c. Through the passenger window, slow motion: her face lurches into the dashboard.
+  d. X-ray flash: a crack opens in the skull base.
+BEAT 3 "Her nose then ran nonstop for years."  Living-room time-lapse: day/night cycles through the window, a
+  growing tissue pile, she reaches for the box and wipes again and again.
+BEAT 4 "Then a specialist tested the fluid. It wasn't mucus."  Clinic: the doctor raises a vial of clear fluid
+  to the light; macro of the test strip turning bright green; his eyebrows jump.
+BEAT 5 "It was the liquid your brain floats in."  X-ray orbit: the brain floating in pulsing blue fluid.
+BEAT 6 "The crash had cracked a tiny hole in her skull."  X-ray push-in to the skull-base hole; cracks glow red.
+BEAT 7 "She lost half a pint of brain fluid a day."  Living room: she leans forward, the drip speeds up, and the
+  measuring jug in the foreground fills.
+BEAT 8 "That hole was an open door for bacteria into her brain."  X-ray: green bacteria crawl up the nose and
+  through the hole; the brain lining flashes red.
+BEAT 9 "Surgeons went up her nostril and plugged it with her own fat."  OR: she lies under the surgical lamp,
+  and the masked surgeon works at her nose. Then X-ray: the endoscope climbs the nostril and a yellow fat graft
+  seals the hole (the ring turns green).
+BEAT 10 "If your runny nose is one-sided and salty, get it checked."  Home in daylight: she is healthy, smiles,
+  and nods to camera while the camera pulls back.
 
-BEAT 1: "Her brain was leaking out of her nose, and doctors blamed allergies."  (~5 s)
-- Camera: extreme close-up on the nose and upper lip, a clear drip forming; snap pull-back to a mid-shot of her
-  holding a tissue; quick cut to a doctor shrugging.
-- Character animation: HOLD rest pose, keyframed head tilt down toward the tissue (mixamorig:Head/Neck). Doctor
-  character: HOLD with a shoulder shrug keyed on mixamorig:LeftShoulder/RightShoulder.
-- Key visual: semi-transparent x-ray overlay flashes on: brain in blue, a glowing blue drip line running from the
-  skull base down the nasal cavity and out. Text pop "ALLERGIES?" with a red strike-through.
-- Lighting mood: cold, clinical white with a blue rim. Dark background.
-
-BEAT 2: "In 2013, Kendra's face hit a dashboard in a crash."  (~4 s)
-- Camera: side-on mid-shot inside a car, slow-motion. Then a hard cut to a front POV of the dashboard rushing in.
-- Character animation: FallingIdle, trimmed to the first ~1 s, played at 25% speed for the forward lurch into the
-  dashboard, then a sharp snap back. PREFERRED IF AVAILABLE: Mixamo "Hit Reaction" or "Head Hit".
-- Key visual: motion-blur streaks, a white impact flash on contact, text pop "2013". A quick x-ray flash of the
-  skull on impact with a tiny crack line appearing above the nasal cavity.
-- Lighting mood: warm interior light that strobes white on impact.
-
-BEAT 3: "Her nose then ran nonstop for years."  (~3.5 s)
-- Camera: wide shot, time-lapse. A day/night light sweep across the room. Tissues pile up on the table.
-- Character animation: HOLD seated-style pose on the couch (hand-posed hips/knees), with a looping hand-to-nose
-  wipe keyed on mixamorig:RightArm/RightForeArm. PREFERRED IF AVAILABLE: Mixamo "Sitting Idle".
-- Key visual: a calendar on the wall flipping pages fast, the tissue pile growing, a faint drip loop at the nose.
-  Text pop "YEARS…".
-- Lighting mood: warm home light, slightly dim, a bit sad.
-
-BEAT 4: "Then a specialist tested the fluid. It wasn't mucus."  (~4 s)
-- Camera: close-up on a small sample vial being held up to the light, rack focus from the vial to the
-  specialist's widening eyes.
-- Character animation: specialist character HOLD, arm raised with the vial (keyed on mixamorig:RightArm). Slow
-  head turn toward camera on "wasn't mucus".
-- Key visual: the fluid in the vial is crystal clear, not cloudy. Test strip turns a bright colour. Text pop
-  "NOT MUCUS" with a short zoom punch.
-- Lighting mood: cold, clinical, a single strong key light from above.
-
-BEAT 5: "It was the liquid your brain floats in."  (~3.5 s)
-- Camera: internal cutaway. Slow orbit around a translucent head, pushing in to the brain.
-- Character animation: none (internal cutaway, the head is static).
-- Key visual: the brain suspended in glowing pale-blue CSF inside the skull, gently bobbing. Label "CSF".
-  Small arrows show the fluid flowing around the brain and down the spine.
-- Lighting mood: cool, bioluminescent blue glow, dark surround.
-
-BEAT 6: "The crash had cracked a tiny hole in her skull."  (~4 s)
-- Camera: continue the internal view, fast dolly down to the base of the skull just above the nasal cavity.
-  Snap-zoom into the hole.
-- Character animation: none (internal cutaway).
-- Key visual: a crack and a small hole in the bone above the nose (shown oversized, see fact check), blue CSF
-  threading through it and dripping down the nasal passage. A red circle highlight and text pop "HOLE".
-- Lighting mood: dramatic, high contrast, a red accent light on the hole.
-
-BEAT 7: "She lost half a pint of brain fluid a day."  (~4 s)
-- Camera: split: left half is a mid-shot of her face with the x-ray drip overlay; right half is a measuring glass
-  filling with clear fluid up to a "half pint" line.
-- Character animation: HOLD, slow head tilt forward (the drip gets worse when she leans forward).
-- Key visual: the glass fills in a fast pour, the line "1/2 PINT / DAY" lights up. A counter of days ticks in the
-  corner.
-- Lighting mood: cold white, clinical.
-
-BEAT 8: "That hole was an open door for bacteria into her brain."  (~4.5 s)
-- Camera: internal view again, reversed: start in the nasal cavity looking UP at the hole, then follow a swarm
-  through it toward the brain.
-- Character animation: none (internal cutaway).
-- Key visual: stylized green cartoon bacteria blobs drifting up the nasal passage, squeezing through the hole
-  toward the brain. The brain lining flashes a warning red. Text pop "MENINGITIS RISK".
-- Lighting mood: dark, menacing, green and red accents.
-
-BEAT 9: "Surgeons went up her nostril and plugged it with her own fat."  (~4.5 s)
-- Camera: operating-room mid-shot (surgeon leaning in), then an internal POV travelling up the nostril with the
-  endoscope to the hole.
-- Character animation: surgeon uses Walking (2 steps to the table, then stop and HOLD leaning in). Patient HOLD
-  lying pose (hand-posed, rig rotated flat). PREFERRED IF AVAILABLE: Mixamo "Lying Down" / "Sleeping Idle".
-- Key visual: a thin endoscope tube rises through the nasal cavity, a small yellow fat graft is pressed into the
-  hole and the blue drip stops. A satisfying "sealed" check mark. Text pop "NO BRAIN SURGERY".
-- Lighting mood: bright surgical white with a cool blue monitor glow.
-
-BEAT 10: "If your runny nose is one-sided and salty, get it checked."  (~5 s)
-- Camera: close-up face to camera, then pull back to a mid-shot as she walks toward camera, no tissue in hand.
-- Character animation: Walking toward camera, 3-4 steps, then stop and HOLD with a small confident nod.
-- Key visual: a quick 3-item checklist slides in on the right: "ONE NOSTRIL", "WORSE BENDING FORWARD",
-  "SALTY TASTE". End card: "🧠 GET IT CHECKED".
-- Lighting mood: bright, warm daylight, hopeful.
+Acting is procedural on the mixamorig bones (scripts/actor.py): breathing, idle sway, blinks, sniffs, reaching
+for the tissue box, wiping, the crash whip and lurch, a dazed head roll, the doctor's shrug, a raised vial and a
+surprised look, a sedated pose on the OR table, and a final smile and nod. All motion is eased (smootherstep)
+and baked per frame at 60 fps.

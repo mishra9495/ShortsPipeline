@@ -24,6 +24,9 @@ The contract for both files is in `templates/README.md`. Before committing, test
 
 ## Facts about this repo
 
+- Build every model in Blender from code. Don't download assets. Use `scripts/kit.py` (props, sets, vehicles, anatomy) and `scripts/actor.py` (character performance, any fps).
+- A queue folder with `PREVIEW` gets full-quality stills rendered on the PC. They are pushed to `previews/<slug>/` for review, and the full render waits until `PREVIEW` is removed.
+
 - There is no `animation/` folder and no Mixamo FBX library. Characters are animated procedurally on the `mixamorig:` bones.
 - The characters are `blend/char_hero.blend` (male) and `blend/char_heroine.blend` (female). The female file is built on demand from `scripts/preset_heroine.json`. Both exist only on the Windows PC.
 - The nightly render pushes its log to `logs/daily_*.log`. Read the newest one at the start of each run and fix any failure it shows.

@@ -1,6 +1,6 @@
 YOUTUBE SHORT METADATA: "Brain Leaking From Her Nose"
-Video file: brain-leaking-nose.mp4 (1080x1920, 30 fps, ~44 s)
-Narration: TTS per daily pipeline (scripts/tts.py), pauses trimmed, word-for-word verified against script.txt.
+Video file: brain-leaking-nose.mp4 (1080x1920, 60 fps, ~30 s)
+Narration: ElevenLabs "Daniel" voice, pauses trimmed and tempo +15% (scripts/tts_elevenlabs.py).
 
 TITLE (pick one; first is recommended)
 1. Her "Allergies" Were Actually Her Brain Leaking Out Of Her Nose

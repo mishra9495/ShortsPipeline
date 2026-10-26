@@ -5,7 +5,11 @@
 ## Owner's standing rules (never break these)
 
 - NEVER burn captions or subtitles into any video. No `make_captions.py`, no `subtitles=` filter, no on-screen narration text.
-- Narration voice is ElevenLabs "Daniel" (the sneeze short's voice), pauses trimmed, tempo +15%. Never substitute Kokoro or another voice.
+- Narration voice: ElevenLabs "Daniel" (the sneeze short's voice) when available, with pauses trimmed and tempo +15%. On 2026-10-27 the owner had no ElevenLabs key and approved a free voice: Kokoro `am_fenrir`, the closest free match to Daniel's pitch and timbre. `daily_render.ps1` picks the voice in this order:
+  1. a ready-made `queue/<slug>/narration.wav` with its `narration.json`
+  2. a `narration.mp3` downloaded from the ElevenLabs website
+  3. an ElevenLabs API key
+  4. free Kokoro `am_fenrir`
 - Quality bar is Zack D Films. Never ship primitive placeholder geometry (box cars, capsule people) in a final video.
 - A queue folder containing a `HOLD` file is never rendered.
 

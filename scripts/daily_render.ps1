@@ -7,7 +7,8 @@
 #               previews/<slug>/ for review. Delete PREVIEW (after review) to allow the full render.
 #   (none)   -> full render of the oldest such item: narration, scene, frames, mix, MP4, upload (private).
 #
-# Owner's standing rules: ElevenLabs "Daniel" narration only (no fallback voice), NEVER captions/subtitles.
+# Owner's standing rules: NEVER captions/subtitles. Voice: queue narration.wav > narration.mp3 (ElevenLabs website)
+#   > ElevenLabs API key > free Kokoro am_fenrir (owner approved the free voice on 2026-10-27).
 # Every run pushes its log to logs/. Keep this file ASCII-only (Windows PowerShell 5.1 reads it as ANSI).
 
 $GIT     = "C:\Program Files\Git\cmd\git.exe"
@@ -73,11 +74,28 @@ function Prepare-Item($slug) {
     $prefix   = "$ROOT\audio\${slug}_vo"
     $it.vo    = "$prefix.wav"
     $it.beats = "$prefix.json"
-    Log "[$slug] Narration: ElevenLabs Daniel..."
-    if (Test-Path $it.vo) { Remove-Item $it.vo -Force }
-    & $PYTHON "$ROOT\scripts\tts_elevenlabs.py" "$($it.dir)\script.txt" $prefix 2>&1 | ForEach-Object { Log "$_" }
+    foreach ($f in @($it.vo, $it.beats)) { if (Test-Path $f) { Remove-Item $f -Force } }
+    $script_txt = "$($it.dir)\script.txt"
+    $rec = Get-ChildItem "$($it.dir)\narration.mp3", "$($it.dir)\narration_raw.wav" -ErrorAction SilentlyContinue | Select-Object -First 1
+    $key = (Test-Path "$ROOT\secrets\elevenlabs_api_key.txt") -or [bool]$env:ELEVENLABS_API_KEY
+    if ((Test-Path "$($it.dir)\narration.wav") -and (Test-Path "$($it.dir)\narration.json")) {
+        Log "[$slug] Narration: using the ready-made queue narration.wav"
+        Copy-Item "$($it.dir)\narration.wav" $it.vo -Force
+        Copy-Item "$($it.dir)\narration.json" $it.beats -Force
+    } elseif ($rec) {
+        Log "[$slug] Narration: from recording $($rec.Name) (pauses trimmed, tempo +15%)"
+        & $PYTHON "$ROOT\scripts\narration_from_audio.py" $rec.FullName $script_txt $prefix 2>&1 | ForEach-Object { Log "$_" }
+    } elseif ($key) {
+        Log "[$slug] Narration: ElevenLabs Daniel (API)"
+        & $PYTHON "$ROOT\scripts\tts_elevenlabs.py" $script_txt $prefix 2>&1 | ForEach-Object { Log "$_" }
+    } else {
+        # Owner approved a free voice when ElevenLabs is unavailable (2026-10-27): Kokoro am_fenrir is the closest
+        # free match to Daniel's pitch and timbre.
+        Log "[$slug] Narration: free Kokoro am_fenrir voice (no ElevenLabs key)"
+        & $PYTHON "$ROOT\scripts\tts.py" $script_txt $prefix am_fenrir 1.15 2>&1 | ForEach-Object { Log "$_" }
+    }
     if (-not (Test-Path $it.vo) -or -not (Test-Path $it.beats)) {
-        Log "[$slug] ERROR: ElevenLabs narration failed. Put the API key in $ROOT\secrets\elevenlabs_api_key.txt (no fallback voice by design)."
+        Log "[$slug] ERROR: narration failed (see the lines above)."
         return $null
     }
     Log "[$slug] Building Blender scene ($($it.fps) fps)..."

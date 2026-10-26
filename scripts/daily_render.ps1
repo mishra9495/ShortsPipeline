@@ -59,9 +59,17 @@ if (-not $FFMPEG) { Finish 1 "ERROR: ffmpeg not found on PATH or at $WINGET_FF" 
 if (-not (Test-Path $BLENDER)) { Finish 1 "ERROR: Blender not found at $BLENDER" }
 if (-not (Test-Path $PYTHON)) { Finish 1 "ERROR: Python not found at $PYTHON" }
 
-# 1. Pull latest from GitHub
+# 1. Pull latest from GitHub. PowerShell has already loaded THIS file, so if the pull changed it, restart once with
+#    the new version (otherwise fixes only take effect on the following run).
 Set-Location $ROOT
+$selfHash = (Get-FileHash $PSCommandPath).Hash
 & $GIT pull --no-edit --no-rebase origin main 2>&1 | ForEach-Object { Log "$_" }
+if (((Get-FileHash $PSCommandPath).Hash -ne $selfHash) -and -not $env:SHORTS_REEXEC) {
+    Log "daily_render.ps1 was updated by the pull - restarting with the new version"
+    $env:SHORTS_REEXEC = "1"
+    & powershell -NoProfile -ExecutionPolicy Bypass -File $PSCommandPath
+    exit $LASTEXITCODE
+}
 
 # Narration (ElevenLabs Daniel) + scene build for one queue item. Returns a hashtable of paths, or $null.
 function Prepare-Item($slug) {

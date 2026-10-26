@@ -10,7 +10,7 @@ $trigger = New-ScheduledTaskTrigger -Daily -At "23:30"
 
 $settings = New-ScheduledTaskSettingsSet `
     -WakeToRun `
-    -ExecutionTimeLimit (New-TimeSpan -Hours 10) `
+    -ExecutionTimeLimit (New-TimeSpan -Hours 16) `
     -StartWhenAvailable `
     -RunOnlyIfNetworkAvailable
 

@@ -1,7 +1,7 @@
 """Short: "Her brain was leaking out of her nose, and doctors blamed allergies" (Nebraska Medicine, 2018).
 
 Run (daily_render.ps1):  blender -b --python scene.py -- <ROOT>/blend/<slug>.blend [vo=..] [beats=..]
-                          [stills=1,200] [pct=100] [samples=96] [device=gpu|cpu] [root=..] [char=..]
+                          [stills=1,200] [pct=100] [samples=64] [device=gpu|cpu] [root=..] [char=..]
 With no vo=/beats= the narration is found from the output path: <ROOT>/audio/<slug>_beats.json
 (align_narration.py) or <slug>_vo.json (tts.py), and <slug>_vo_final.wav or <slug>_vo.wav.
 
@@ -37,7 +37,7 @@ SCRIPTS = os.path.join(ROOT, "scripts")
 AUDIO = os.path.join(ROOT, "audio")
 STILLS = [int(f) for f in opts["stills"].split(",")] if opts.get("stills") else []
 PCT = int(opts.get("pct", 100))
-SAMPLES = int(opts.get("samples", 96))
+SAMPLES = int(opts.get("samples", 64))   # + OptiX denoise; keeps ~1300 frames inside the nightly window
 DEVICE = opts.get("device", "gpu").lower()
 
 

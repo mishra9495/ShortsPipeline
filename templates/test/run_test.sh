@@ -12,7 +12,7 @@ mkdir -p "$WORK/root/blend" "$WORK/root/audio"
 ln -sfn "$REPO/scripts" "$WORK/root/scripts"
 if [ ! -x "$VENV/bin/python" ]; then
   python3 -m venv "$VENV"
-  "$VENV/bin/pip" install -q bpy==5.0.1 numpy soundfile   # Blender as a Python module (Python 3.11)
+  "$VENV/bin/pip" install -q bpy==5.0.1 "numpy<2" soundfile   # Blender as a Python module (Python 3.11; needs numpy 1.x)
 fi
 PY="$VENV/bin/python"
 [ -f "$WORK/root/blend/char_hero.blend" ] || "$PY" "$REPO/templates/test/make_standin.py" -- "$WORK/root/blend/char_hero.blend"

@@ -22,3 +22,4 @@ The contract for both files is in `templates/README.md`. Before committing, test
 - The characters are `blend/char_hero.blend` (male) and `blend/char_heroine.blend` (female). The female file is built on demand from `scripts/preset_heroine.json`. Both exist only on the Windows PC.
 - The nightly render pushes its log to `logs/daily_*.log`. Read the newest one at the start of each run and fix any failure it shows.
 - The updated daily routine prompt is in `templates/ROUTINE_PROMPT.md`.
+- Narration pace: Kokoro (`am_michael`, speed 1.15) reads about 190 words per minute. A 100-word script gives about 31 seconds of narration, and the sneeze short was 117 words for 37 seconds. Plan word counts from that pace, not from 130 words per minute.

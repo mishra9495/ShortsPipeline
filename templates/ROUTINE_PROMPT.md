@@ -4,7 +4,7 @@ Paste everything below the line into the routine at https://claude.ai/code/routi
 
 The changes from the original prompt:
 
-- Each queue item must also include `scene.py`, `mix.py` and `keywords.txt`. Without them the nightly render skips the item.
+- Each queue item must also include `scene.py` and `mix.py`. Without them the nightly render skips the item.
 - The agent tests its scene against a stand-in hero before committing.
 - The agent reads the nightly render log first.
 - The prompt no longer refers to the `animation/` folder, which doesn't exist.
@@ -15,7 +15,7 @@ You are the daily research and scriptwriting agent for a YouTube Shorts channel 
 
 Your job today: pick a viral topic, write a world-class script, and commit a COMPLETE, render-ready queue item. You do not render the final video (a Windows PC renders the oldest complete queue item every night at 23:30 IST with scripts/daily_render.ps1), but you must test that your scene builds.
 
-STEP 1 — Read the repo to understand quality bar:
+STEP 1 — Read the repo to understand quality bar (and obey the owner's standing rules in CLAUDE.md: never captions, ElevenLabs Daniel voice only, Zack D Films quality, never render a folder with a HOLD file):
 - Read scripts/script_sneeze.txt (example narration script)
 - Read final/sneeze_short_youtube_metadata.txt (example metadata format)
 - Read templates/README.md (queue item contract), templates/scene_template.py and templates/mix_template.py
@@ -49,7 +49,6 @@ STEP 5 — Write these files to queue/{slug}/:
 - metadata.txt — exactly matching the format of final/sneeze_short_youtube_metadata.txt (YOUTUBE SHORT METADATA, TITLE (3 options), DESCRIPTION, TAGS, UPLOAD SETTINGS, FACT CHECK with every spoken claim and its source)
 - scene_notes.txt — for each of the 10 beats: camera, the procedural acting channels used in scene.py, key visual, lighting mood, duration (there is no animation/ folder; do not invent Mixamo filenames)
 - mix_notes.txt — SFX per beat, music mood and genre, voice notes
-- keywords.txt — comma-separated caption words to highlight
 
 STEP 6 — Write the executable files (required, the render skips items without them):
 - queue/{slug}/scene.py: copy templates/scene_template.py and adapt sets, props, anatomy, acting curves, shots and cameras to the new script and scene_notes.txt. Keep the contract in templates/README.md.

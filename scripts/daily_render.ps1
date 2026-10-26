@@ -5,7 +5,6 @@
 #   scene.py     Blender scene builder:  blender -b --python scene.py -- <out.blend> vo=<wav> beats=<json>
 #   mix.py       sound design:           python mix.py <beats.json> <vo.wav> <out_mix.wav>
 #   metadata.txt YouTube metadata (title/description/tags)
-#   keywords.txt (optional) comma-separated caption words to highlight
 # Every run (success or failure) pushes its log to logs/ so the cloud agent can see what happened.
 # Keep this file ASCII-only: Windows PowerShell 5.1 reads BOM-less files as ANSI.
 
@@ -62,6 +61,10 @@ $queueDir = "$ROOT\queue"
 if (-not (Test-Path $queueDir)) { Finish 0 "No queue folder yet" }
 $candidates = @()
 foreach ($d in (Get-ChildItem $queueDir -Directory)) {
+    if (Test-Path (Join-Path $d.FullName "HOLD")) {
+        Log "Skipping $($d.Name): on HOLD"
+        continue
+    }
     $missing = @("script.txt", "scene.py", "mix.py") | Where-Object { -not (Test-Path (Join-Path $d.FullName $_)) }
     if ($missing) {
         Log "Skipping $($d.Name): missing $($missing -join ', ')"
@@ -80,7 +83,8 @@ $scriptFile  = "$itemDir\script.txt"
 $sceneScript = "$itemDir\scene.py"
 $mixScript   = "$itemDir\mix.py"
 $metaFile    = "$itemDir\metadata.txt"
-$kwFile      = "$itemDir\keywords.txt"
+$FPS = 30
+if (Test-Path "$itemDir\fps.txt") { $FPS = [int]((Get-Content "$itemDir\fps.txt" -Raw).Trim()) }
 New-Item -ItemType Directory -Force "$ROOT\audio", "$ROOT\blend", "$ROOT\renders", "$ROOT\final" | Out-Null
 
 # 3. Kokoro TTS narration. tts.py takes an output PREFIX and writes <prefix>.wav + <prefix>.json
@@ -137,28 +141,16 @@ if (-not (Test-Path $mixWav)) {
     Copy-Item $voFinal $mixWav -Force
 }
 
-# 8. Captions (punchy 1-3 word chunks, keywords highlighted)
-$assFile = "$ROOT\renders\${slug}_captions.ass"
-$keywords = ""
-if (Test-Path $kwFile) { $keywords = (Get-Content $kwFile -Raw).Trim() }
-& $PYTHON -I "$ROOT\scripts\make_captions.py" $voJson $assFile $keywords 2>&1 | ForEach-Object { Log "$_" }
-
-# 9. Assemble final MP4: H.264 High + AAC, -14 LUFS, burned captions
+# 8. Assemble final MP4: H.264 High + AAC, -14 LUFS. NEVER burn captions/subtitles (owner's standing rule).
 Log "Assembling final video..."
 $finalMp4 = "$ROOT\final\${slug}_final.mp4"
-$vf = "format=yuv420p"
-if (Test-Path $assFile) {
-    $vf = "subtitles=$(Split-Path $assFile -Leaf):fontsdir=C\\:/Windows/Fonts,format=yuv420p"
-}
-Push-Location (Split-Path $assFile -Parent)   # libass path escaping on Windows is fragile; use a bare filename
 & $FFMPEG -y -hide_banner -loglevel error `
-    -framerate 30 -i "$framesDir\f%04d.png" -i $mixWav `
-    -vf $vf `
+    -framerate $FPS -i "$framesDir\f%04d.png" -i $mixWav `
+    -vf "format=yuv420p" `
     -af "loudnorm=I=-14:TP=-1.0:LRA=11,aresample=48000" `
     -c:v libx264 -preset slow -crf 16 -profile:v high -pix_fmt yuv420p -movflags +faststart `
     -c:a aac -b:a 320k -shortest `
     $finalMp4 2>&1 | ForEach-Object { Log "$_" }
-Pop-Location
 if (-not (Test-Path $finalMp4)) { Finish 1 "ERROR: ffmpeg assembly failed for $slug" }
 
 # 10. Verify output

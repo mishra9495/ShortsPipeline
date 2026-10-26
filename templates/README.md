@@ -8,7 +8,6 @@ Every `queue/<slug>/` needs these files before the nightly Windows render (`scri
 | `metadata.txt` | YouTube metadata in the `final/sneeze_short_youtube_metadata.txt` format. |
 | `scene.py` | Blender scene builder. Start from `scene_template.py`. |
 | `mix.py` | Sound design and mix. Start from `mix_template.py`. |
-| `keywords.txt` | Optional. Comma-separated caption words to highlight. |
 | `scene_notes.txt`, `mix_notes.txt` | Human-readable direction. They are not executed. |
 
 Items missing `script.txt`, `scene.py` or `mix.py` are skipped and logged.

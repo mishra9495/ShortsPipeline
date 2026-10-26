@@ -2,6 +2,13 @@
 
 3D animated medical and science YouTube Shorts. A cloud agent queues topics. A Windows PC renders one finished queue item each night at 23:30 IST with `scripts/daily_render.ps1`, then uploads it to YouTube as private.
 
+## Owner's standing rules (never break these)
+
+- NEVER burn captions or subtitles into any video. No `make_captions.py`, no `subtitles=` filter, no on-screen narration text.
+- Narration voice is ElevenLabs "Daniel" (the sneeze short's voice), pauses trimmed, tempo +15%. Never substitute Kokoro or another voice.
+- Quality bar is Zack D Films. Never ship primitive placeholder geometry (box cars, capsule people) in a final video.
+- A queue folder containing a `HOLD` file is never rendered.
+
 ## Queue items must be render-ready
 
 The nightly render only picks up a `queue/<slug>/` folder that contains all of these files:
@@ -10,7 +17,6 @@ The nightly render only picks up a `queue/<slug>/` folder that contains all of t
 - `metadata.txt`: in the format of `final/sneeze_short_youtube_metadata.txt`.
 - `scene.py`: the Blender scene builder. Adapt it from `templates/scene_template.py`.
 - `mix.py`: the sound design. Adapt it from `templates/mix_template.py`.
-- `keywords.txt`: optional caption highlight words.
 
 Folders without `scene.py` or `mix.py` are skipped forever. When you queue a topic, write those two files too. If you find an existing queue item without them, write them before adding a new topic.
 

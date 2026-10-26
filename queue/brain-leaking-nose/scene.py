@@ -158,10 +158,12 @@ bpy.context.preferences.edit.keyframe_new_interpolation_type = "LINEAR"
 
 MX = "mixamorig:"
 rig = next(o for o in bpy.data.objects if o.type == "ARMATURE")
-hero_objs = [o for o in bpy.data.objects if o.parent == rig]
+# everything that came with the character file gets the X-ray look (hair may not be parented to the rig)
+hero_objs = [o for o in bpy.data.objects if o.type in ("MESH", "CURVES", "CURVE") and o is not rig]
 body = bpy.data.objects.get("Hero.body") or max(
     (o for o in hero_objs if o.type == "MESH"), key=lambda o: len(o.data.vertices))
 face_meshes = [o for o in hero_objs if o.type == "MESH" and o.data.shape_keys]
+print("HERO_OBJS", sorted(o.name for o in hero_objs))
 for pb in rig.pose.bones:
     pb.rotation_mode = "QUATERNION"
     pb.rotation_quaternion = (1, 0, 0, 0)
@@ -577,8 +579,14 @@ TABLE = Vector((HX + 1.35, HY - 0.05, SEAT_Z + 0.08))
 box("SideTable", (TABLE.x, TABLE.y, (TABLE.z + FLOOR_Z) / 2), (0.5, 0.5, TABLE.z - FLOOR_Z), wood_mat, HOME, bevel=0.01)
 box("TissueBox", (TABLE.x - 0.1, TABLE.y + 0.1, TABLE.z + 0.06), (0.24, 0.13, 0.12), box_mat, HOME)
 blob("TissueTop", (TABLE.x - 0.1, TABLE.y + 0.1, TABLE.z + 0.14), 0.04, paper_mat, HOME, scale=(1, 0.6, 1.2))
-# measuring glass (beat 7) + "1/2 PINT" line
-GLASS = Vector((TABLE.x + 0.08, TABLE.y - 0.12, TABLE.z))
+# measuring glass (beat 7) on a coffee table in front of the couch + "1/2 PINT" line
+CT = Vector((HX + 0.2, HY - 0.8, SEAT_Z - 0.14))
+box("CoffeeTable", CT + Vector((0, 0, -0.02)), (0.9, 0.45, 0.04), wood_mat, HOME, bevel=0.01)
+for lx in (-0.4, 0.4):
+    for ly in (-0.18, 0.18):
+        box(f"CTLeg{lx}{ly}", (CT.x + lx, CT.y + ly, (CT.z - 0.04 + FLOOR_Z) / 2), (0.04, 0.04, CT.z - 0.04 - FLOOR_Z),
+            wood_mat, HOME, bevel=0)
+GLASS = Vector((CT.x + 0.12, CT.y - 0.05, CT.z))
 cyl("MeasureGlass", GLASS + Vector((0, 0, 0.085)), 0.045, 0.17, glass_mat("Glass"), HOME, verts=48)
 liquid_mat = principled("CSFLiquid", (0.75, 0.9, 1.0), 0.02, **{"Transmission Weight": 0.9,
                                                                 "Emission Color": (0.4, 0.75, 1.0, 1),
@@ -626,7 +634,7 @@ bake(streak_root, "location", [((f * 0.55) % 28.0) - 14 for f in FRAMES], index=
 # lab (fluid test), far away from the other sets
 LABP = Vector((40.0, 0.0, 1.0))
 counter_mat = principled("Counter", (0.85, 0.87, 0.9), 0.25)
-lightbox_mat = glow("LightBox", (0.85, 0.93, 1.0), 2.5)
+lightbox_mat = glow("LightBox", (0.85, 0.93, 1.0), 1.1)
 cap_mat = principled("VialCap", (0.05, 0.25, 0.8), 0.35)
 box("LabCounter", LABP + Vector((0, 0.05, -0.06)), (1.2, 0.6, 0.04), counter_mat, LAB, bevel=0.005)
 box("LabLightbox", LABP + Vector((0, 0.32, 0.2)), (1.0, 0.02, 0.6), lightbox_mat, LAB, bevel=0)
@@ -657,7 +665,7 @@ bake(strip_mat.node_tree, 'nodes["Principled BSDF"].inputs[0].default_value',
      [0.85 - 0.6 * ramp(f, MUCUS - 4, MUCUS + 6) for f in FRAMES], index=2)
 bake(strip_mat.node_tree, f'nodes["Principled BSDF"].inputs["Emission Strength"].default_value',
      [3.0 * ramp(f, MUCUS - 4, MUCUS + 6) for f in FRAMES])
-not_mucus = text("NotMucus", "NOT MUCUS", LABP + Vector((0.0, -0.03, 0.115)), 0.022,
+not_mucus = text("NotMucus", "NOT MUCUS", LABP + Vector((0.012, -0.03, 0.098)), 0.012,
                  glow("NotMucusInk", (1.0, 0.2, 0.15), 8.0), LAB)
 visible_during([not_mucus], [(MUCUS, BEAT[4] - 1)])
 
@@ -732,8 +740,8 @@ print("XRAY_MATS", len(done))
 
 # ---------------------------------------------------------------- anatomy (built in rest pose, ridden on the Head bone)
 ANAT_OBJS = []
-skull_mat = edge_glow("SkullXRay", (0.95, 0.93, 0.85), strength=1.6, core=0.03, blend=0.25)
-csf_mat = edge_glow("CSFGlow", (0.25, 0.75, 1.0), strength=3.0, core=0.06, blend=0.3, value_name="Pulse")
+skull_mat = edge_glow("SkullXRay", (0.95, 0.93, 0.85), strength=1.1, core=0.0, blend=0.12)
+csf_mat = edge_glow("CSFGlow", (0.25, 0.75, 1.0), strength=2.6, core=0.03, blend=0.2, value_name="Pulse")
 # alarm: CSF shell shifts from blue to red while the bacteria get in
 csf_nt = csf_mat.node_tree
 alarm = csf_nt.nodes.new("ShaderNodeValue")
@@ -759,7 +767,7 @@ bake(ring_nt, 'nodes["Glow"].inputs[1].default_value',
 bake_vec(ring_nt, 'nodes["Glow"].inputs[0].default_value',
          [(1.0, 0.15, 0.08, 1) if f < SEAL else (0.2, 1.0, 0.35, 1) for f in FRAMES], n=4, interp="CONSTANT")
 
-for name, scale_k, mat in (("Skull", 1.28, skull_mat), ("CSF", 1.1, csf_mat)):
+for name, scale_k, mat in (("Skull", 1.16, skull_mat), ("CSF", 1.07, csf_mat)):
     o = blob(name, BR_C, 1.0, mat, ANAT, scale=(BR_RX * scale_k, BR_RY * scale_k, BR_RZ * scale_k * 1.08),
              strength=0.0, subdiv=5)
     ANAT_OBJS.append(o)
@@ -805,11 +813,11 @@ airway.data.materials.append(airway_mat)
 ANAT_OBJS.append(airway)
 # labels (face +X, the side the X-ray cameras look from)
 side_rot = (math.pi / 2, 0, math.pi / 2)
-lab_csf = text("LabelCSF", "CSF", BR_C + Vector((BR_RX * 1.4, -BR_RY * 0.2, BR_RZ * 1.5)), 0.022,
+lab_csf = text("LabelCSF", "CSF", BR_C + Vector((BR_RX * 1.3, -BR_RY * 0.55, BR_RZ * 0.2)), 0.02,
                glow("LabelBlue", (0.5, 0.85, 1.0), 6), ANAT, rot=side_rot)
 lab_hole = text("LabelHole", "HOLE", HOLE + Vector((0.012, -0.008, -0.018)), 0.009,
                 glow("LabelRed", (1.0, 0.25, 0.15), 8), ANAT, rot=side_rot)
-lab_men = text("LabelMeningitis", "MENINGITIS RISK", BR_C + Vector((BR_RX * 1.4, -BR_RY * 0.1, BR_RZ * 1.55)), 0.016,
+lab_men = text("LabelMeningitis", "MENINGITIS\nRISK", path_point(0.5) + Vector((0.015, 0.02, -0.012)), 0.006,
                glow("LabelRed2", (1.0, 0.2, 0.12), 8), ANAT, rot=side_rot)
 lab_seal = text("LabelSealed", "SEALED", HOLE + Vector((0.012, -0.008, -0.02)), 0.010,
                 glow("LabelGreen", (0.25, 1.0, 0.4), 8), ANAT, rot=side_rot)
@@ -975,10 +983,16 @@ def bone_empty(name, bone, world_pos):
 
 
 nose_anchor = bone_empty("NoseAnchor", "Head", Vector((X0 - 0.03, NOSE.y - 0.075, NOSE.z - 0.055)))
+hand_aim = bone_empty("HandAimPt", "Head", Vector((X0, NOSE.y + 0.01, NOSE.z + 0.02)))
+dt = rig.pose.bones[MX + "RightHand"].constraints.new("DAMPED_TRACK")
+dt.name = "DT"
+dt.target = hand_aim
+dt.track_axis = "TRACK_Y"
+dt.influence = 0.0
 nostril_pt = bone_empty("NostrilPt", "Head", NOSTRIL + Vector((0, -0.002, -0.004)))
 face_aim = bone_empty("FaceAim", "Head", Vector((X0, NOSE.y + 0.06, NOSE.z - 0.02)))
 eye_focus = bone_empty("EyeFocus", "Head", Vector((X0 + 0.03, NOSE.y + 0.02, NOSE.z + 0.04)))
-head_ctr = bone_empty("HeadCenter", "Head", BR_C + Vector((0, -0.03, -0.035)))
+head_ctr = bone_empty("HeadCenter", "Head", BR_C + Vector((0, -0.03, -0.02)))
 hole_aim = bone_empty("HoleAim", "Head", HOLE.copy())
 path_mid = bone_empty("PathMid", "Head", path_point(0.5))
 hand_r = rig.data.bones[MX + "RightHand"]
@@ -1115,6 +1129,7 @@ for f in FRAMES:
         crash_nose = nostril_w[-1].copy()
 bake_vec(ikL, "location", locL)
 bake_vec(ikR, "location", locR)
+bake(rig, f'pose.bones["{MX}RightHand"].constraints["DT"].influence', [min(1.0, 1.4 * curves(f)["wipe"]) for f in FRAMES])
 bake_vec(tissue, "scale", [(s, s, s * 0.8) for s in tis_scale], interp="CONSTANT")
 
 # visible water drop at the nostril in home shots: swells, falls, repeats (faster when leaning)
@@ -1145,10 +1160,10 @@ bake_vec(drop, "scale", [(s, s, s * 1.2) for s in d_scale])
 
 # dashboard sits where the face lands at the impact frame
 cn = crash_nose or NOSTRIL
-box("Dashboard", (HX, cn.y - 0.2, cn.z - 0.11), (1.9, 0.4, 0.18), dash_mat, CAR, bevel=0.04)
-box("DashLower", (HX, cn.y - 0.32, (cn.z - 0.2 + FLOOR_Z) / 2), (1.9, 0.3, cn.z - 0.2 - FLOOR_Z), dash_mat, CAR, bevel=0.03)
+box("Dashboard", (HX, cn.y - 0.2, cn.z - 0.11), (0.8, 0.4, 0.18), dash_mat, CAR, bevel=0.04)
+box("DashLower", (HX, cn.y - 0.32, (cn.z - 0.2 + FLOOR_Z) / 2), (0.8, 0.3, cn.z - 0.2 - FLOOR_Z), dash_mat, CAR, bevel=0.03)
 for sx in (-1, 1):
-    box(f"APillar{sx}", (HX + 0.85 * sx, cn.y - 0.25, cn.z + 0.3), (0.06, 0.06, 0.75), dash_mat, CAR, bevel=0.02,
+    box(f"APillar{sx}", (HX + 0.42 * sx, cn.y - 0.3, cn.z + 0.3), (0.06, 0.06, 0.75), dash_mat, CAR, bevel=0.02,
         rot=(math.radians(-35), 0, 0))
 gauge = glow("DashGlow", (1.0, 0.55, 0.2), 4.0)
 box("Gauges", (HX, cn.y - 0.13, cn.z - 0.015), (0.3, 0.02, 0.04), gauge, CAR, bevel=0)
@@ -1171,7 +1186,7 @@ wbg.name = "Background"
 wout = wnt.nodes.new("ShaderNodeOutputWorld")
 wnt.links.new(wbg.outputs[0], wout.inputs[0])
 WORLD_COL = {"home": ((0.55, 0.48, 0.40), 0.35), "car": ((0.01, 0.015, 0.04), 1.0),
-             "lab": ((0.6, 0.7, 0.8), 0.25), "xray": ((0.004, 0.012, 0.03), 1.0)}
+             "lab": ((0.6, 0.7, 0.8), 0.12), "xray": ((0.004, 0.012, 0.03), 1.0)}
 cols = [WORLD_COL[shot_at(f)[2]] for f in FRAMES]
 bake_vec(wnt, 'nodes["Background"].inputs[0].default_value', [(*c, 1) for c, _ in cols], n=4, interp="CONSTANT")
 bake(wnt, 'nodes["Background"].inputs[1].default_value', [s for _, s in cols], interp="CONSTANT")
@@ -1289,13 +1304,13 @@ def orbit(center, radius, deg, dz=0.0):
 cams = {}
 cams["CamNose"] = cam("CamNose", [(1, NO + Vector((0.07, -0.20, -0.005))), (H1, NO + Vector((0.05, -0.15, -0.004)))],
                       65, 2.8, nostril_pt)
-cams["CamXSide"] = cam("CamXSide", [(H1, HC + Vector((0.50, -0.07, 0.02))), (H2, HC + Vector((0.44, -0.06, 0.02)))],
+cams["CamXSide"] = cam("CamXSide", [(H1, HC + Vector((0.62, -0.07, 0.02))), (H2, HC + Vector((0.55, -0.06, 0.02)))],
                        50, 8.0, head_ctr)
 cams["CamHomeMid"] = cam("CamHomeMid", [(H2, F + Vector((0.35, -1.0, -0.12))), (BEAT[1], F + Vector((0.3, -0.85, -0.1)))],
                          40, 2.8, static_aim("HomeMidAim", F + Vector((0.02, 0, -0.14))), eye_focus)
-cams["CamCar"] = cam("CamCar", [(BEAT[1], F + Vector((1.25, -0.25, -0.12))), (IMP + 2, F + Vector((1.15, -0.32, -0.12)))],
-                     30, 4.0, static_aim("CarAim", F + Vector((0, -0.25, -0.2))), face_aim)
-cams["CamXCrash"] = cam("CamXCrash", [(IMP + 2, HC_IMP + Vector((0.5, -0.05, 0.02))), (IMP + 9, HC_IMP + Vector((0.46, -0.05, 0.02)))],
+cams["CamCar"] = cam("CamCar", [(BEAT[1], F + Vector((1.15, 0.05, 0.02))), (IMP + 2, F + Vector((1.0, 0.0, 0.0)))],
+                     30, 4.0, static_aim("CarAim", F + Vector((0, -0.2, -0.12))), face_aim)
+cams["CamXCrash"] = cam("CamXCrash", [(IMP + 2, HC_IMP + Vector((0.62, -0.05, 0.02))), (IMP + 9, HC_IMP + Vector((0.57, -0.05, 0.02)))],
                         50, 8.0, head_ctr)
 cams["CamCarFront"] = cam("CamCarFront", [(IMP + 9, F + Vector((0.28, -1.1, -0.04))), (BEAT[2], F + Vector((0.24, -0.9, -0.04)))],
                           35, 2.8, static_aim("CarFrontAim", F + Vector((0, 0, -0.08))), eye_focus)
@@ -1305,12 +1320,13 @@ cams["CamHomeWide"] = cam("CamHomeWide", [(BEAT[2], Vector((HX + 1.7, HY - 3.6, 
 cams["CamLab"] = cam("CamLab", [(BEAT[3], LABP + Vector((0.08, -0.36, 0.06))), (MUCUS, LABP + Vector((0.06, -0.28, 0.05))),
                                 (BEAT[4], LABP + Vector((0.04, -0.2, 0.045)))],
                      60, 3.5, static_aim("LabAim", LABP + Vector((0.012, 0, 0.04))))
-cams["CamXOrbit"] = cam("CamXOrbit", [(BEAT[4] + i * (BEAT[5] - BEAT[4]) // 4, orbit(HC, 0.5 - 0.02 * i, 30 + 15 * i, 0.06 - 0.015 * i))
+cams["CamXOrbit"] = cam("CamXOrbit", [(BEAT[4] + i * (BEAT[5] - BEAT[4]) // 4, orbit(HC, 0.62 - 0.02 * i, 30 + 15 * i, 0.06 - 0.015 * i))
                                       for i in range(5)], 50, 8.0, head_ctr)
 cams["CamXHole"] = cam("CamXHole", [(BEAT[5], HO + Vector((0.30, -0.03, 0.03))), (CRACK, HO + Vector((0.16, -0.02, 0.015))),
                                     (BEAT[6], HO + Vector((0.11, -0.02, 0.01)))], 50, 5.6, hole_aim)
-cams["CamHomeGlass"] = cam("CamHomeGlass", [(BEAT[6], GLASS + Vector((0.22, -0.65, 0.17))), (BEAT[7], GLASS + Vector((0.18, -0.55, 0.15)))],
-                           32, 4.0, static_aim("GlassAim", GLASS.lerp(F, 0.45) + Vector((0, 0, -0.05))), eye_focus)
+cams["CamHomeGlass"] = cam("CamHomeGlass", [(BEAT[6], GLASS + Vector((0.3, -0.62, 0.2))),
+                                            (BEAT[7], GLASS + Vector((0.25, -0.52, 0.18)))],
+                           28, 5.6, static_aim("GlassAim", GLASS.lerp(F, 0.42)), eye_focus)
 cams["CamXBact"] = cam("CamXBact", [(BEAT[7], PM + Vector((0.22, -0.06, -0.03))), (BEAT[8], PM + Vector((0.15, -0.04, 0.0)))],
                        50, 5.6, path_mid)
 cams["CamXSurg"] = cam("CamXSurg", [(BEAT[8], PM + Vector((0.28, -0.05, -0.02))), (SEAL - 6, PM + Vector((0.22, -0.04, -0.01))),

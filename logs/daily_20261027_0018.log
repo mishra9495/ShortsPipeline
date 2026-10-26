@@ -1,0 +1,10 @@
+00:18:54  === Daily pipeline start ===
+00:18:55  From https://github.com/mishra9495/ShortsPipeline
+00:18:55   * branch            main       -> FETCH_HEAD
+00:18:55  Already up to date.
+00:18:55  Skipping tooth-in-eye: on HOLD
+00:18:55  Full render: brain-leaking-nose
+00:18:55  [brain-leaking-nose] Narration: ElevenLabs Daniel...
+00:18:56  ERROR: no ElevenLabs API key (set ELEVENLABS_API_KEY or create secrets\elevenlabs_api_key.txt)
+00:18:56  [brain-leaking-nose] ERROR: ElevenLabs narration failed. Put the API key in D:\ShortsPipeline\secrets\elevenlabs_api_key.txt (no fallback voice by design).
+00:18:56  === ERROR: could not prepare brain-leaking-nose (see the narration/scene lines above) (exit 1) ===

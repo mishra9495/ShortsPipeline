@@ -1,0 +1,37 @@
+MIX NOTES: brain-leaking-nose
+
+OVERALL MUSIC
+- Mood: unsettling-curious mystery for beats 1-8, a tense spike at beat 8, then a clean, reassuring resolve in
+  beats 9-10.
+- Genre suggestion: minimal dark synth pulse with a slow ticking element (beats 1-8), building a low drone under
+  beat 8, then a brighter piano/pad lift for beats 9-10.
+- Level: music ducked -18 dB under VO, rising to -12 dB in gaps. Hard dip to near-silence for 0.3 s right before
+  "It wasn't mucus." (beat 4) and again before "It was the liquid your brain floats in." (beat 5).
+
+PER-BEAT SFX
+1. Wet "drip" tick on the nose close-up, snap-whoosh on the pull-back, a low "boom" on "brain", a comedic shrug
+   "mwomp" when the doctor says allergies. Faint heartbeat starts.
+2. Car interior rumble, tyre screech, a muffled heavy "thud" on dashboard impact, a glass-crack "tink" on the
+   x-ray crack flash, slow-mo low-pass sweep then a snap back to full range.
+3. Clock ticking sped up, calendar page flips, a rhythmic tissue "pull" and soft sniff loop, faint drip.
+4. Clinical room tone, a glass "clink" as the vial lifts, a sharp rising "sting" on "wasn't mucus", a short
+   zoom punch whoosh.
+5. Soft underwater bubbling, a gentle submerged "swoosh" as the camera orbits, a pure synth pad tone.
+6. Fast dolly whoosh, a dry bone "crack", a wet trickle as the fluid threads through, a red-alert "blip" on the
+   highlight circle.
+7. A long clear-liquid pour into a glass, a "ding" as the half-pint line lights up, a fast counter "tick-tick".
+8. Low ominous drone, squelchy bacteria "crawl" layer (bubbly, subtle), a warning "thrum" on the red flash,
+   heartbeat speeds up.
+9. Monitor beep ambience, latex glove snap, a thin "scope" slide whoosh, a soft "squish-press" as the fat graft
+   seats, then a clean "sealed" click and a positive chime.
+10. Daylight ambience (light street or birds), three UI "tick" sounds as the checklist items land, a final music
+    hit on "get it checked".
+
+VOICE NOTES
+- Casual, amazed, like telling a friend the wildest thing you read today.
+- Punch "brain" and "nose" in line 1, a small eyebrow-raise lift on "allergies".
+- Short dry pause before "It wasn't mucus." then land it flat and serious.
+- Slightly slower on "the liquid your brain floats in" so the cutaway visual can breathe.
+- Build urgency through lines 7-8, then relax into a relieved, lighter read for line 9.
+- Line 10 is direct to camera, friendly but firm: a genuine PSA, not a joke.
+- No reverb on VO, except an optional subtle muffled filter during the beat 2 impact slow-mo.

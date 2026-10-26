@@ -1,6 +1,6 @@
 """Kokoro TTS: script text file -> WAV + per-sentence timing JSON.
 
-Usage: tts-venv\\Scripts\\python.exe tts.py <script.txt> <out_prefix> [voice] [speed]
+Usage: tts-venv\\Scripts\\python.exe tts.py <script.txt> <out_prefix | out.wav> [voice] [speed]
 Each non-empty line of the script is one narration beat; timings are written per beat
 so shots can be cut to the voice-over.
 """
@@ -18,6 +18,10 @@ GAP = 0.12  # seconds of silence between beats; keeps delivery rapid
 
 def main():
     script_path, out_prefix = sys.argv[1], sys.argv[2]
+    # Accept "<name>.wav" as well as a bare prefix: daily_render.ps1 used to pass the .wav path,
+    # which silently produced "<name>.wav.wav" and failed the pipeline's existence check.
+    if out_prefix.lower().endswith(".wav"):
+        out_prefix = out_prefix[:-4]
     voice = sys.argv[3] if len(sys.argv) > 3 else "am_michael"
     speed = float(sys.argv[4]) if len(sys.argv) > 4 else 1.15
 

@@ -1,0 +1,13 @@
+{
+  "phenotype": {"gender": 0.0, "age": 0.68, "muscle": 0.5, "weight": 0.55, "height": 0.45, "proportions": 0.6},
+  "skin_mhmat": "young_caucasian_female.mhmat",
+  "hair": "long01.mhclo",
+  "eyebrows": "eyebrow001.mhclo",
+  "clothes": ["female_casualsuit01.mhclo", "shoes01.mhclo"],
+  "targets": [
+    {"target": "l-eye-scale-incr", "value": 0.35}, {"target": "r-eye-scale-incr", "value": 0.35},
+    {"target": "nose-scale-vert-incr", "value": 0.2}, {"target": "nose-point-width-incr", "value": 0.2},
+    {"target": "l-cheek-bones-incr", "value": 0.25}, {"target": "r-cheek-bones-incr", "value": 0.25},
+    {"target": "mouth-lowerlip-volume-incr", "value": 0.3}
+  ]
+}

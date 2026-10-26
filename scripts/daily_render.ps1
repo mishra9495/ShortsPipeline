@@ -30,7 +30,9 @@ function Finish([int]$code, [string]$summary) {
     Set-Location $ROOT
     & $GIT add "logs/$LOGNAME" 2>&1 | Out-Null
     & $GIT commit -m "Log: $summary" 2>&1 | Out-Null
-    & $GIT push origin main 2>&1 | ForEach-Object { "$_" } | Out-Null
+    # the render takes hours; integrate anything pushed meanwhile so the push is not rejected
+    & $GIT pull --no-edit --no-rebase origin main 2>&1 | Out-Null
+    & $GIT push origin main 2>&1 | Out-Null
     exit $code
 }
 
@@ -53,7 +55,7 @@ Log "ffmpeg: $FFMPEG"
 
 # 1. Pull latest from GitHub
 Set-Location $ROOT
-& $GIT pull origin main 2>&1 | ForEach-Object { Log "$_" }
+& $GIT pull --no-edit --no-rebase origin main 2>&1 | ForEach-Object { Log "$_" }
 
 # 2. Pick the oldest complete queue item (FIFO by the commit that added it; name as tie-break)
 $queueDir = "$ROOT\queue"

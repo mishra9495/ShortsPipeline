@@ -4,12 +4,36 @@ known 10 script beats to get accurate beat start/end times for retiming the scen
 Usage: tts-venv\\Scripts\\python.exe align_narration.py <audio.wav> <script.txt> <out.json>
 """
 import json
+import os
 import re
 import sys
-
-from faster_whisper import WhisperModel
+import wave
 
 AUDIO, SCRIPT, OUT = sys.argv[1:4]
+
+
+def tts_timing_fallback(reason):
+    """No ASR available: reuse tts.py's per-beat timings (<slug>_vo.json next to the audio), scaled to
+    this audio's length so a silence-trimmed take still lines up. Keeps the nightly render going."""
+    base = re.sub(r"(_final|_trim)+$", "", os.path.splitext(AUDIO)[0])
+    src = base + ".json"
+    if not os.path.exists(src):
+        raise SystemExit(f"alignment failed ({reason}) and no TTS timing file {src}")
+    meta = json.load(open(src, encoding="utf-8"))
+    with wave.open(AUDIO, "rb") as w:
+        dur = w.getnframes() / float(w.getframerate())
+    k = dur / float(meta["duration"])
+    beats = [{"text": b["text"], "start": round(b["start"] * k, 3), "end": round(b["end"] * k, 3)} for b in meta["beats"]]
+    json.dump({"duration": round(dur, 3), "beats": beats}, open(OUT, "w", encoding="utf-8"), indent=1)
+    print(f"WARN alignment fallback ({reason}): TTS timings from {src} scaled x{k:.3f}")
+    print("WROTE", OUT)
+    sys.exit(0)
+
+
+try:
+    from faster_whisper import WhisperModel
+except Exception as exc:  # module missing or broken install
+    tts_timing_fallback(f"faster_whisper unavailable: {exc}")
 
 beats_text = [l.strip() for l in open(SCRIPT, encoding="utf-8") if l.strip()]
 
@@ -18,8 +42,12 @@ def norm(w):
     return re.sub(r"[^a-z']", "", w.lower())
 
 
-model = WhisperModel("small.en", device="cpu", compute_type="int8")
-segments, info = model.transcribe(AUDIO, word_timestamps=True, beam_size=5, language="en")
+try:
+    model = WhisperModel("small.en", device="cpu", compute_type="int8")
+    segments, info = model.transcribe(AUDIO, word_timestamps=True, beam_size=5, language="en")
+    segments = list(segments)
+except Exception as exc:  # e.g. model download blocked
+    tts_timing_fallback(f"whisper failed: {exc}")
 
 words = []
 for seg in segments:
@@ -49,7 +77,7 @@ for bi, text in enumerate(beats_text):
         scan += 1
     end_idx = scan
     if matched == 0:
-        raise RuntimeError(f"beat {bi} ({text!r}) matched 0 words starting at asr idx {wi}")
+        tts_timing_fallback(f"beat {bi} ({text!r}) matched 0 words starting at asr idx {wi}")
     beat_start = words[start_idx][1]
     beat_end = words[end_idx - 1][2]
     beats.append({"text": text, "start": beat_start, "end": beat_end})

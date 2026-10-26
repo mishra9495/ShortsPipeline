@@ -4,12 +4,14 @@ natural variation) and a hair-strand Principled BSDF (hair BSDF) material.
 
 Run: blender -b blend/char_hero.blend --python build_hair.py -- <out.blend>
 """
+import os
 import sys
 
 import bpy
 
-OUT = sys.argv[sys.argv.index("--") + 1]
-NODE_LIB = r"C:\Program Files\Blender Foundation\Blender 5.2\5.2\datafiles\assets\nodes\procedural_hair_node_assets.blend"
+argv = sys.argv[sys.argv.index("--") + 1:]
+OUT = argv[0] if argv else None  # no <out.blend>: build in place (when imported by a scene script)
+NODE_LIB = os.path.join(bpy.utils.system_resource("DATAFILES"), "assets", "nodes", "procedural_hair_node_assets.blend")
 NODE_NAMES = ["Generate Hair Curves", "Interpolate Hair Curves", "Clump Hair Curves",
               "Frizz Hair Curves", "Curl Hair Curves", "Set Hair Curve Profile", "Smooth Hair Curves",
               "Shrinkwrap Hair Curves", "Rotate Hair Curves"]
@@ -19,9 +21,13 @@ with bpy.data.libraries.load(NODE_LIB) as (src, dst):
 
 body = bpy.data.objects["Hero.body"]
 old_hair = bpy.data.objects.get("Hero.short02")
+mpfb_scalp = body.vertex_groups.get("helper-hair") is not None
+
+if not mpfb_scalp:
+    raise RuntimeError("Hero.body has no 'helper-hair' vertex group to build the scalp mesh from "
+                       "(heroes from build_hero_mhdata.py keep their sculpted cap hair instead)")
 if old_hair:
     bpy.data.objects.remove(old_hair, do_unlink=True)
-
 # Extract a dedicated scalp-only mesh from MPFB's "helper-hair" vertex group, rather than
 # feeding a live vertex-group attribute into the hair-generation node tree: a Density Mask
 # attribute lookup against the body mesh did not survive evaluation reliably (0 curves out),
@@ -30,14 +36,11 @@ dup = body.copy()
 dup.data = body.data.copy()
 dup.name = "Hero.scalp"
 bpy.context.scene.collection.objects.link(dup)
-vg = dup.vertex_groups.get("helper-hair")
-if vg is None:
-    raise RuntimeError("Hero.body has no 'helper-hair' vertex group to build the scalp mesh from")
 bpy.context.view_layer.objects.active = dup
 bpy.ops.object.mode_set(mode="EDIT")
 bpy.ops.mesh.select_all(action="DESELECT")
 bpy.ops.object.mode_set(mode="OBJECT")
-dup.vertex_groups.active_index = vg.index
+dup.vertex_groups.active_index = dup.vertex_groups["helper-hair"].index
 bpy.ops.object.mode_set(mode="EDIT")
 bpy.ops.object.vertex_group_set_active(group="helper-hair")
 bpy.ops.object.vertex_group_select()
@@ -46,6 +49,13 @@ bpy.ops.mesh.delete(type="VERT")
 bpy.ops.object.mode_set(mode="OBJECT")
 dup.modifiers.clear()
 print("SCALP_VERTS", len(dup.data.vertices))
+# The scalp copy has no armature modifier, so ride it rigidly on the head bone: short hair moves
+# with the skull, and the strands (parented to the scalp below) follow every head turn.
+rig = next(o for o in bpy.data.objects if o.type == "ARMATURE")
+head_bone = next(n for n in ("mixamorig:Head", "head") if n in rig.data.bones)
+mw = dup.matrix_world.copy()
+dup.parent, dup.parent_type, dup.parent_bone = rig, "BONE", head_bone
+dup.matrix_world = mw
 dup.hide_render = True
 dup.hide_viewport = True
 scalp_obj = dup
@@ -88,7 +98,7 @@ mat = hair_material()
 hair_data = bpy.data.hair_curves.new("HeroHairCurves")
 hair_obj = bpy.data.objects.new("Hero.hair", hair_data)
 bpy.context.scene.collection.objects.link(hair_obj)
-hair_obj.parent = body  # parented for convenience; curve surface-attachment (below) handles deform
+hair_obj.parent = scalp_obj  # strands are generated relative to the scalp, so they move with it
 hair_data.materials.append(mat)
 
 geo = hair_obj.modifiers.new("HairGen", "NODES")
@@ -103,22 +113,32 @@ obj_info.transform_space = "RELATIVE"
 
 gen = tree.nodes.new("GeometryNodeGroup")
 gen.node_tree = bpy.data.node_groups["Generate Hair Curves"]
-tree.links.new(obj_info.outputs["Geometry"], gen.inputs["Hair Surface"])
-gen.inputs["Surface"].default_value = scalp_obj
+# Socket names moved between Blender versions (5.2: "Hair Surface" + "Surface Source" +
+# "Attach to Surface"; 5.0: two sockets both called "Surface", geometry first, object second).
+geo_sock = gen.inputs.get("Hair Surface") or next(s for s in gen.inputs if s.name == "Surface" and s.type == "GEOMETRY")
+obj_sock = next(s for s in gen.inputs if s.name == "Surface" and s.type == "OBJECT")
+tree.links.new(obj_info.outputs["Geometry"], geo_sock)
+obj_sock.default_value = scalp_obj
 uv_attr = tree.nodes.new("GeometryNodeInputNamedAttribute")
 uv_attr.data_type = "FLOAT_VECTOR"
-uv_attr.inputs["Name"].default_value = body.data.uv_layers[0].name if body.data.uv_layers else "UVMap"
+uv_attr.inputs["Name"].default_value = scalp_obj.data.uv_layers[0].name if scalp_obj.data.uv_layers else "UVMap"
 tree.links.new(uv_attr.outputs["Attribute"], gen.inputs["Surface UV Map"])
-gen.inputs["Surface Source"].default_value = "Object"  # 'Attached' needs a prior bake; this is first generation
+if "Surface Source" in gen.inputs:
+    gen.inputs["Surface Source"].default_value = "Object"  # 'Attached' needs a prior bake; this is first generation
 gen.inputs["Hair Length"].default_value = 0.05  # short men's cut; grown-out "sea urchin" look at longer lengths
 gen.inputs["Control Points"].default_value = 6
 gen.inputs["Density"].default_value = 1400.0
-gen.inputs["Attach to Surface"].default_value = True
+if "Attach to Surface" in gen.inputs:
+    gen.inputs["Attach to Surface"].default_value = True
 
 interp = tree.nodes.new("GeometryNodeGroup")
 interp.node_tree = bpy.data.node_groups["Interpolate Hair Curves"]
 interp.inputs["Interpolation Guides"].default_value = 4
 interp.inputs["Density"].default_value = 24000.0
+if "Surface Input Type" in interp.inputs:  # 5.0: interpolation needs the surface spelled out
+    interp.inputs["Surface Input Type"].default_value = "Object"
+    next(s for s in interp.inputs if s.name == "Surface" and s.type == "OBJECT").default_value = scalp_obj
+    tree.links.new(uv_attr.outputs["Attribute"], interp.inputs["Surface UV Map"])
 tree.links.new(gen.outputs["Curves"], interp.inputs["Geometry"])
 
 clump = tree.nodes.new("GeometryNodeGroup")
@@ -168,5 +188,6 @@ tree.links.new(wrap.outputs[0], set_mat.inputs["Geometry"])
 tree.links.new(set_mat.outputs[0], out_node.inputs[0])
 
 print("HAIR_OBJ", hair_obj.name, "modifier_tree_nodes", [n.name for n in tree.nodes])
-bpy.ops.wm.save_as_mainfile(filepath=OUT)
-print("SAVED", OUT)
+if OUT:
+    bpy.ops.wm.save_as_mainfile(filepath=OUT)
+    print("SAVED", OUT)

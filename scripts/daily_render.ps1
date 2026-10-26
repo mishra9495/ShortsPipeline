@@ -25,8 +25,11 @@ Set-Location $ROOT
 # 2. Find oldest unprocessed queue item
 $queueDir = "$ROOT\queue"
 if (-not (Test-Path $queueDir)) { Log "No queue folder yet — exiting."; exit 0 }
-$topic = Get-ChildItem $queueDir -Directory | Sort-Object Name | Select-Object -First 1
-if (-not $topic) { Log "Queue empty — nothing to render today."; exit 0 }
+# A queue item is renderable only once it has a scene.py (the research agent writes the
+# script/metadata first; the scene build can land later). Skip the others instead of dying.
+$topic = Get-ChildItem $queueDir -Directory | Sort-Object Name |
+    Where-Object { Test-Path "$($_.FullName)\scene.py" } | Select-Object -First 1
+if (-not $topic) { Log "Queue has no item with a scene.py — nothing to render today."; exit 0 }
 
 $slug = $topic.Name
 Log "Processing: $slug"
@@ -36,32 +39,43 @@ $sceneScript = "$queueDir\$slug\scene.py"
 $mixScript   = "$queueDir\$slug\mix.py"
 $metaFile    = "$queueDir\$slug\metadata.txt"
 
-if (-not (Test-Path $scriptFile) -or -not (Test-Path $sceneScript)) {
-    Log "ERROR: missing script.txt or scene.py for $slug — skipping."
+if (-not (Test-Path $scriptFile) -or -not (Test-Path $mixScript)) {
+    Log "ERROR: missing script.txt or mix.py for $slug — skipping."
     exit 1
 }
 
-# 3. Generate Kokoro TTS narration
-$voWav  = "$ROOT\audio\${slug}_vo.wav"
-$voJson = "$ROOT\audio\${slug}_beats.json"
-Log "Generating TTS narration..."
-& $PYTHON "$ROOT\scripts\tts.py" $scriptFile $voWav 2>&1 | ForEach-Object { Log $_ }
-if (-not (Test-Path $voWav)) { Log "ERROR: TTS failed."; exit 1 }
+$voFinal = "$ROOT\audio\${slug}_vo_final.wav"
+$voJson  = "$ROOT\audio\${slug}_beats.json"
 
-# 4. Align narration beats
-Log "Aligning narration beats..."
-& $PYTHON -I "$ROOT\scripts\align_narration.py" $voWav $scriptFile $voJson 2>&1 | ForEach-Object { Log $_ }
-if (-not (Test-Path $voJson)) { Log "ERROR: Alignment failed."; exit 1 }
+if ((Test-Path "$queueDir\$slug\vo.wav") -and (Test-Path "$queueDir\$slug\vo.json")) {
+    # 3-6. Narration already approved and mastered upstream: use it as-is (same voice the
+    # scene and mix were timed against), no TTS/trim/re-align.
+    Log "Using pre-approved narration from the queue item."
+    Copy-Item "$queueDir\$slug\vo.wav"  $voFinal -Force
+    Copy-Item "$queueDir\$slug\vo.json" $voJson  -Force
+} else {
+    # 3. Generate Kokoro TTS narration (tts.py takes an output PREFIX and appends .wav/.json)
+    $voPrefix = "$ROOT\audio\${slug}_vo"
+    $voWav    = "$voPrefix.wav"
+    Log "Generating TTS narration..."
+    & $PYTHON "$ROOT\scripts\tts.py" $scriptFile $voPrefix 2>&1 | ForEach-Object { Log $_ }
+    if (-not (Test-Path $voWav)) { Log "ERROR: TTS failed."; exit 1 }
 
-# 5. Trim silence + verify words
-Log "Trimming silence..."
-$voTrimmed = "$ROOT\audio\${slug}_vo_trim.wav"
-& ffmpeg -y -i $voWav -af "silenceremove=stop_periods=-1:stop_duration=0.3:stop_threshold=-40dB:stop_silence=0.05" $voTrimmed 2>&1 | Out-Null
-& $PYTHON -I "$ROOT\scripts\verify_words.py" $voTrimmed $scriptFile 2>&1 | ForEach-Object { Log $_ }
-Copy-Item $voTrimmed "$ROOT\audio\${slug}_vo_final.wav" -Force
+    # 4. Align narration beats
+    Log "Aligning narration beats..."
+    & $PYTHON -I "$ROOT\scripts\align_narration.py" $voWav $scriptFile $voJson 2>&1 | ForEach-Object { Log $_ }
+    if (-not (Test-Path $voJson)) { Log "ERROR: Alignment failed."; exit 1 }
 
-# 6. Re-align after trim
-& $PYTHON -I "$ROOT\scripts\align_narration.py" "$ROOT\audio\${slug}_vo_final.wav" $scriptFile $voJson 2>&1 | ForEach-Object { Log $_ }
+    # 5. Trim silence + verify words
+    Log "Trimming silence..."
+    $voTrimmed = "$ROOT\audio\${slug}_vo_trim.wav"
+    & ffmpeg -y -i $voWav -af "silenceremove=stop_periods=-1:stop_duration=0.3:stop_threshold=-40dB:stop_silence=0.05" $voTrimmed 2>&1 | Out-Null
+    & $PYTHON -I "$ROOT\scripts\verify_words.py" $voTrimmed $scriptFile 2>&1 | ForEach-Object { Log $_ }
+    Copy-Item $voTrimmed $voFinal -Force
+
+    # 6. Re-align after trim
+    & $PYTHON -I "$ROOT\scripts\align_narration.py" $voFinal $scriptFile $voJson 2>&1 | ForEach-Object { Log $_ }
+}
 
 # 7. Build Blender scene
 Log "Building Blender scene..."

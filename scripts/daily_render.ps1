@@ -48,6 +48,7 @@ function Find-Tool($name) {
 }
 $FFMPEG  = Find-Tool "ffmpeg"
 $FFPROBE = Find-Tool "ffprobe"
+if ($FFMPEG) { $env:FFMPEG = $FFMPEG }   # tts_elevenlabs.py uses the same ffmpeg
 
 Log "=== Daily pipeline start ==="
 if (-not $FFMPEG) { Finish 1 "ERROR: ffmpeg not found on PATH or at $WINGET_FF" }

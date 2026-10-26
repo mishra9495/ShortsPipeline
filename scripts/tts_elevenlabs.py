@@ -40,13 +40,20 @@ def secret(name):
 
 
 def ffmpeg_bin():
-    for c in ("ffmpeg", os.path.expandvars(r"%LOCALAPPDATA%\Microsoft\WinGet\Links\ffmpeg.exe")):
+    """ffmpeg from $FFMPEG (set by daily_render.ps1), PATH, or the WinGet install (often not on PATH)."""
+    import glob
+    local = os.environ.get("LOCALAPPDATA", "")
+    cands = [os.environ.get("FFMPEG", ""), "ffmpeg", os.path.join(local, "Microsoft", "WinGet", "Links", "ffmpeg.exe")]
+    cands += sorted(glob.glob(os.path.join(local, "Microsoft", "WinGet", "Packages", "Gyan.FFmpeg*", "*", "bin", "ffmpeg.exe")))
+    for c in cands:
+        if not c:
+            continue
         try:
             subprocess.run([c, "-version"], capture_output=True, check=True)
             return c
         except Exception:
             continue
-    raise SystemExit("ERROR: ffmpeg not found")
+    raise SystemExit("ERROR: ffmpeg not found (set FFMPEG or install it on PATH)")
 
 
 def main():

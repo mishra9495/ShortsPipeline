@@ -1,5 +1,5 @@
 """
-Upload a video to YouTube (PUBLIC, owner's standing rule) with full metadata.
+Upload a video to YouTube with full metadata.
 Usage: python youtube_upload.py <video.mp4> <metadata.txt>
 Credentials must be set up first via: python youtube_auth.py
 """
@@ -26,62 +26,30 @@ def load_creds():
     return creds
 
 
-EMOJI = re.compile("[\U0001F300-\U0001FAFF\u2600-\u27BF]")
-
-
-def title_problems(title):
-    """Zack D title format (templates/STYLE_GUIDE.md): 4-7 words, exactly one emoji at the end, no quotes,
-    colons, hashtags or ellipses, at most 70 characters."""
-    out = []
-    words = [w for w in EMOJI.sub("", title).split() if w.strip()]
-    if not 4 <= len(words) <= 7:
-        out.append(f"{len(words)} words (want 4-7)")
-    n = len(EMOJI.findall(title))
-    if n != 1:
-        out.append(f"{n} emoji (want exactly 1)")
-    elif not EMOJI.search(title.rstrip()[-2:]):
-        out.append("emoji not at the end")
-    bad = [ch for ch in '"\u201c\u201d:#\u2026' if ch in title] + (["..."] if "..." in title else [])
-    if bad:
-        out.append(f"forbidden characters {bad}")
-    if len(title) > 70:
-        out.append(f"{len(title)} characters (max 70)")
-    return out
-
-
 def parse_metadata(path):
     lines = open(path, encoding="utf-8").read().splitlines()
-    options, description, tags = [], [], []
+    title, description, tags = "", [], []
     section = None
     for i, line in enumerate(lines):
         if re.match(r"TITLE \(pick one", line):
-            section = "title"
+            # First recommended title
+            for j in range(i + 1, min(i + 5, len(lines))):
+                m = re.match(r"1\.\s+(.+)", lines[j])
+                if m:
+                    title = m.group(1).strip()
+                    break
         elif line.startswith("DESCRIPTION"):
             section = "desc"
         elif line.startswith("TAGS"):
             section = "tags"
         elif line.startswith("UPLOAD SETTINGS") or line.startswith("FACT CHECK"):
             section = None
-        elif section == "title":
-            m = re.match(r"\d\.\s+(.+)", line)
-            if m:
-                options.append(m.group(1).strip())
         elif section == "desc" and line.strip():
             description.append(line)
         elif section == "tags" and line.strip():
             raw = line.strip()
             tags = [t.strip() for t in raw.split(",") if t.strip()]
-    # first option that meets the title format; otherwise option 1 with a warning (never block the upload)
-    title = ""
-    for t in options:
-        probs = title_problems(t)
-        if not probs:
-            title = t
-            break
-        print(f"WARN title format: {t!r}: {'; '.join(probs)}")
-    if not title and options:
-        title = options[0]
-    return title[:100], "\n".join(description), tags
+    return title, "\n".join(description), tags
 
 
 def upload(video_path, metadata_path):
@@ -104,7 +72,7 @@ def upload(video_path, metadata_path):
             "defaultLanguage": "en",
         },
         "status": {
-            "privacyStatus": "public",    # owner's standing rule (2026-10-27): always public, never private/unlisted
+            "privacyStatus": "private",   # private first — review before publishing
             "selfDeclaredMadeForKids": False,
             "containsSyntheticMedia": True,
         },
@@ -121,12 +89,7 @@ def upload(video_path, metadata_path):
             print(f"  Upload {pct}%")
 
     video_id = response["id"]
-    got = (response.get("status") or {}).get("privacyStatus", "?")
-    print(f"SUCCESS: https://youtu.be/{video_id} (visibility: {got})")
-    if got != "public":
-        # YouTube locks uploads from unaudited API projects (created after 2020-07-28) as private.
-        print("WARN: YouTube did not make this video public. The Google Cloud API project probably needs the "
-              "YouTube API audit; until then upload the MP4 from the Videos folder in YouTube Studio.")
+    print(f"SUCCESS: https://youtu.be/{video_id}")
     print(f"Studio: https://studio.youtube.com/video/{video_id}/edit")
     return video_id
 

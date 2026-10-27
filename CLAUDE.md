@@ -12,7 +12,8 @@
   4. free Kokoro `am_fenrir`
 - Quality bar is Zack D Films. Never ship primitive placeholder geometry (box cars, capsule people) in a final video.
 - A queue folder containing a `HOLD` file is never rendered.
-- Uploads are ALWAYS public, automatically (owner's instruction, 2026-10-27). Never upload as private or unlisted. YouTube itself locks uploads from an unaudited Google Cloud API project as private; `youtube_upload.py` logs a WARN when that happens.
+- Uploads are ALWAYS public, automatically (owner's instruction, 2026-10-27). Never upload as private or unlisted. YouTube itself locks uploads from an unaudited Google Cloud API project as private; `scripts/upload_youtube.py` logs a WARN when that happens.
+- `scripts/youtube_upload.py` is a frozen copy of the PC's old uploader, kept byte-identical so the PC's `git pull` does not abort on its local edit to that file. Do not edit it; the pipeline uses `scripts/upload_youtube.py`.
 
 ## Queue items must be render-ready
 

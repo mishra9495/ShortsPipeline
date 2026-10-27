@@ -264,7 +264,7 @@ Log "Saved to: $titleDir\$videoTitle.mp4"
 $credsFile = "$ROOT\secrets\yt_credentials.json"
 if (Test-Path $credsFile) {
     Log "Uploading to YouTube..."
-    & $PYTHON -I "$ROOT\scripts\youtube_upload.py" "$titleDir\$videoTitle.mp4" "$titleDir\$videoTitle - YouTube Metadata.txt" 2>&1 | ForEach-Object { Log "$_" }
+    & $PYTHON -I "$ROOT\scripts\upload_youtube.py" "$titleDir\$videoTitle.mp4" "$titleDir\$videoTitle - YouTube Metadata.txt" 2>&1 | ForEach-Object { Log "$_" }
 } else {
     Log "YouTube credentials not found - skipping upload. Run scripts\youtube_auth.py once to enable."
 }

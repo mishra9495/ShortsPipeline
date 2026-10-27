@@ -1,0 +1,70 @@
+13:31:44  === Daily pipeline start ===
+13:31:45  From https://github.com/mishra9495/ShortsPipeline
+13:31:45   * branch            main       -> FETCH_HEAD
+13:31:45  error: Your local changes to the following files would be overwritten by merge:
+13:31:45  	scripts/youtube_upload.py
+13:31:45  Please commit your changes or stash them before you merge.
+13:31:45  Aborting
+13:31:45  Updating 61c4784..0a06cf4
+13:31:45  Skipping tooth-in-eye: on HOLD
+13:31:45  Full render: brain-leaking-nose
+13:31:45  [brain-leaking-nose] Narration: using the ready-made queue narration.wav
+13:31:45  [brain-leaking-nose] Building Blender scene (60 fps)...
+13:31:46  00:00.719  blend            | Read blend: "D:\ShortsPipeline\blend\char_heroine.blend"
+13:31:46  00:00.875  cycles           | WARNING HIPEW initialization failed: Error opening HIP dynamic library
+13:31:47  D:\ShortsPipeline\queue\brain-leaking-nose\scene.py:371: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+13:31:47  D:\ShortsPipeline\queue\brain-leaking-nose\scene.py:510: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+13:32:15  D:\ShortsPipeline\queue\brain-leaking-nose\scene.py:884: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+13:32:19  ARGS out=D:\ShortsPipeline\blend\brain-leaking-nose.blend fps=60 pct=100 samples=48 device=gpu beats=D:\ShortsPipeline\audio\brain-leaking-nose_vo.json
+13:32:19  CHAR D:\ShortsPipeline\blend\char_heroine.blend
+13:32:19  Info: Saved as "brain-leaking-nose.blend"
+13:32:19  SAVED D:\ShortsPipeline\blend\brain-leaking-nose.blend END 1669 FPS 60 SHOTS [(0.0, 'NoseECU'), (1.06, 'XSide'), (2.19, 'Clinic2Shot'), (3.53, 'RoadWide'), (5.16, 'RoadImpact'), (5.69, 'CarInt'), (6.77, 'XCrash'), (7.02, 'HomeWide'), (9.02, 'VialCU'), (10.65, 'StripMacro'), (11.88, 'XOrbit'), (13.72, 'XHole'), (15.81, 'JugShot'), (17.96, 'XBact'), (21.03, 'ORWide'), (22.18, 'XSurg'), (24.06, 'HomeFront')]
+13:32:20  Rendering frames (this takes several hours)...
+13:32:21  00:01.313  cycles           | WARNING HIPEW initialization failed: Error opening HIP dynamic library
+13:32:21  RANGE 1 1669
+13:39:34  FRAME 100
+13:51:09  FRAME 200
+13:57:24  FRAME 300
+14:04:37  FRAME 400
+14:17:39  FRAME 500
+14:29:39  FRAME 600
+14:42:03  FRAME 700
+14:49:27  FRAME 800
+15:03:16  FRAME 900
+15:35:26  FRAME 1000
+15:52:18  FRAME 1100
+16:07:57  FRAME 1200
+16:24:16  FRAME 1300
+16:38:41  FRAME 1400
+16:51:51  FRAME 1500
+17:05:35  FRAME 1600
+17:15:00  Frames rendered: 1669
+17:15:00  Mixing audio...
+17:15:02  MIX D:\ShortsPipeline\audio\brain-leaking-nose_mix.wav 28.29 s  beats [0.0, 3.53, 7.02, 9.02, 11.88, 13.72, 15.81, 17.96, 21.03, 24.06] peak 0.724
+17:15:02  Assembling final video...
+17:15:02  [png @ 000001d470f1d240] 0 bytes left
+17:15:02  [vist#0:0/png @ 000001d470ee14c0] [dec:png @ 000001d470ed7e00] Error submitting packet to decoder: Invalid data found when processing input
+17:15:18  Output: stream|width=1080|height=1920|r_frame_rate=60/1 stream|r_frame_rate=0/0 format|duration=27.816667
+17:15:18  [main 32f98b9] Completed: brain-leaking-nose
+17:15:18   10 files changed, 52 insertions(+)
+17:15:18   rename {queue => completed}/brain-leaking-nose/fps.txt (100%)
+17:15:18   rename {queue => completed}/brain-leaking-nose/metadata.txt (100%)
+17:15:18   rename {queue => completed}/brain-leaking-nose/mix.py (100%)
+17:15:18   rename {queue => completed}/brain-leaking-nose/mix_notes.txt (100%)
+17:15:18   rename {queue => completed}/brain-leaking-nose/narration.json (100%)
+17:15:18   rename {queue => completed}/brain-leaking-nose/narration.wav (100%)
+17:15:18   rename {queue => completed}/brain-leaking-nose/scene.py (100%)
+17:15:18   rename {queue => completed}/brain-leaking-nose/scene_notes.txt (100%)
+17:15:18   rename {queue => completed}/brain-leaking-nose/script.txt (100%)
+17:15:18   create mode 100644 final/brain-leaking-nose_youtube_metadata.txt
+17:15:18  Saved to: C:\Users\ANKIT MISHRA\Videos\CONTENT\3D SHORTS ANIMATION\Animation\Her Allergies Were Actually Her Brain Leaking Out Of Her Nose\Her Allergies Were Actually Her Brain Leaking Out Of Her Nose.mp4
+17:15:18  Uploading to YouTube...
+17:15:19  C:\Users\ANKIT MISHRA\AppData\Local\Programs\Python\Python311\Lib\site-packages\google\api_core\_python_version_support.py:254: FutureWarning: You are using a Python version (3.11.9) which Google will stop supporting in new releases of google.api_core once it reaches its end of life (2027-10-24). Please upgrade to the latest Python version, or at least Python 3.12, to continue receiving updates for google.api_core past that date.
+17:15:19    warnings.warn(message, FutureWarning)
+17:15:40  Uploading: Her "Allergies" Were Actually Her Brain Leaking Out Of Her Nose
+17:15:40  File: C:\Users\ANKIT MISHRA\Videos\CONTENT\3D SHORTS ANIMATION\Animation\Her Allergies Were Actually Her Brain Leaking Out Of Her Nose\Her Allergies Were Actually Her Brain Leaking Out Of Her Nose.mp4 (21 MB)
+17:15:40    Upload 46%
+17:15:40    Upload 93%
+17:15:40  SUCCESS: https://youtu.be/Mzf_wdh3XDw
+17:15:40  Studio: https://studio.youtube.com/video/Mzf_wdh3XDw/edit
+17:15:40  === Done: brain-leaking-nose -> C:\Users\ANKIT MISHRA\Videos\CONTENT\3D SHORTS ANIMATION\Animation\Her Allergies Were Actually Her Brain Leaking Out Of Her Nose\Her Allergies Were Actually Her Brain Leaking Out Of Her Nose.mp4 (exit 0) ===

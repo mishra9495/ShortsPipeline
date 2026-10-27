@@ -30,6 +30,16 @@ function Log($msg) {
     Write-Host $line
 }
 
+# GitHub is the source of truth on this PC: a local edit to a tracked file blocks every pull ("would be overwritten
+# by merge"), which left this PC on old scripts and its logs unpushed. Stash such edits (recover: git stash list / pop).
+function Stash-LocalEdits {
+    $dirty = & $GIT -C $ROOT status --porcelain --untracked-files=no
+    if ($dirty) {
+        Log "Local edits stashed so the pull can update them: $(($dirty | ForEach-Object { "$_".Trim() }) -join ', ')"
+        & $GIT -C $ROOT stash push -m "daily_render auto-stash $(Get-Date -Format 'yyyyMMdd_HHmm')" 2>&1 | ForEach-Object { Log "$_" }
+    }
+}
+
 # Push this run's log (plus any preview files) to GitHub, then exit. Called on every exit path.
 function Finish([int]$code, [string]$summary) {
     Log "=== $summary (exit $code) ==="
@@ -38,6 +48,7 @@ function Finish([int]$code, [string]$summary) {
     foreach ($p in $script:EXTRA_ADD) { & $GIT add -A $p 2>&1 | Out-Null }
     & $GIT commit -m "Log: $summary" 2>&1 | Out-Null
     # the render takes hours; integrate anything pushed meanwhile so the push is not rejected
+    Stash-LocalEdits
     & $GIT pull --no-edit --no-rebase origin main 2>&1 | Out-Null
     & $GIT push origin main 2>&1 | Out-Null
     exit $code
@@ -67,6 +78,7 @@ function Push-Progress {
     Set-Location $ROOT
     & $GIT add "logs/$LOGNAME" 2>&1 | Out-Null
     & $GIT commit -m "Progress: $LOGNAME" 2>&1 | Out-Null
+    Stash-LocalEdits
     & $GIT pull --no-edit --no-rebase origin main 2>&1 | Out-Null
     & $GIT push origin main 2>&1 | Out-Null
 }
@@ -78,6 +90,7 @@ if (-not (Test-Path $PYTHON)) { Finish 1 "ERROR: Python not found at $PYTHON" }
 #    the new version (otherwise fixes only take effect on the following run).
 Set-Location $ROOT
 $selfHash = (Get-FileHash $PSCommandPath).Hash
+Stash-LocalEdits
 & $GIT pull --no-edit --no-rebase origin main 2>&1 | ForEach-Object { Log "$_" }
 if (((Get-FileHash $PSCommandPath).Hash -ne $selfHash) -and -not $env:SHORTS_REEXEC) {
     Log "daily_render.ps1 was updated by the pull - restarting with the new version"

@@ -1,0 +1,52 @@
+YOUTUBE SHORT METADATA: "Brain Leaking From Her Nose"
+Video file: brain-leaking-nose.mp4 (1080x1920, 60 fps, ~30 s)
+Narration: ElevenLabs "Daniel" voice, pauses trimmed and tempo +15% (scripts/tts_elevenlabs.py).
+
+TITLE (pick one; first is recommended)
+1. Her "Allergies" Were Actually Her Brain Leaking Out Of Her Nose
+2. Doctors Said Allergies. It Was Brain Fluid.
+3. She Lost Half A Pint Of Brain Fluid A Day… Through Her Nose
+
+DESCRIPTION
+Kendra Jackson of Omaha, Nebraska was rear-ended in a 2013 car crash and her face hit the dashboard. Afterwards her nose ran constantly for years, with headaches, and doctors kept telling her it was allergies.
+
+In 2018, specialists at Nebraska Medicine tested the fluid. It was cerebrospinal fluid (CSF), the clear liquid your brain and spinal cord float in. The crash had left a tiny hole in the base of her skull, right above her nasal cavity, and she was losing about half a pint of CSF a day through her nose. A leak like that is dangerous because it gives bacteria a direct route to the brain (meningitis).
+
+Surgeons repaired it endoscopically, going up through her nostril and plugging the hole with fatty tissue taken from her own body, no open brain surgery needed. She was expected to make a full recovery.
+
+Real signs of a CSF leak: clear watery drainage from one nostril, often worse when bending forward, with a salty or metallic taste, especially after a head injury. If that sounds like you, see a doctor.
+
+Sources: Nebraska Medicine (2018), reported by NPR, CNN, Today, Newsweek, Live Science and others.
+https://www.npr.org/sections/thetwo-way/2018/05/08/609566140/after-years-of-runny-nose-woman-finds-its-not-allergies-it-s-brain-fluid
+https://www.cnn.com/2018/05/08/health/cerebrospinal-fluid-leak-nebraska
+https://www.today.com/health/grandmother-s-runny-nose-was-actually-leaking-brain-fluid-t130002
+https://www.livescience.com/62501-leaky-brain-fluid.html
+https://www.hopkinsmedicine.org/health/conditions-and-diseases/cerebrospinal-fluid-csf-leak
+
+This is a 3D animated dramatization made for education and entertainment. It is not medical advice.
+
+#shorts #brainleak #csfleak #humanbody #medicalfacts #didyouknow #3danimation #science
+
+TAGS (comma-separated, paste into the Tags field)
+brain fluid leaking from nose, CSF leak, cerebrospinal fluid leak, runny nose brain fluid, allergies brain fluid, Kendra Jackson, Nebraska Medicine, skull hole nose, brain leak symptoms, meningitis, medical facts, crazy medical cases, human body facts, 3d animation, animated explainer, science shorts
+
+UPLOAD SETTINGS
+- Category: Education
+- Audience: Not made for kids
+- Altered or synthetic content: the narration is AI text-to-speech and the scene is a 3D dramatization of a real event. Recommended answer: "Yes". The animation is clearly stylized, but the realistic depiction of a real medical case makes disclosure the safe choice.
+- Language: English
+- Comments: On
+- Suggested pinned comment: "Does your runny nose only hit one side? 👃🧠 (Seriously, ask a doctor.)"
+
+FACT CHECK (every claim in the narration, with its source)
+- "Her brain was leaking out of her nose, and doctors blamed allergies": NPR / CNN / Today, May 2018: for years doctors attributed her constant nasal drip to allergies; the fluid was cerebrospinal fluid (CSF) ✔ ("brain leaking" is the colloquial framing every outlet used; strictly it is the fluid around the brain, not brain tissue; the description says "brain fluid")
+- "In 2013, Kendra's face hit a dashboard in a crash": Newsweek / SFGate: her car was rear-ended in 2013 and the impact propelled her face into the dashboard ✔
+- "Her nose then ran nonstop for years": NPR / Live Science (symptoms described as years long; outlets vary between about two and five years, so the script says "years") ✔
+- "Then a specialist tested the fluid. It wasn't mucus.": Nebraska Medicine rhinologist Dr. Christie Barnes and neurosurgeon Dr. Dan Surdell diagnosed a CSF leak (KTVU / Fox / Live Science) ✔
+- "It was the liquid your brain floats in": CSF surrounds and suspends the brain and spinal cord (Johns Hopkins Medicine; Radiopaedia) ✔
+- "The crash had cracked a tiny hole in her skull": reports describe "a small hole in her skull that drained to her nose" / "a very small hole between her skull and nostrils", attributed to the 2013 head trauma (CNN / KTVU) ✔
+- "She lost half a pint of brain fluid a day": "about a half-pint of cerebrospinal fluid per day" (NPR / CNN / Newsweek); Live Science gives ~8 oz (237 mL) ✔. Context: the body makes roughly 500 mL of CSF a day and replaces it about four times daily (Radiopaedia; review in Fluids and Barriers of the CNS), which is why she survived the loss.
+- "That hole was an open door for bacteria into her brain": CSF leaks raise the risk of meningitis (Johns Hopkins Medicine; Medical News Today; Newsweek on this case) ✔
+- "Surgeons went up her nostril and plugged it with her own fat": repaired through the nose using fatty tissue harvested from her own body, avoiding open brain surgery (Newsweek / KTVU / Today) ✔. Sources do not name the harvest site, so the script says "her own fat", not "belly fat".
+- "If your runny nose is one-sided and salty, get it checked": general CSF leak signs: clear watery drainage from one nostril, worse on bending forward, salty or metallic taste (Medical News Today; Altru Health; Johns Hopkins) ✔. This is a general sign, not a claim about Kendra's own symptoms.
+- Artistic license: the skull hole is shown far larger than real (real defects are millimetres) so it reads on a phone screen; the character is a generic 3D hero, not Kendra's likeness; the bacteria are stylized cartoon blobs.

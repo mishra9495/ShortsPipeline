@@ -55,6 +55,21 @@ $FFPROBE = Find-Tool "ffprobe"
 if ($FFMPEG) { $env:FFMPEG = $FFMPEG }   # tts_elevenlabs.py uses the same ffmpeg
 
 Log "=== Daily pipeline start ==="
+# Keep Windows awake (no sleep) while this runs; the render takes many hours. Released when the process exits.
+try {
+    Add-Type -Namespace Shorts -Name Power -MemberDefinition '[DllImport("kernel32.dll")] public static extern uint SetThreadExecutionState(uint esFlags);'
+    [Shorts.Power]::SetThreadExecutionState([uint32]2147483649) | Out-Null   # ES_CONTINUOUS | ES_SYSTEM_REQUIRED
+    Log "Sleep blocked while the pipeline runs"
+} catch { Log "WARN could not block sleep: $_" }
+
+# Push the log mid-render (every 100 frames) so progress is visible on GitHub.
+function Push-Progress {
+    Set-Location $ROOT
+    & $GIT add "logs/$LOGNAME" 2>&1 | Out-Null
+    & $GIT commit -m "Progress: $LOGNAME" 2>&1 | Out-Null
+    & $GIT pull --no-edit --no-rebase origin main 2>&1 | Out-Null
+    & $GIT push origin main 2>&1 | Out-Null
+}
 if (-not $FFMPEG) { Finish 1 "ERROR: ffmpeg not found on PATH or at $WINGET_FF" }
 if (-not (Test-Path $BLENDER)) { Finish 1 "ERROR: Blender not found at $BLENDER" }
 if (-not (Test-Path $PYTHON)) { Finish 1 "ERROR: Python not found at $PYTHON" }
@@ -170,7 +185,10 @@ New-Item -ItemType Directory -Force $framesDir | Out-Null
 Set-Content -Path $sigFile -Value $sig
 Log "Rendering frames (this takes several hours)..."
 & $BLENDER -b $it.blend --python "$ROOT\scripts\render_anim.py" -- $framesDir 1 99999 2>&1 |
-    Select-String "RANGE|FRAME \d*00\b|Error|Traceback" | ForEach-Object { Log "$_" }
+    Select-String "RANGE|FRAME \d*00\b|Error|Traceback" | ForEach-Object {
+        Log "$_"
+        if ("$_" -match "FRAME \d*00\b") { Push-Progress }
+    }
 $frameCount = (Get-ChildItem "$framesDir\f*.png" -ErrorAction SilentlyContinue | Measure-Object).Count
 Log "Frames rendered: $frameCount"
 if ($frameCount -lt 100) { Finish 1 "ERROR: Too few frames for $slug - render likely failed" }

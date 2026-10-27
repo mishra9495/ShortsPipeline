@@ -1,6 +1,6 @@
 # ShortsPipeline
 
-3D animated medical and science YouTube Shorts. A cloud agent queues topics. A Windows PC renders one finished queue item each night at 23:30 IST with `scripts/daily_render.ps1`, then uploads it to YouTube as private.
+3D animated medical and science YouTube Shorts. A cloud agent queues topics. A Windows PC renders one finished queue item each night at 23:30 IST with `scripts/daily_render.ps1`, then uploads it to YouTube as public.
 
 ## Owner's standing rules (never break these)
 
@@ -12,6 +12,7 @@
   4. free Kokoro `am_fenrir`
 - Quality bar is Zack D Films. Never ship primitive placeholder geometry (box cars, capsule people) in a final video.
 - A queue folder containing a `HOLD` file is never rendered.
+- Uploads are ALWAYS public, automatically (owner's instruction, 2026-10-27). Never upload as private or unlisted. YouTube itself locks uploads from an unaudited Google Cloud API project as private; `youtube_upload.py` logs a WARN when that happens.
 
 ## Queue items must be render-ready
 

@@ -5,7 +5,7 @@
 #   PREVIEW  -> quality check only: narration + scene build + full-quality stills of the frames listed in
 #               PREVIEW (comma separated; empty = 12 evenly spaced). Stills, the voice and the log are pushed to
 #               previews/<slug>/ for review. Delete PREVIEW (after review) to allow the full render.
-#   (none)   -> full render of the oldest such item: narration, scene, frames, mix, MP4, upload (private).
+#   (none)   -> full render of the oldest such item: narration, scene, frames, mix, MP4, upload (PUBLIC).
 #
 # Owner's standing rules: NEVER captions/subtitles. Voice: queue narration.wav > narration.mp3 (ElevenLabs website)
 #   > ElevenLabs API key > free Kokoro am_fenrir (owner approved the free voice on 2026-10-27).
@@ -260,7 +260,7 @@ Copy-Item $finalMp4 "$titleDir\$videoTitle.mp4" -Force
 if (Test-Path $doneMeta) { Copy-Item $doneMeta "$titleDir\$videoTitle - YouTube Metadata.txt" -Force }
 Log "Saved to: $titleDir\$videoTitle.mp4"
 
-# 9. Upload to YouTube as private (requires one-time auth via youtube_auth.py)
+# 9. Upload to YouTube as PUBLIC - owner's standing rule since 2026-10-27 (one-time auth via youtube_auth.py)
 $credsFile = "$ROOT\secrets\yt_credentials.json"
 if (Test-Path $credsFile) {
     Log "Uploading to YouTube..."

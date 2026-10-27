@@ -1,5 +1,5 @@
 """
-Upload a video to YouTube with full metadata.
+Upload a video to YouTube (PUBLIC, owner's standing rule) with full metadata.
 Usage: python youtube_upload.py <video.mp4> <metadata.txt>
 Credentials must be set up first via: python youtube_auth.py
 """
@@ -104,7 +104,7 @@ def upload(video_path, metadata_path):
             "defaultLanguage": "en",
         },
         "status": {
-            "privacyStatus": "private",   # private first — review before publishing
+            "privacyStatus": "public",    # owner's standing rule (2026-10-27): always public, never private/unlisted
             "selfDeclaredMadeForKids": False,
             "containsSyntheticMedia": True,
         },
@@ -121,7 +121,12 @@ def upload(video_path, metadata_path):
             print(f"  Upload {pct}%")
 
     video_id = response["id"]
-    print(f"SUCCESS: https://youtu.be/{video_id}")
+    got = (response.get("status") or {}).get("privacyStatus", "?")
+    print(f"SUCCESS: https://youtu.be/{video_id} (visibility: {got})")
+    if got != "public":
+        # YouTube locks uploads from unaudited API projects (created after 2020-07-28) as private.
+        print("WARN: YouTube did not make this video public. The Google Cloud API project probably needs the "
+              "YouTube API audit; until then upload the MP4 from the Videos folder in YouTube Studio.")
     print(f"Studio: https://studio.youtube.com/video/{video_id}/edit")
     return video_id
 

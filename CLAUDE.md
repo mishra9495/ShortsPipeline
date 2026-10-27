@@ -1,6 +1,6 @@
 # ShortsPipeline
 
-3D animated medical and science YouTube Shorts. A cloud agent queues topics. A Windows PC renders one finished queue item each night at 23:30 IST with `scripts/daily_render.ps1`, then uploads it to YouTube as private.
+3D animated medical and science YouTube Shorts. A cloud agent queues topics. A Windows PC renders one finished queue item each night at 23:30 IST with `scripts/daily_render.ps1`, then uploads it to YouTube as public.
 
 ## Owner's standing rules (never break these)
 
@@ -12,6 +12,8 @@
   4. free Kokoro `am_fenrir`
 - Quality bar is Zack D Films. Never ship primitive placeholder geometry (box cars, capsule people) in a final video.
 - A queue folder containing a `HOLD` file is never rendered.
+- Uploads are ALWAYS public, automatically (owner's instruction, 2026-10-27). Never upload as private or unlisted. YouTube itself locks uploads from an unaudited Google Cloud API project as private; `scripts/upload_youtube.py` logs a WARN when that happens.
+- `scripts/youtube_upload.py` is a frozen copy of the PC's old uploader, kept byte-identical so the PC's `git pull` does not abort on its local edit to that file. Do not edit it; the pipeline uses `scripts/upload_youtube.py`.
 
 ## Queue items must be render-ready
 
@@ -28,11 +30,12 @@ The contract for both files is in `templates/README.md`. Before committing, test
 
 ## Facts about this repo
 
-- Build every model in Blender from code. Don't download assets. Use `scripts/kit.py` (props, sets, vehicles, anatomy) and `scripts/actor.py` (character performance, any fps).
+- Build every model in Blender from code. Don't download assets. Use `scripts/kit.py` (props, sets, vehicles, anatomy), `scripts/actor.py` (character performance, any fps: `follow`/`spring` overlap, `timewarp` slow motion, `bake_gaze` eyes) and `scripts/shot.py` (render setup and cameras that keep moving through every key, DOF from subject size, orbit, kick and plunge moves).
+- Follow `templates/STYLE_GUIDE.md` (Zack D research): 12-20 shots of 1.5-3 s, every shot moving, frame 1 is the thumbnail, one slow-motion money moment, titles of 4-7 words with exactly one emoji at the end.
 - A queue folder with `PREVIEW` gets full-quality stills rendered on the PC. They are pushed to `previews/<slug>/` for review, and the full render waits until `PREVIEW` is removed.
 
 - There is no `animation/` folder and no Mixamo FBX library. Characters are animated procedurally on the `mixamorig:` bones.
 - The characters are `blend/char_hero.blend` (male) and `blend/char_heroine.blend` (female). The female file is built on demand from `scripts/preset_heroine.json`. Both exist only on the Windows PC.
 - The nightly render pushes its log to `logs/daily_*.log`. Read the newest one at the start of each run and fix any failure it shows.
 - The updated daily routine prompt is in `templates/ROUTINE_PROMPT.md`.
-- Narration pace: Kokoro (`am_michael`, speed 1.15) reads about 190 words per minute. A 100-word script gives about 31 seconds of narration, and the sneeze short was 117 words for 37 seconds. Plan word counts from that pace, not from 130 words per minute.
+- Narration pace target is about 190 words per minute (the sneeze short: 117 words in 37 seconds). `scripts/tts.py ... auto` re-reads Kokoro at the speed that lands 182-198 wpm (Kokoro at speed 1.15 was 222 wpm, too fast). A 100-word script gives about 31 seconds.

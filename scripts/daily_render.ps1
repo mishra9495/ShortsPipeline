@@ -5,7 +5,7 @@
 #   PREVIEW  -> quality check only: narration + scene build + full-quality stills of the frames listed in
 #               PREVIEW (comma separated; empty = 12 evenly spaced). Stills, the voice and the log are pushed to
 #               previews/<slug>/ for review. Delete PREVIEW (after review) to allow the full render.
-#   (none)   -> full render of the oldest such item: narration, scene, frames, mix, MP4, upload (private).
+#   (none)   -> full render of the oldest such item: narration, scene, frames, mix, MP4, upload (PUBLIC).
 #
 # Owner's standing rules: NEVER captions/subtitles. Voice: queue narration.wav > narration.mp3 (ElevenLabs website)
 #   > ElevenLabs API key > free Kokoro am_fenrir (owner approved the free voice on 2026-10-27).
@@ -30,6 +30,16 @@ function Log($msg) {
     Write-Host $line
 }
 
+# GitHub is the source of truth on this PC: a local edit to a tracked file blocks every pull ("would be overwritten
+# by merge"), which left this PC on old scripts and its logs unpushed. Stash such edits (recover: git stash list / pop).
+function Stash-LocalEdits {
+    $dirty = & $GIT -C $ROOT status --porcelain --untracked-files=no
+    if ($dirty) {
+        Log "Local edits stashed so the pull can update them: $(($dirty | ForEach-Object { "$_".Trim() }) -join ', ')"
+        & $GIT -C $ROOT stash push -m "daily_render auto-stash $(Get-Date -Format 'yyyyMMdd_HHmm')" 2>&1 | ForEach-Object { Log "$_" }
+    }
+}
+
 # Push this run's log (plus any preview files) to GitHub, then exit. Called on every exit path.
 function Finish([int]$code, [string]$summary) {
     Log "=== $summary (exit $code) ==="
@@ -38,6 +48,7 @@ function Finish([int]$code, [string]$summary) {
     foreach ($p in $script:EXTRA_ADD) { & $GIT add -A $p 2>&1 | Out-Null }
     & $GIT commit -m "Log: $summary" 2>&1 | Out-Null
     # the render takes hours; integrate anything pushed meanwhile so the push is not rejected
+    Stash-LocalEdits
     & $GIT pull --no-edit --no-rebase origin main 2>&1 | Out-Null
     & $GIT push origin main 2>&1 | Out-Null
     exit $code
@@ -55,6 +66,22 @@ $FFPROBE = Find-Tool "ffprobe"
 if ($FFMPEG) { $env:FFMPEG = $FFMPEG }   # tts_elevenlabs.py uses the same ffmpeg
 
 Log "=== Daily pipeline start ==="
+# Keep Windows awake (no sleep) while this runs; the render takes many hours. Released when the process exits.
+try {
+    Add-Type -Namespace Shorts -Name Power -MemberDefinition '[DllImport("kernel32.dll")] public static extern uint SetThreadExecutionState(uint esFlags);'
+    [Shorts.Power]::SetThreadExecutionState([uint32]2147483649) | Out-Null   # ES_CONTINUOUS | ES_SYSTEM_REQUIRED
+    Log "Sleep blocked while the pipeline runs"
+} catch { Log "WARN could not block sleep: $_" }
+
+# Push the log mid-render (every 100 frames) so progress is visible on GitHub.
+function Push-Progress {
+    Set-Location $ROOT
+    & $GIT add "logs/$LOGNAME" 2>&1 | Out-Null
+    & $GIT commit -m "Progress: $LOGNAME" 2>&1 | Out-Null
+    Stash-LocalEdits
+    & $GIT pull --no-edit --no-rebase origin main 2>&1 | Out-Null
+    & $GIT push origin main 2>&1 | Out-Null
+}
 if (-not $FFMPEG) { Finish 1 "ERROR: ffmpeg not found on PATH or at $WINGET_FF" }
 if (-not (Test-Path $BLENDER)) { Finish 1 "ERROR: Blender not found at $BLENDER" }
 if (-not (Test-Path $PYTHON)) { Finish 1 "ERROR: Python not found at $PYTHON" }
@@ -63,6 +90,7 @@ if (-not (Test-Path $PYTHON)) { Finish 1 "ERROR: Python not found at $PYTHON" }
 #    the new version (otherwise fixes only take effect on the following run).
 Set-Location $ROOT
 $selfHash = (Get-FileHash $PSCommandPath).Hash
+Stash-LocalEdits
 & $GIT pull --no-edit --no-rebase origin main 2>&1 | ForEach-Object { Log "$_" }
 if (((Get-FileHash $PSCommandPath).Hash -ne $selfHash) -and -not $env:SHORTS_REEXEC) {
     Log "daily_render.ps1 was updated by the pull - restarting with the new version"
@@ -100,7 +128,7 @@ function Prepare-Item($slug) {
         # Owner approved a free voice when ElevenLabs is unavailable (2026-10-27): Kokoro am_fenrir is the closest
         # free match to Daniel's pitch and timbre.
         Log "[$slug] Narration: free Kokoro am_fenrir voice (no ElevenLabs key)"
-        & $PYTHON "$ROOT\scripts\tts.py" $script_txt $prefix am_fenrir 1.15 2>&1 | ForEach-Object { Log "$_" }
+        & $PYTHON "$ROOT\scripts\tts.py" $script_txt $prefix am_fenrir auto 2>&1 | ForEach-Object { Log "$_" }
     }
     if (-not (Test-Path $it.vo) -or -not (Test-Path $it.beats)) {
         Log "[$slug] ERROR: narration failed (see the lines above)."
@@ -170,7 +198,10 @@ New-Item -ItemType Directory -Force $framesDir | Out-Null
 Set-Content -Path $sigFile -Value $sig
 Log "Rendering frames (this takes several hours)..."
 & $BLENDER -b $it.blend --python "$ROOT\scripts\render_anim.py" -- $framesDir 1 99999 2>&1 |
-    Select-String "RANGE|FRAME \d*00\b|Error|Traceback" | ForEach-Object { Log "$_" }
+    Select-String "RANGE|FRAME \d*00\b|Error|Traceback" | ForEach-Object {
+        Log "$_"
+        if ("$_" -match "FRAME \d*00\b") { Push-Progress }
+    }
 $frameCount = (Get-ChildItem "$framesDir\f*.png" -ErrorAction SilentlyContinue | Measure-Object).Count
 Log "Frames rendered: $frameCount"
 if ($frameCount -lt 100) { Finish 1 "ERROR: Too few frames for $slug - render likely failed" }
@@ -229,11 +260,11 @@ Copy-Item $finalMp4 "$titleDir\$videoTitle.mp4" -Force
 if (Test-Path $doneMeta) { Copy-Item $doneMeta "$titleDir\$videoTitle - YouTube Metadata.txt" -Force }
 Log "Saved to: $titleDir\$videoTitle.mp4"
 
-# 9. Upload to YouTube as private (requires one-time auth via youtube_auth.py)
+# 9. Upload to YouTube as PUBLIC - owner's standing rule since 2026-10-27 (one-time auth via youtube_auth.py)
 $credsFile = "$ROOT\secrets\yt_credentials.json"
 if (Test-Path $credsFile) {
     Log "Uploading to YouTube..."
-    & $PYTHON -I "$ROOT\scripts\youtube_upload.py" "$titleDir\$videoTitle.mp4" "$titleDir\$videoTitle - YouTube Metadata.txt" 2>&1 | ForEach-Object { Log "$_" }
+    & $PYTHON -I "$ROOT\scripts\upload_youtube.py" "$titleDir\$videoTitle.mp4" "$titleDir\$videoTitle - YouTube Metadata.txt" 2>&1 | ForEach-Object { Log "$_" }
 } else {
     Log "YouTube credentials not found - skipping upload. Run scripts\youtube_auth.py once to enable."
 }

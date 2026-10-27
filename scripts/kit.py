@@ -762,8 +762,10 @@ def _curtain(name, c, loc, w, h, mat):
 
 
 def room(c, origin=(0, 0, 0), size=(5.0, 5.0, 2.7), floor_mat=None, wall_color=(0.80, 0.74, 0.66), name="Room",
-         open_side="-Y"):
-    """Floor, ceiling, 3 walls (the camera side stays open), skirting boards, ceiling light."""
+         open_side="-Y", openings=()):
+    """Floor, ceiling, 3 walls (the camera side stays open), skirting boards, ceiling light.
+    openings: [(x, z, w, h)] holes in the BACK wall (x relative to the room origin, z from the floor), e.g. for
+    kit.window(): pass (win_x - origin_x, win_z, W + 0.14, H + 0.14) so the sky card behind it shows through."""
     ox, oy, oz = origin
     W, D, H = size
     root = empty(name, c, origin)
@@ -772,14 +774,31 @@ def room(c, origin=(0, 0, 0), size=(5.0, 5.0, 2.7), floor_mat=None, wall_color=(
     sk = paint(name + "Skirting", (0.93, 0.93, 0.9), rough=0.35)
     parts = [plane("Floor", c, (W, D), (0, 0, 0), fm),
              plane("Ceiling", c, (W, D), (0, 0, H), paint(name + "Ceiling", (0.93, 0.93, 0.92)), rot=(math.pi, 0, 0)),
-             rbox("WallBack", c, (W, 0.12, H), (0, D / 2 + 0.06, H / 2), wm, bevel=0),
              rbox("WallLeft", c, (0.12, D, H), (-W / 2 - 0.06, 0, H / 2), wm, bevel=0),
              rbox("WallRight", c, (0.12, D, H), (W / 2 + 0.06, 0, H / 2), wm, bevel=0),
              rbox("SkirtBack", c, (W, 0.02, 0.1), (0, D / 2 - 0.01, 0.05), sk, bevel=0.003),
              rbox("SkirtLeft", c, (0.02, D, 0.1), (-W / 2 + 0.01, 0, 0.05), sk, bevel=0.003),
              rbox("SkirtRight", c, (0.02, D, 0.1), (W / 2 - 0.01, 0, 0.05), sk, bevel=0.003),
              lathe("CeilingLight", c, [(0.0, 0.0), (0.25, 0.0), (0.22, -0.06), (0.0, -0.07)], (0, 0, H), emissive("CeilLight", (1.0, 0.92, 0.82), 6))]
+    parts += _wall_with_openings(c, W, H, D / 2 + 0.06, wm, openings)
     return parent(parts, root)
+
+
+def _wall_with_openings(c, W, H, y, mat, openings, t=0.12):
+    """Back wall as boxes around rectangular holes, with 0.12 m deep reveals that show the wall thickness."""
+    ops = sorted(openings, key=lambda o: o[0])
+    parts, x = [], -W / 2
+    for ox, oz, ow, oh in ops:
+        a, b = ox - ow / 2, ox + ow / 2
+        if a > x + 1e-4:
+            parts.append(rbox("WallBack", c, (a - x, t, H), ((x + a) / 2, y, H / 2), mat, bevel=0))
+        lo, hi = oz - oh / 2, oz + oh / 2
+        parts.append(rbox("WallSill", c, (ow, t, lo), (ox, y, lo / 2), mat, bevel=0))
+        parts.append(rbox("WallLintel", c, (ow, t, H - hi), (ox, y, (H + hi) / 2), mat, bevel=0))
+        x = b
+    if x < W / 2 - 1e-4:
+        parts.append(rbox("WallBack", c, (W / 2 - x, t, H), ((x + W / 2) / 2, y, H / 2), mat, bevel=0))
+    return parts
 
 
 def floorboards(name="Floorboards"):
@@ -1323,3 +1342,284 @@ def brain_mat():
         b.inputs["Coat Roughness"].default_value = 0.15
         return m
     return mat_cached(("brain",), make)
+
+
+# =============================================================== v3 props (Zack D research gap list)
+def paper_mat(name="TissuePaper"):
+    def make():
+        m, N, L, b = _new_mat(name)
+        b.inputs["Base Color"].default_value = (0.93, 0.93, 0.92, 1)
+        b.inputs["Roughness"].default_value = 0.85
+        b.inputs["Subsurface Weight"].default_value = 0.3
+        b.inputs["Subsurface Radius"].default_value = (1.0, 1.0, 1.0)
+        b.inputs["Subsurface Scale"].default_value = 0.002
+        b.inputs["Transmission Weight"].default_value = 0.15
+        nz = N.new("ShaderNodeTexNoise")
+        nz.inputs["Scale"].default_value = 900
+        nz.inputs["Detail"].default_value = 6
+        L.new(_coord(N).outputs[0], nz.inputs["Vector"])
+        _bump(N, L, b, nz.outputs["Fac"], strength=0.15, distance=0.0005)
+        return m
+    return mat_cached(("paper", name), make)
+
+
+def crumpled_tissue(name, c, loc, size=0.06, seed=0, mat=None, rot=None):
+    """A used, crumpled paper tissue: a faceted ball of flat paper planes meeting at sharp creases, plus a loose flap."""
+    rng = random.Random(seed)
+    me = bpy.data.meshes.new(name)
+    bm = bmesh.new()
+    bmesh.ops.create_icosphere(bm, subdivisions=3, radius=0.5)
+    flap = Vector((rng.uniform(-1, 1), rng.uniform(-1, 1), rng.uniform(0.2, 1))).normalized()
+    for v in bm.verts:
+        n = v.co.normalized()
+        lip = max(0.0, n.dot(flap) - 0.8) * 2.0
+        v.co = n * 0.5 * (rng.uniform(0.72, 1.12) + lip)
+    bmesh.ops.scale(bm, vec=Vector((size, size * rng.uniform(0.8, 1.0), size * rng.uniform(0.65, 0.85))), verts=bm.verts)
+    bm.to_mesh(me)
+    bm.free()
+    o = bpy.data.objects.new(name, me)
+    o.location = loc
+    o.rotation_euler = rot if rot is not None else (rng.uniform(-0.4, 0.4), rng.uniform(-0.4, 0.4), rng.uniform(0, 6.3))
+    _finish(o, c, mat or paper_mat(), smooth=False)
+    bv = o.modifiers.new("Bevel", "BEVEL")                 # tiny rounding so creases catch light
+    bv.width = size * 0.01
+    bv.segments = 2
+    return o
+
+
+def shards(c, n, mat, loc=(0, 0, 0), size=(0.005, 0.025), seed=0, name="Shard", spread=0.05):
+    """n small convex debris pieces (taillight plastic, glass, bone chips) scattered around loc. Animate them yourself."""
+    rng = random.Random(seed)
+    out = []
+    for i in range(n):
+        me = bpy.data.meshes.new(f"{name}{i}")
+        bm = bmesh.new()
+        r = rng.uniform(*size)
+        for _ in range(rng.randint(5, 8)):
+            bm.verts.new((rng.uniform(-r, r), rng.uniform(-r, r), rng.uniform(-r, r) * 0.35))
+        bmesh.ops.convex_hull(bm, input=bm.verts)
+        bm.to_mesh(me)
+        bm.free()
+        o = bpy.data.objects.new(f"{name}{i}", me)
+        o.location = Vector(loc) + Vector((rng.uniform(-1, 1), rng.uniform(-1, 1), rng.uniform(-1, 1))) * spread
+        o.rotation_euler = (rng.uniform(0, 6.3), rng.uniform(0, 6.3), rng.uniform(0, 6.3))
+        _finish(o, c, mat, smooth=False)
+        out.append(o)
+    return out
+
+
+def crumple(car_root, end="rear", depth=0.25, seed=0, key="Crumple"):
+    """Add a shape key that crushes one end of a kit.car() shell (bake its value 0 -> 1 over ~0.06 s at impact)."""
+    from mathutils import noise
+    shell = next(o for o in car_root.children if o.name.startswith(car_root.name + "Body"))
+    if not shell.data.shape_keys:
+        shell.shape_key_add(name="Basis")
+    kb = shell.shape_key_add(name=key, from_mix=False)
+    sgn = 1 if end == "rear" else -1
+    off = Vector((seed, seed * 2, seed * 3))
+    for i, v in enumerate(shell.data.vertices):
+        y = v.co.y * sgn
+        if y > 1.9:
+            w = (y - 1.9) / 0.35
+            w = min(1.0, w) ** 2 * (3 - 2 * min(1.0, w))
+            n = noise.noise_vector(v.co * 18 + off) * 0.02
+            kb.data[i].co = v.co + Vector((n.x, -sgn * depth * w + n.y * 0.5, n.z - 0.03 * w))
+    return kb
+
+
+def bone_mat(name="Bone"):
+    def make():
+        m, N, L, b = _new_mat(name)
+        nz = N.new("ShaderNodeTexNoise")
+        nz.inputs["Scale"].default_value = 60
+        nz.inputs["Detail"].default_value = 8
+        L.new(_coord(N).outputs[0], nz.inputs["Vector"])
+        rp = _ramp(N, (0.72, 0.64, 0.50), (0.93, 0.89, 0.80))
+        L.new(nz.outputs["Fac"], rp.inputs["Fac"])
+        L.new(rp.outputs["Color"], b.inputs["Base Color"])
+        b.inputs["Roughness"].default_value = 0.55
+        b.inputs["Subsurface Weight"].default_value = 0.25
+        b.inputs["Subsurface Radius"].default_value = (1.0, 0.6, 0.4)
+        b.inputs["Subsurface Scale"].default_value = 0.003
+        pores = N.new("ShaderNodeTexVoronoi")
+        pores.inputs["Scale"].default_value = 700
+        L.new(_coord(N).outputs[0], pores.inputs["Vector"])
+        _bump(N, L, b, pores.outputs["Distance"], strength=0.12, distance=0.0004)
+        return m
+    return mat_cached(("bone", name), make)
+
+
+def _sculpt_ico(name, c, ctr, rad, fn, mat, subdiv=5, subsurf=1):
+    me = bpy.data.meshes.new(name)
+    bm = bmesh.new()
+    bmesh.ops.create_icosphere(bm, subdivisions=subdiv, radius=1.0)
+    for v in bm.verts:
+        p = fn(v.co.copy())
+        v.co = Vector((p.x * rad[0], p.y * rad[1], p.z * rad[2]))
+    bm.to_mesh(me)
+    bm.free()
+    o = bpy.data.objects.new(name, me)
+    o.location = ctr
+    return _finish(o, c, mat, subsurf=subsurf)
+
+
+def _cut(o, cutter):
+    bo = o.modifiers.new("Cut" + cutter.name, "BOOLEAN")
+    bo.operation = "DIFFERENCE"
+    bo.solver = "EXACT"
+    bo.object = cutter
+    cutter.hide_render = True
+    cutter.hide_viewport = True
+    cutter.display_type = "WIRE"
+    return bo
+
+
+def skull(c, center, size=(0.15, 0.19, 0.16), name="Skull", mat=None, jaw=True):
+    """Stylised human skull for X-ray/anatomy shots (not a live-action beauty prop), faces -Y: cranial shell with real thickness, orbits and pear-shaped nasal aperture cut out,
+    cheekbones, maxilla, mandible and teeth. size = (width, depth, height) of the cranium. Returns (root, parts)."""
+    W, D, H = size
+    m = mat or bone_mat()
+    ctr = Vector(center)
+    root = empty(name, c, ctr)
+    parts = []
+
+    def cranium_shape(p):
+        p.x *= 1.0 - 0.10 * max(0.0, -p.z)                 # narrower toward the skull base
+        if p.y < 0:
+            p.z += 0.08 * (-p.y) * max(0.0, p.z)           # higher forehead
+        if p.z < -0.45:
+            p.z = -0.45 + (p.z + 0.45) * 0.35              # flat base
+        return p
+    cran = _sculpt_ico(name + "Cranium", c, Vector((0, 0, 0)), (W / 2, D / 2, H / 2), cranium_shape, m)
+    so = cran.modifiers.new("Shell", "SOLIDIFY")
+    so.thickness = 0.005
+    so.offset = -1
+    cran.modifiers.move(len(cran.modifiers) - 1, 0)
+    parts.append(cran)
+    # face block (brow + maxilla), merged into the front-lower cranium: flat front, narrowing toward the teeth
+    fz, fy = -H * 0.22, -D * 0.30
+
+    def face_shape(p):
+        if p.y < -0.55:
+            p.y = -0.55 + (p.y + 0.55) * 0.35                # flat facial plane
+        if p.y > 0.2:
+            p.y = 0.2 + (p.y - 0.2) * 0.3                    # tucked into the cranium
+        p.x *= 1.0 - 0.18 * max(0.0, -p.z)                   # narrowing toward the upper jaw
+        if p.z > 0.4:
+            p.z = 0.4 + (p.z - 0.4) * 0.5
+        return p
+    face = _sculpt_ico(name + "Face", c, Vector((0, fy, fz)), (W * 0.44, D * 0.32, H * 0.40), face_shape, m)
+    parts.append(face)
+    front = fy - D * 0.32 * 0.6
+    cutters = []
+    for sx in (-1, 1):                                       # orbits
+        cutters.append(sphere(name + "OrbitCut", c, 1.0, (sx * W * 0.19, front, fz + H * 0.12), None, scale=(W * 0.13, D * 0.16, H * 0.11)))
+    cutters.append(sphere(name + "NasalCut", c, 1.0, (0, front - D * 0.02, fz - H * 0.08), None, scale=(W * 0.06, D * 0.12, H * 0.10)))
+    for k in cutters:
+        _cut(face, k)
+        _cut(cran, k)
+        k.parent = root
+    for sx in (-1, 1):                                       # cheekbones / zygomatic arches back to the ear
+        parts.append(tube(name + "Zygo", c, [Vector((sx * W * 0.30, front + D * 0.03, fz - H * 0.02)),
+                                             Vector((sx * W * 0.44, fy + D * 0.05, fz - H * 0.04)),
+                                             Vector((sx * W * 0.47, fy + D * 0.28, fz - H * 0.02))], 0.008, m))
+    if jaw:
+        jz = fz - H * 0.44
+        ear = [Vector((sx * W * 0.37, fy + D * 0.30, fz - H * 0.06)) for sx in (-1, 1)]
+        pts = [ear[0], Vector((-W * 0.34, fy + D * 0.22, jz)), Vector((-W * 0.20, front + D * 0.05, jz - H * 0.03)),
+               Vector((0, front - D * 0.01, jz - H * 0.05)), Vector((W * 0.20, front + D * 0.05, jz - H * 0.03)),
+               Vector((W * 0.34, fy + D * 0.22, jz)), ear[1]]
+        mand = tube(name + "Mandible", c, pts, 0.009, m, res=4)
+        mand.data.bevel_mode = "ROUND"
+        mand.data.twist_mode = "MINIMUM"
+        parts.append(mand)
+        tooth = ceramic(name + "Enamel", (0.92, 0.9, 0.82), 0.25)
+        for row, z in (("Up", fz - H * 0.36), ("Lo", jz + H * 0.07)):
+            for k in range(14):
+                a = math.pi * (k + 0.5) / 14
+                x, y = -math.cos(a) * W * 0.17, front + D * 0.10 - math.sin(a) * D * 0.07
+                h = 0.011 if 4 <= k <= 9 else 0.009
+                parts.append(lathe(f"{name}Tooth{row}", c, [(0.0, 0.0), (0.0035, 0.0), (0.0042, h * 0.6), (0.0028, h), (0.0, h)],
+                                   (x, y, z), tooth, steps=12, rot=(0 if row == "Lo" else math.pi, 0, 0)))
+    for p_ in parts:
+        p_.parent = root
+    return root, parts
+
+
+def endoscope(c, loc=(0, 0, 0), name="Endoscope", length=0.30, rot=(0, 0, 0)):
+    """Rigid nasal endoscope: chrome 4 mm shaft along -Y from the handle, lens + LED ring at the tip, light cable.
+    Returns (root, tip_empty) -- aim/parent the tip to drive the X-ray shot."""
+    root = empty(name, c, loc, rot)
+    chrome = metal(name + "Chrome", (0.9, 0.9, 0.92), 0.08)
+    grip = rubber(name + "Grip", (0.05, 0.06, 0.07))
+    parts = [cyl(name + "Shaft", c, 0.002, length, (0, -length / 2, 0), chrome, rot=(math.radians(90), 0, 0), verts=24),
+             lathe(name + "Handle", c, [(0.0, 0.0), (0.009, 0.0), (0.012, 0.02), (0.012, 0.09), (0.008, 0.11), (0.0, 0.11)], (0, 0, 0), chrome,
+                   rot=(math.radians(-90), 0, 0)),
+             cyl(name + "Lens", c, 0.0016, 0.0008, (0, -length - 0.0004, 0), glass(name + "LensGlass", (0.3, 0.4, 0.5), ior=1.7),
+                 rot=(math.radians(90), 0, 0), verts=24)]
+    for k in range(3):
+        parts.append(cyl(name + "GripBand", c, 0.0128, 0.008, (0, 0.03 + 0.025 * k, 0), grip, rot=(math.radians(90), 0, 0), verts=32, bevel=0.002))
+    led = emissive(name + "LED", (1.0, 0.98, 0.93), 40)
+    for k in range(6):
+        a = 2 * math.pi * k / 6
+        parts.append(sphere(name + "LEDDot", c, 0.0004, (math.cos(a) * 0.0017, -length - 0.0002, math.sin(a) * 0.0017), led, subdiv=1))
+    parts.append(tube(name + "Cable", c, [Vector((0, 0.11, 0)), Vector((0.02, 0.18, -0.03)), Vector((0.08, 0.3, -0.2)), Vector((0.2, 0.5, -0.6))],
+                      0.003, rubber(name + "CableM", (0.02, 0.02, 0.02))))
+    tip = empty(name + "Tip", c, (0, -length - 0.001, 0))
+    tip.empty_display_size = 0.005
+    parts.append(tip)
+    parent(parts, root)
+    return root, tip
+
+
+def forceps(c, loc=(0, 0, 0), name="Forceps", rot=(0, 0, 0), open_deg=8.0):
+    """Surgical forceps / needle holder: two tapered jaws on a hinge, finger rings. Jaw tip at local -Y."""
+    root = empty(name, c, loc, rot)
+    st = metal(name + "Steel", (0.82, 0.83, 0.86), 0.15, brushed=True)
+    parts = [cyl(name + "Hinge", c, 0.004, 0.006, (0, 0, 0), st, verts=16, bevel=0.001)]
+    for sx in (-1, 1):
+        a = math.radians(open_deg / 2) * sx
+        arm = empty(name + "Arm", c, (0, 0, 0), (0, 0, a))
+        jaw = rbox(name + "Jaw", c, (0.003, 0.06, 0.003), (0, -0.03, 0), st, bevel=0.0012)
+        for v in jaw.data.vertices:
+            if v.co.y < 0:
+                v.co.x *= 0.45
+                v.co.z *= 0.6
+        shank = rbox(name + "Shank", c, (0.004, 0.09, 0.004), (sx * 0.006, 0.045, 0), st, bevel=0.0015, rot=(0, 0, -sx * 0.12))
+        ring = lathe(name + "Ring", c, [(0.009, -0.002), (0.012, 0.0), (0.009, 0.002), (0.008, 0.0)], (sx * 0.017, 0.098, 0), st, steps=24,
+                     rot=(0, 0, 0))
+        parent([jaw, shank, ring], arm)
+        parts.append(arm)
+    return parent(parts, root)
+
+
+def instrument_tray(c, loc, name="Tray", rot=0.0):
+    """Mayo stand with a steel tray, green drape and laid-out instruments."""
+    root = empty(name, c, loc, (0, 0, rot))
+    st = metal(name + "Steel", (0.8, 0.81, 0.84), 0.2, brushed=True)
+    drape = fabric(name + "Drape", (0.12, 0.38, 0.33), weave=700)
+    parts = [rbox(name + "Pan", c, (0.48, 0.34, 0.02), (0, 0, 1.0), st, bevel=0.006),
+             cushion(name + "Cloth", c, (0.46, 0.32, 0.006), (0, 0, 1.012), drape, puff=0.1),
+             cyl(name + "Pole", c, 0.012, 1.0, (0.2, 0.13, 0.5), st, verts=16),
+             rbox(name + "Foot", c, (0.6, 0.06, 0.03), (0.2, 0.13, 0.02), st, bevel=0.01)]
+    for k in range(3):
+        f = forceps(c, (-0.12 + 0.08 * k, 0.0, 1.02), name=f"{name}Forceps{k}", rot=(0, 0, math.radians(4 * k - 4)), open_deg=0)
+        parts.append(f)
+    parts.append(rbox(name + "Scalpel", c, (0.008, 0.13, 0.003), (0.13, -0.02, 1.018), st, bevel=0.0012))
+    return parent(parts, root)
+
+
+def iv_pole(c, loc, name="IVPole"):
+    root = empty(name, c, loc)
+    st = metal(name + "Steel", (0.82, 0.83, 0.86), 0.25)
+    parts = [cyl(name + "Pole", c, 0.012, 1.9, (0, 0, 0.95), st, verts=16)]
+    for k in range(5):
+        a = 2 * math.pi * k / 5
+        parts.append(rbox(name + "Leg", c, (0.3, 0.025, 0.02), (math.cos(a) * 0.15, math.sin(a) * 0.15, 0.04), st, bevel=0.008, rot=(0, 0, a)))
+    parts.append(tube(name + "Hook", c, [Vector((0, 0, 1.9)), Vector((0.1, 0, 1.92)), Vector((0.12, 0, 1.88))], 0.004, st))
+    bag = cushion(name + "Bag", c, (0.11, 0.03, 0.18), (0.12, 0, 1.76), plastic(name + "Saline", (0.9, 0.95, 1.0), 0.1), puff=0.8)
+    bag.data.materials[0].node_tree.nodes["Principled BSDF"].inputs["Transmission Weight"].default_value = 0.85
+    parts.append(bag)
+    parts.append(tube(name + "Line", c, [Vector((0.12, 0, 1.66)), Vector((0.15, 0, 1.3)), Vector((0.4, -0.1, 0.95))], 0.002,
+                      plastic(name + "LineM", (0.92, 0.95, 1.0), 0.1)))
+    return parent(parts, root)

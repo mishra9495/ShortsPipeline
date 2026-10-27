@@ -2,6 +2,12 @@
 
 **Rebuilt pipeline status: NOT yet approved by the owner.** The v2 reference scene is `queue/brain-leaking-nose/scene.py`. It uses `scripts/kit.py` (every model built in Blender) and `scripts/actor.py` (character acting). It is in PREVIEW, so the Windows PC renders full-quality stills for review. The older `scene_template.py` and `mix_template.py` are v1 and were rejected for quality.
 
+**v3 helpers (from the Zack D research in `STYLE_GUIDE.md`).** New scenes should use them instead of copying the v2 camera code:
+
+- `scripts/shot.py`: `setup_render` (motion blur samples START, so cuts between sets never smear), `Cameras.cam` (one monotone spline through all keys, so the camera never stops at a key and is already moving on the cut; `depth=` sets the f-stop from the subject size; `orbit`, `kicks`, `plunge_in` and `plunge_out` for X-ray fly-ins; `shift_y` puts faces on the upper third), `markers` and `check_shots`.
+- `scripts/actor.py`: `follow`/`spring`/`delay` for overlap and settle down a chain, `timewarp` for the slow-motion money moment, `Actor.bake_gaze` for eyes that look at things, with saccades.
+- `scripts/kit.py`: `room(openings=...)` cuts real window holes (the sky card shows through), plus `crumpled_tissue`, `shards`, `crumple` (car crush shape key), `skull`, `endoscope`, `forceps`, `instrument_tray`, `iv_pole`, `bone_mat` and `paper_mat`.
+
 Every `queue/<slug>/` needs these files before the nightly Windows render (`scripts/daily_render.ps1`) will pick it up:
 
 | File | Purpose |

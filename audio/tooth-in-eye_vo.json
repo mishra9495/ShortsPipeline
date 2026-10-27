@@ -1,0 +1,58 @@
+{
+  "voice": "am_fenrir",
+  "speed": 1.0,
+  "wpm": 194.2,
+  "duration": 30.896,
+  "beats": [
+    {
+      "text": "Doctors put this man's tooth inside his eye, to cure his blindness.",
+      "start": 0.0,
+      "end": 3.947
+    },
+    {
+      "text": "At thirteen, a reaction to ibuprofen blinded him.",
+      "start": 4.067,
+      "end": 7.096
+    },
+    {
+      "text": "Cornea transplants failed for twenty years.",
+      "start": 7.216,
+      "end": 9.541
+    },
+    {
+      "text": "So surgeons pulled his canine tooth, with a sliver of jawbone.",
+      "start": 9.661,
+      "end": 13.245
+    },
+    {
+      "text": "They shaved it into a tiny block and drilled in a plastic lens.",
+      "start": 13.365,
+      "end": 16.843
+    },
+    {
+      "text": "Then they sewed it into his cheek for months to grow blood vessels.",
+      "start": 16.963,
+      "end": 20.291
+    },
+    {
+      "text": "Finally, it went into his eye.",
+      "start": 20.411,
+      "end": 21.968
+    },
+    {
+      "text": "His body is less likely to reject his own tooth.",
+      "start": 22.088,
+      "end": 24.989
+    },
+    {
+      "text": "And it worked. He made eye contact with his surgeon.",
+      "start": 25.109,
+      "end": 27.883
+    },
+    {
+      "text": "Turns out, your teeth are a backup plan for your eyes.",
+      "start": 28.003,
+      "end": 30.776
+    }
+  ]
+}

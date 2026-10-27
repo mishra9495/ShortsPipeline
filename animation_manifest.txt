@@ -1,0 +1,199 @@
+﻿# Mixamo FBX library (PC-local, NOT in git)
+#
+# Location : D:\ShortsPipeline\animation\
+# Count    : 156 FBX files, 89.8 MB total
+# Generated: 2026-10-27
+#
+# This file exists so the cloud agent can see what motion capture is available.
+# The FBX binaries are deliberately NOT committed (90 MB would slow every cloud clone).
+#
+# IMPORTANT: this is an ACTION/COMBAT pack (Mixamo defaults). Most clips are fighting,
+# zombies and sword work, which do not suit medical or science storytelling.
+# There is also no verified FBX -> char_hero retarget path yet; scripts/retarget.py
+# was never validated end to end. Procedural animation via scripts/actor.py remains
+# the approved method (it produced the brain-leaking-nose video).
+
+## Clips plausibly useful for medical / human-interest beats
+  Angry Gesture.fbx
+  Beckoning.fbx
+  Injured Hurting Idle.fbx
+  Injured Idle.fbx
+  Injured Stumble Idle.fbx
+  Injured Walk.fbx
+  Injured Wave Idle.fbx
+  Laughing.fbx
+  Laying Mild Cough.fbx
+  Male Action Pose.fbx
+  Pain Gesture.fbx
+  Pointing Gesture.fbx
+  Scared.fbx
+  Sitting Clap.fbx
+  Sitting Idle.fbx
+  Sitting Laughing.fbx
+  Sitting Talking.fbx
+  Standing Death Forward 01.fbx
+  Talking.fbx
+  Talking On Phone.fbx
+  Taunt Gesture.fbx
+  Terrified.fbx
+  Walker Walk.fbx
+  Walking Backwards.fbx
+  Waving.fbx
+
+## Full library
+  Aim Pistol.fbx
+  Aiming Gun.fbx
+  Angry Gesture.fbx
+  Beckoning.fbx
+  Blocking Attack.fbx
+  Blocking.fbx
+  Body Block.fbx
+  Catwalk Walk.fbx
+  Climbing A Rope.fbx
+  Climbing Down Wall.fbx
+  Climbing Down.fbx
+  Climbing Ladder.fbx
+  Climbing To Top.fbx
+  Climbing Up Wall.fbx
+  Climbing.fbx
+  Crawl Forward.fbx
+  Crawling.fbx
+  Crouch Running.fbx
+  Crouched Walking (1).fbx
+  Crouched Walking.fbx
+  Dancing Running Man.fbx
+  Dancing.fbx
+  Death From The Front.fbx
+  Death.fbx
+  Drop Kick (1).fbx
+  Drop Kick.fbx
+  Drunk Running Left Turn.fbx
+  Elbow Punching.fbx
+  Falling (1).fbx
+  Falling (2).fbx
+  Falling.fbx
+  Fast Run.fbx
+  Female Peek And Aim.fbx
+  Fight Idle To Standing Idle.fbx
+  Flip Kick.fbx
+  Goalkeeper Drop Kick.fbx
+  Goofy Running (1).fbx
+  Goofy Running.fbx
+  Great Sword Impact (1).fbx
+  Great Sword Impact.fbx
+  Great Sword Slash.fbx
+  Hiding Grab.fbx
+  Hiding.fbx
+  Hook.fbx
+  Idle Crouching Aiming.fbx
+  Idle To Running.fbx
+  Injured Backwards Turn Left.fbx
+  Injured Backwards Turn Right.fbx
+  Injured Hurting Idle.fbx
+  Injured Idle.fbx
+  Injured Run (1).fbx
+  Injured Run Backwards Left Turn.fbx
+  Injured Run Backwards.fbx
+  Injured Run Jump.fbx
+  Injured Run Left Turn.fbx
+  Injured Run Right Turn.fbx
+  Injured Run.fbx
+  Injured Standing Jump.fbx
+  Injured Stumble Idle.fbx
+  Injured Turn Left.fbx
+  Injured Turn Right.fbx
+  Injured Walk Backwards.fbx
+  Injured Walk Left Turn.fbx
+  Injured Walk Right Turn.fbx
+  Injured Walk.fbx
+  Injured Wave Idle.fbx
+  Jazz Dancing.fbx
+  Kick Up Soccerball.fbx
+  Kicking Out.fbx
+  Kicking.fbx
+  Knee Kick Lead.fbx
+  Laughing.fbx
+  Laying Mild Cough.fbx
+  Male Action Pose.fbx
+  Mma Kick.fbx
+  Pain Gesture.fbx
+  Pistol Aim.fbx
+  Pointing Gesture.fbx
+  Punch Combo.fbx
+  Punching (1).fbx
+  Punching Bag.fbx
+  Punching.fbx
+  Removing Driver.fbx
+  Rifle Aim To Down.fbx
+  Rifle Down To Aim.fbx
+  Rifle Kneel To Aim.fbx
+  Rifle Punch (1).fbx
+  Rifle Punch.fbx
+  Roll Kicking (1).fbx
+  Roll Kicking.fbx
+  Rope Climb.fbx
+  Run.fbx
+  Running (1).fbx
+  Running Arc.fbx
+  Running Backward (1).fbx
+  Running Backward.fbx
+  Running Crawl.fbx
+  Running Forward Flip.fbx
+  Running Right Turn.fbx
+  Running Slide.fbx
+  Running Tired.fbx
+  Running To Stop.fbx
+  Running Turn 180.fbx
+  Running Up Stairs.fbx
+  Running.fbx
+  Salsa Dancing.fbx
+  Scared (1).fbx
+  Scared.fbx
+  Sheath Sword 1.fbx
+  Silly Dancing.fbx
+  Sitting Clap.fbx
+  Sitting Idle.fbx
+  Sitting Laughing.fbx
+  Sitting Talking.fbx
+  Speedbag.fbx
+  Stable Sword Inward Slash.fbx
+  Stable Sword Outward Slash.fbx
+  Standing Aim Idle 01.fbx
+  Standing Death Backward 01.fbx
+  Standing Death Forward 01.fbx
+  Standing Death Left 01.fbx
+  Standing Idle To Fight Idle.fbx
+  Standing Jump Running To Run Forward (1).fbx
+  Standing Jump Running To Run Forward.fbx
+  Standing Jump Running.fbx
+  Standing Melee Punch.fbx
+  Standing React Death Backward.fbx
+  Standing Torch Jump Running.fbx
+  Start Climbing Ladder.fbx
+  Sword And Shield Death.fbx
+  Sword And Shield Slash (1).fbx
+  Sword And Shield Slash (2).fbx
+  Sword And Shield Slash.fbx
+  Talking On Phone.fbx
+  Talking Phone Pacing.fbx
+  Talking.fbx
+  Taunt Gesture.fbx
+  Terrified (1).fbx
+  Terrified.fbx
+  Treadmill Running.fbx
+  Turn To Running.fbx
+  Two Handed Sword Death.fbx
+  Unarmed Jump Running.fbx
+  Walker Walk.fbx
+  Walking Backwards.fbx
+  Waving Gesture (1).fbx
+  Waving Gesture.fbx
+  Waving.fbx
+  Zombie Crawl.fbx
+  Zombie Idle (1).fbx
+  Zombie Idle.fbx
+  Zombie Kicking (1).fbx
+  Zombie Kicking.fbx
+  Zombie Punching.fbx
+  Zombie Scream (1).fbx
+  Zombie Scream.fbx

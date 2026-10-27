@@ -1,6 +1,6 @@
 # Queue item templates
 
-**Rebuilt pipeline status: NOT yet approved by the owner.** The v2 reference scene is `queue/brain-leaking-nose/scene.py`. It uses `scripts/kit.py` (every model built in Blender) and `scripts/actor.py` (character acting). It is in PREVIEW, so the Windows PC renders full-quality stills for review. The older `scene_template.py` and `mix_template.py` are v1 and were rejected for quality.
+**Rebuilt pipeline status.** The v2 reference scene is `completed/brain-leaking-nose/scene.py` (rendered and uploaded 2026-10-27). It uses `scripts/kit.py` (every model built in Blender) and `scripts/actor.py` (character acting). The newest scene on the full v3 toolkit (kit + actor + shot) is `queue/tooth-in-eye/scene.py` (reviewed with per-shot stills 2026-10-28); read it before writing a new one. The older `scene_template.py` and `mix_template.py` are v1 and were rejected for quality.
 
 **v3 helpers (from the Zack D research in `STYLE_GUIDE.md`).** New scenes should use them instead of copying the v2 camera code:
 
@@ -25,7 +25,7 @@ Items missing `script.txt`, `scene.py` or `mix.py` are skipped and logged.
 - Invocation: `blender -b --python scene.py -- <ROOT>/blend/<slug>.blend [vo=<wav>] [beats=<json>]`. With no `vo=` or `beats=`, the narration is found from the output path in `<ROOT>/audio/`.
 - The script opens the character `.blend` itself (`blend/char_hero.blend`, or `blend/char_heroine.blend` for a female lead) and saves the scene to the given path.
 - Timing comes only from the beats JSON (`{"duration", "beats": [{"start","end","text"}]}`), so any narration take works. Never hard-code seconds.
-- Characters are animated procedurally on the `mixamorig:` bones (see `curves()` in the template). The repo has no Mixamo FBX library.
+- Characters are animated procedurally on the `mixamorig:` bones (see `curves()` in the template). A 156-clip Mixamo FBX library exists on the Windows PC only (see `animation_manifest.txt` in the repo root); it is not in git and has no validated retarget path, so treat it as optional reference, never as a dependency.
 - The frame range is `1..fr(duration)+36`. `render_anim.py` clamps to it.
 
 ## Mix contract

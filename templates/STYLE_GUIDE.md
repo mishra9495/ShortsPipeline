@@ -252,7 +252,7 @@ The channel's core reveal, rated **[M]**: it is something only 3D can show, so g
 ## 9) Narration voice, music and SFX
 
 - **Voice (owner's rule, non-negotiable):** ElevenLabs "Daniel", pauses trimmed, tempo +15%. One narrator in every short. Never Kokoro and never a child or guest voice, even though Zack occasionally uses one.
-  - **Open conflict:** commit 1c744d4 added a Kokoro `am_fenrir` fallback, and `brain-leaking-nose/narration.json` runs at 222 wpm, faster than the 188 wpm reference. `logs/daily_20261027_0029.log` shows "no ElevenLabs API key". This has to be resolved before a final render.
+  - **Resolved 2026-10-27:** with no ElevenLabs key on hand, the owner approved Kokoro `am_fenrir` as the free stand-in (CLAUDE.md, which overrides this guide). `scripts/tts.py ... auto` now re-reads at the speed that lands 182-198 wpm (tooth-in-eye: 194 wpm), so the 222 wpm problem is gone. It is not a render blocker.
 - **Zack's narrator [L]:** calm, flat, low-energy, fast and even. Little inflection, almost no pauses.
 - **Music [L]:**
   - A quiet ambient or suspense bed, or none. Soft piano for emotional pieces.

@@ -7,7 +7,7 @@ The changes from the original prompt:
 - Each queue item must also include `scene.py` and `mix.py`. Without them the nightly render skips the item.
 - The agent tests its scene against a stand-in hero before committing.
 - The agent reads the nightly render log first.
-- The prompt no longer refers to the `animation/` folder, which doesn't exist.
+- The `animation/` folder exists only on the Windows PC (156 Mixamo clips, mostly combat; see `animation_manifest.txt`). The prompt asks for procedural acting, not FBX clips.
 
 ---
 
@@ -48,7 +48,7 @@ STEP 5 — Write these files to queue/{slug}/:
 - script.txt — narration script, one sentence per line, no timestamps
 - metadata.txt — exactly matching the format of final/sneeze_short_youtube_metadata.txt (YOUTUBE SHORT METADATA, TITLE (3 options), DESCRIPTION, TAGS, UPLOAD SETTINGS, FACT CHECK with every spoken claim and its source). Every title option is 4-7 words with exactly one emoji at the end and no quotes, colons, hashtags or ellipses (scripts/upload_youtube.py checks this and uploads the first option that passes).
 - Direction follows templates/STYLE_GUIDE.md (Zack D research). Build scenes with scripts/shot.py cameras and scripts/actor.py follow/spring/timewarp/bake_gaze.
-- scene_notes.txt — for each of the 10 beats: camera, the procedural acting channels used in scene.py, key visual, lighting mood, duration (there is no animation/ folder; do not invent Mixamo filenames)
+- scene_notes.txt — for each of the 10 beats: camera, the procedural acting channels used in scene.py, key visual, lighting mood, duration (plan procedural actor.py acting; the Mixamo library in animation_manifest.txt is PC-local, mostly combat clips, and has no validated retarget, so do not build a beat around an FBX file)
 - mix_notes.txt — SFX per beat, music mood and genre, voice notes
 
 STEP 6 — Write the executable files (required, the render skips items without them):

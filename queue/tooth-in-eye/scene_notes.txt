@@ -1,70 +1,71 @@
-SCENE NOTES: tooth-in-eye  (~42 s total, 10 beats)
+SCENE NOTES: tooth-in-eye v2  (narration 30.9 s at 194 wpm, 10 beats, 17 shots, 32.1 s with the 36-frame tail)
 
-ANIMATION LIBRARY NOTE
-The repo has no animation/ folder, so `ls animation/` failed. The only retargeted Mixamo clips the
-pipeline references are in D:\ShortsPipeline\blend\anims\ (see scripts/apply_retargeted_action.py):
-  - Walking.blend   (action "Walking")
-  - FallingIdle.blend (action "FallingIdle")
-Every beat below uses one of these two, or the base rig held in a static pose ("HOLD: rest pose",
-posed by hand on the mixamorig bones). If more Mixamo FBX files get downloaded (e.g. Sitting Idle, Looking
-Around, Rubbing Eyes, Lying Down), swap them in where marked "PREFERRED IF AVAILABLE".
+STATUS (2026-10-28): v2 scene.py rebuilt on the v3 toolkit (kit.py / actor.py / shot.py) after the owner rejected v1.
+Reviewed with 18 low-res stills (one per shot) on the Windows PC and corrected; the HOLD was removed the same day.
+Do NOT add a PREVIEW or HOLD gate again and do not rewrite scene.py without a new owner rejection. v1 is kept as
+scene_v1_rejected.py for reference only.
 
-BEAT 1: "Doctors put this man's tooth inside his eye, to cure his blindness."  (~4.5 s)
-- Camera: extreme close-up on one eye, then a fast pull-back to a mid-shot of his face.
-- Character animation: HOLD rest pose with slight head turn (keyframed on mixamorig:Head).
-- Key visual: x-ray overlay over the eye showing a tooth silhouette where the cornea should be. Text pop "TOOTH 🦷 → EYE 👁️".
-- Lighting mood: dramatic, cold rim light, dark background.
+RULES THIS SCENE FOLLOWS
+- No on-screen text of any kind (no "text pops", labels, counters or calendars). Narration and colour carry meaning.
+- Characters act procedurally on the mixamorig bones via actor.py. No Mixamo FBX is used (see animation_manifest.txt
+  in the repo root: the library is an action/combat pack and retarget.py is unvalidated).
+- Every camera is a shot.py spline already moving on the cut. shake=0 everywhere (owner's rule). DOF from subject size.
+- Timing comes only from the beats JSON. SYNC fractions below are identical in mix.py:
+  PILL 0.18 of beat 2 | CLOUD 0.60 of beat 2 | EXTRACT 0.55 of beat 4 | SHAVE 0.15, DRILL 0.40, LENS 0.70 of beat 5
+  SEAT 0.70 of beat 7 | FOCUS 0.35 of beat 9 | GLINT 0.60 of beat 10
 
-BEAT 2: "At thirteen, a reaction to ibuprofen blinded him."  (~3.5 s)
-- Camera: mid-shot, slight dolly in. Younger version of the character (scale 0.85).
-- Character animation: FallingIdle (trim to the first ~1 s for a stumble/sway), then HOLD.
-- Key visual: a pill drops in, then a red rash spreads over the skin and both corneas cloud milky white. Text pop "AGE 13".
-- Lighting mood: warm, then a sharp shift to cold blue as the eyes cloud.
+CAST AND SETS
+- him = blend/char_hero.blend (Brent Chapman, patient). doc = blend/char_heroine.blend (surgeon; white coat; cap + mask in OR).
+- HOME living-room corner (x=0), CLINIC eye-clinic consulting room (x=40), OR (x=80), LAB bench with steel tray (x=120).
+- X-RAY: skull (kit.skull), cornea films, implant, cheek vessels and immune cells ride on his Head bone; scene["xray"]
+  drives the XRayShell mix on his skin.
+- The implant is accurate to OOKP: live shots show a pink mucosa graft over the eye with only the clear optical
+  cylinder protruding; the ivory tooth block is visible only in X-ray shots.
 
-BEAT 3: "Cornea transplants failed for twenty years."  (~3 s)
-- Camera: wide shot, time-lapse.
-- Character animation: Walking (slow, in place on a treadmill loop) while the character ages up.
-- Key visual: counter ticking "1… 12 transplants" plus a calendar flipping to "20 YEARS". The cornea graft turns cloudy again each time.
-- Lighting mood: cold, desaturated.
+BEAT 1  "Doctors put this man's tooth inside his eye, to cure his blindness."   (0.00-4.07 s)
+  EyeECU   0.00-1.95  HOME  85 mm push-in on his right eye, implant already in place. FRAME 1 IS THE THUMBNAIL.
+  FacePull 1.95-4.07  HOME  50 mm pull back from the eye to a mid-shot of his face, eyes on the upper third.
 
-BEAT 4: "So surgeons pulled his canine tooth, with a sliver of jawbone."  (~4 s)
-- Camera: POV from inside the mouth looking at the upper canine; cut to a cross-section of the jaw.
-- Character animation: HOLD lying pose (rotate rig 90° onto a surgical table; PREFERRED IF AVAILABLE: Mixamo "Lying Down").
-- Key visual: cross-section highlight in yellow on the canine plus a thin bone layer, which lifts out. Text pop "CANINE TOOTH".
-- Lighting mood: clinical white surgical light from above.
+BEAT 2  "At thirteen, a reaction to ibuprofen blinded him."   (4.07-7.22 s)
+  PillCU    4.07-5.52  HOME  85 mm insert on the ibuprofen bottle on the cushion by his right hand: the hand drops in
+                              from the top, tips the bottle and leaves with a pill (PILL). Hand-to-mouth happens off
+                              screen: every framing of it put the forearm or the hand itself across the lens.
+  CloudEyes 5.52-7.22  HOME  85 mm on both eyes; a red flush washes the face, both corneas cloud milky (CLOUD);
+                              the warm key light turns cold and the window spill drops.
 
-BEAT 5: "They shaved it into a tiny block and drilled in a plastic lens."  (~4.5 s)
-- Camera: macro close-up on the tooth on a tray, rotating turntable.
-- Character animation: none (prop-only shot).
-- Key visual: tooth shaved down into a rectangular block, a drill bores through, then a clear acrylic cylinder slides in with a glint. Text pop "4 mm".
-- Lighting mood: clinical, crisp specular highlights.
+BEAT 3  "Cornea transplants failed for twenty years."   (7.22-9.66 s)
+  ClinicOrbit 7.22-8.44  CLINIC 40 mm profile two-shot orbit from his right; the surgeon leans in with a penlight.
+  GraftECU    8.44-9.66  CLINIC 100 mm on the right eye; the graft clears and clouds again three times.
 
-BEAT 6: "Then they sewed it into his cheek for months to grow blood vessels."  (~4.5 s)
-- Camera: close-up of the face at 3/4 angle with an x-ray overlay on the cheek.
-- Character animation: HOLD rest pose, small idle breathing (scale the spine bone by about 1%).
-- Key visual: the tooth-lens block glows under the cheek skin while red vessels branch into it. Calendar text pop "~3 MONTHS".
-- Lighting mood: warm, soft.
+BEAT 4  "So surgeons pulled his canine tooth, with a sliver of jawbone."   (9.66-13.37 s)
+  ORWide 9.66-10.85  OR    32 mm wide: he lies face-up, surgeon at his head with forceps; plunge toward the mouth.
+  XJaw   10.85-13.37 X-RAY 50 mm arriving from the plunge: skull, upper-right canine ringed in amber, then the
+                           canine and a bone sliver lift down and out (EXTRACT).
 
-BEAT 7: "Finally, it went into his eye."  (~2.5 s)
-- Camera: snap zoom from cheek to eye.
-- Character animation: HOLD lying pose (surgery table).
-- Key visual: the block slides out of the cheek, the cloudy cornea surface peels away, the block seats into the eye, then quick stitches.
-- Lighting mood: dramatic, high contrast.
+BEAT 5  "They shaved it into a tiny block and drilled in a plastic lens."   (13.37-16.96 s)
+  TrayMacro 13.37-15.34  LAB 100 mm low orbit on the tray: whole canine becomes the block with scattered shavings
+                             (SHAVE); a slim handpiece descends and bores the hole (DRILL).
+  LensMacro 15.34-16.96  LAB 120 mm: the acrylic cylinder slides in from behind and seats with a small glint (LENS).
 
-BEAT 8: "His body is less likely to reject his own tooth."  (~3.5 s)
-- Camera: internal "body view" wide shot.
-- Character animation: none (internal cutaway).
-- Key visual: immune cells (green blobs) approach the tooth, sniff it, and turn away. Text pop "SELF ✔".
-- Lighting mood: warm, glowing bioluminescent.
+BEAT 6  "Then they sewed it into his cheek for months to grow blood vessels."   (16.96-20.41 s)
+  CheekX      16.96-18.86  X-RAY 60 mm 3/4 face: the block glows under the cheek skin.
+  VesselMacro 18.86-20.41  X-RAY 100 mm orbit: seven red vessels grow into the block (bevel_factor_end).
 
-BEAT 9: "And it worked. He made eye contact with his surgeon."  (~4.5 s)
-- Camera: POV through the lens: a blurry then sharp image of the surgeon's face. Cut to an over-the-shoulder two-shot.
-- Character animation: HOLD rest pose with a head lift toward the surgeon. Surgeon character uses Walking (2-3 steps in, then stop).
-- Key visual: a vignette circle that matches the small lens field of view. The world snaps into focus.
-- Lighting mood: warm golden, emotional.
+BEAT 7  "Finally, it went into his eye."   (20.41-22.09 s)
+  EyeSeat 20.41-22.09  X-RAY 85 mm: the block travels cheek to eye on an arc; the cloudy cornea film peels away as
+                             the block seats (SEAT). One shot: the beat is only 1.7 s.
 
-BEAT 10: "Turns out, your teeth are a backup plan for your eyes."  (~4 s)
-- Camera: close-up face to camera, then pull back to a mid-shot. The character wears sunglasses (he has glare issues).
-- Character animation: Walking (out of the hospital toward camera).
-- Key visual: the character smiles, then glints a canine; text pop "🦷 = 👁️ BACKUP".
-- Lighting mood: bright daylight, warm.
+BEAT 8  "His body is less likely to reject his own tooth."   (22.09-25.11 s)
+  Immune 22.09-25.11  X-RAY 60 mm orbit around the eye: green immune cells approach the implant, hover, turn away.
+
+BEAT 9  "And it worked. He made eye contact with his surgeon."   (25.11-28.00 s)
+  POVFocus 25.11-26.70  CLINIC 35 mm from inside his right eye through a real black tube (the lens's small round
+                              field of view); the surgeon's face snaps from f/0.5 blur to sharp (FOCUS).
+  TwoShot  26.70-28.00  CLINIC 55 mm over her shoulder: he lifts his head and meets her eyes; she smiles.
+
+BEAT 10 "Turns out, your teeth are a backup plan for your eyes."   (28.00-32.1 s incl. tail)
+  Closer 28.00-end  HOME  65 mm matching push-in from mid-shot to the implanted eye (echoes frame 1 for the loop);
+                          he smiles, the upper lip lifts and a canine glints (GLINT).
+
+LIFE SIGNALS: blink every ~3.1 s (none during the clouding beat), breathing on Spine/Spine1/Spine2, wobble idle on
+Hips/Neck/Head, eyes track the pill, the penlight and the surgeon (actor.bake_gaze with saccades).

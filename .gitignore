@@ -8,3 +8,6 @@ audio/vo_sneeze_daniel_raw.wav
 audio/vo_sneeze_daniel_v*.wav
 
 secrets/
+
+# Mixamo FBX library: 90 MB of PC-local binaries; animation_manifest.txt lists them for the cloud agent
+animation/

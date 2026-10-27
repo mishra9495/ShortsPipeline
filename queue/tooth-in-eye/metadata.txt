@@ -1,5 +1,5 @@
 YOUTUBE SHORT METADATA: "Tooth In His Eye"
-Video file: tooth-in-eye.mp4 (1080x1920, 30 fps, ~42 s)
+Video file: tooth-in-eye.mp4 (1080x1920, 30 fps, ~32 s incl. tail; narration 30.9 s at 194 wpm)
 Narration: TTS per daily pipeline (scripts/tts.py), pauses trimmed, word-for-word verified against script.txt.
 
 TITLE (pick one; first is recommended)

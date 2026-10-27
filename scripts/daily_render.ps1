@@ -15,6 +15,7 @@ $GIT     = "C:\Program Files\Git\cmd\git.exe"
 $BLENDER = "C:\Program Files\Blender Foundation\Blender 5.2\blender.exe"
 $PYTHON  = "C:\Users\ANKIT MISHRA\AppData\Local\Programs\Python\Python311\python.exe"
 $ROOT    = "D:\ShortsPipeline"
+$TTSPY   = "$ROOT\tools\tts-venv\Scripts\python.exe"   # kokoro_onnx + the 310 MB model live only in this venv
 $WINGET_FF = "C:\Users\ANKIT MISHRA\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-9.0.2-full_build\bin"
 $LOGNAME = "daily_$(Get-Date -Format 'yyyyMMdd_HHmm').log"
 $LOG     = "$ROOT\logs\$LOGNAME"
@@ -128,7 +129,8 @@ function Prepare-Item($slug) {
         # Owner approved a free voice when ElevenLabs is unavailable (2026-10-27): Kokoro am_fenrir is the closest
         # free match to Daniel's pitch and timbre.
         Log "[$slug] Narration: free Kokoro am_fenrir voice (no ElevenLabs key)"
-        & $PYTHON "$ROOT\scripts\tts.py" $script_txt $prefix am_fenrir auto 2>&1 | ForEach-Object { Log "$_" }
+        if (-not (Test-Path $TTSPY)) { Log "[$slug] ERROR: tts-venv missing at $TTSPY (kokoro_onnx lives only there)"; return $null }
+        & $TTSPY "$ROOT\scripts\tts.py" $script_txt $prefix am_fenrir auto 2>&1 | ForEach-Object { Log "$_" }
     }
     if (-not (Test-Path $it.vo) -or -not (Test-Path $it.beats)) {
         Log "[$slug] ERROR: narration failed (see the lines above)."

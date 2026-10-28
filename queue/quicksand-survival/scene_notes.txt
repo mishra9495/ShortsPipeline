@@ -1,0 +1,39 @@
+quicksand-survival — scene direction (v3 toolkit: kit.py + actor.py + shot.py, one Actor, two sets)
+
+Cast: him = blend/char_hero.blend (opened as the main file). No second character (the friend holding the rope is off-screen).
+Sets: BEACH — a tidal sand flat at golden hour; a wet, glossy quicksand pit with a churned lip of sand around his
+   waist, ripple rings pushed out by his struggling, his footprints leading in, rocks and driftwood, the sea behind
+   him (+Y) with a tide sheet and foam edge. XRAY — a void cross-section 60 m below the beach: his lower leg and
+   foot as a blue X-ray skin shell over glowing bones, inside a slab of magnified sand grains in three rings that
+   clamp and loosen around the foot. Set changes are hard cuts with a whoosh and an exposure spike.
+Frame 1 (thumbnail): medium, low angle: him waist-deep in the glistening pit, arms flailing, mouth open in panic.
+
+Beat 1 — HOOK "Quicksand can't swallow you, but it can still kill you."
+  PanicMed (40mm, push-in, already moving) then PanicOrbit (55mm, 18deg orbit onto his face). Flailing arms,
+  head whipping, wide eyes, ripple rings spreading. Golden-hour sun from front-left, cool fill, warm rim. ~1.7 s + 1.4 s.
+Beat 2 — "Movies lied: you only sink to about your waist."
+  BeachWide (28mm, push) shows the whole flat and the sea; he sinks from hip to waist, bobs, and stops dead.
+  WaistCU (60mm, low orbit around the sand lip at his waist) as the sinking stops. Panic eases. ~1.5 s + 1.3 s.
+Beat 3 — "Quicksand is twice as dense as your body, so you float."
+  XrayLeg (35mm, descending dolly "into the sand" onto the leg, ease out). The leg drifts UP a little (buoyancy).
+  Dark sand-brown void, blue X-ray skin, ivory bones. ~2.8 s.
+Beat 4 — "The real trap is getting your legs back out."
+  XrayFoot (45mm, slow orbit). The grain rings clamp in around the foot. ~2.5 s.
+Beat 5 — MONEY MOMENT "Yanking one foot free takes the force of lifting a car."
+  YankBuild (50mm push) then YankSlomo (timewarp about 0.4x): the leg heaves up, the grains slam shut around the
+  foot, a white suction flash and a camera kick on the lock, the leg shudders and drops back. ~0.9 s + 2.0 s.
+Beat 6 — "So if friends pull hard, they could tear you apart."
+  RopeLow (28mm, low angle up at his hands on a taut rope rising out of frame) then RopeFace (75mm CU: strain,
+  squint, pressed lips). The rope snaps taut three times; each jerk kicks the camera and yanks him up a little. ~1.4 s x2.
+Beat 7 — "Instead, slowly wiggle your legs in little circles."
+  XrayCircles (42mm orbit): the leg traces small slow circles; the grains jiggle in time. ~2.5 s.
+Beat 8 — "That lets water seep in and loosens the sand's grip."
+  XrayWater (50mm orbit pushing in): glowing blue droplets trickle down beside the leg, a cyan water halo builds
+  around the foot, the grain rings spread apart and the leg floats up. ~2.8 s.
+Beat 9 — "Lean back, spread out, and float your legs free."
+  LeanBack (32mm, high top-down push): he leans back with arms spread flat on the sand; his body rises a few cm. Calm face. ~2.6 s.
+Beat 10 — CLOSER "Don't dawdle: near the sea, the rising tide is the real killer."
+  TideWide (30mm, from behind-left): the tide sheet and foam edge creep across the flat toward him; he turns his
+  head to look back at it. CloserPush (40mm) echoes frame 1's framing: panic returns. Loops to the thumbnail. ~1.6 s x2.
+
+Shots: 15 (1.3-2.9 s), every shot moving. One slow-motion beat (5). No captions or on-screen text.

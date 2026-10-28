@@ -1,0 +1,48 @@
+YOUTUBE SHORT METADATA: "Quicksand Survival"
+Video file: quicksand-survival.mp4 (1080x1920, 30 fps, ~32 s incl. tail; narration ~31 s at 190 wpm)
+Narration: queue narration.wav / Kokoro am_fenrir per daily_render.ps1's fallback chain (owner-approved 2026-10-27), pauses trimmed, word-for-word verified against script.txt.
+
+TITLE (pick one; first is recommended)
+1. How To Actually Survive Quicksand 😱
+2. Quicksand Cannot Swallow You Whole 😳
+3. Never Let Friends Pull You Out 😬
+
+DESCRIPTION
+Movies got quicksand wrong. In 2005, physicist Daniel Bonn's team (University of Amsterdam) published a study in Nature showing that quicksand is about twice as dense as the human body (roughly 2 g/mL vs 1 g/mL). That means you float: a person sinks only to about the waist and no further.
+
+The real danger is getting stuck. Once the sand settles around your legs it packs tight, and the researchers estimated that pulling a foot out at just 1 cm per second takes about the same force as lifting a medium-size car. Bonn warned that friends yanking hard on you could do serious damage.
+
+The escape: wiggle your legs slowly in small circles so water seeps into the gap and loosens the sand, then lean back and spread out so your body's buoyancy floats your legs up. Be patient, but don't wait around near the coast: quicksand is mostly found near the sea, and the incoming tide is what can actually drown you.
+
+Source: Khaldoun, Eiser, Wegdam & Bonn, "Liquefaction of quicksand under stress", Nature 437, 635 (2005). Covered by National Geographic and Nature News.
+https://www.nature.com/news/2005/050926/full/news050926-9.html
+https://www.nationalgeographic.com/science/article/quicksand-science-why-it-traps-how-to-escape/
+https://www.livescience.com/9373-quicksand-myth-debunked-float-free.html
+
+This is a 3D animated dramatization made for education and entertainment. It is not survival or medical advice.
+
+#shorts #quicksand #survival #howtosurvive #science #didyouknow #3danimation
+
+TAGS (comma-separated, paste into the Tags field)
+quicksand, how to survive quicksand, escape quicksand, quicksand science, can quicksand kill you, survival tips, how to survive, quicksand myth, physics facts, science facts, did you know, 3d animation, animated explainer, science shorts, survival shorts
+
+UPLOAD SETTINGS
+- Category: Education
+- Audience: Not made for kids
+- Altered or synthetic content: the narration is AI text-to-speech and the scene is a 3D dramatization. Recommended answer: "Yes". The animation is clearly stylized, but it realistically depicts a person in danger, so disclosure is the safe choice.
+- Language: English
+- Comments: On
+- Suggested pinned comment: "Did movies convince you quicksand swallows people whole? 👀"
+
+FACT CHECK (every claim in the narration, with its source)
+- Quicksand can't swallow you (you can't be drawn fully under): Khaldoun et al., Nature 2005 abstract ("a human cannot be drawn fully under"); National Geographic ✔
+- "It can still kill you": Bonn, via National Geographic: quicksand is generally found near the sea, and "when the high tide comes in, you could drown" ✔
+- You only sink to about your waist: Bonn, via National Geographic ("You would descend about up to your waist, but you'd go no further") ✔
+- Quicksand is twice as dense as your body, so you float: ~2 g/mL vs ~1 g/mL, National Geographic / Live Science ✔
+- The real trap is getting your legs out: Nature 2005 / National Geographic (sand packs tight around the trapped limb) ✔
+- Pulling a foot free takes the force of lifting a car: the authors' estimate for pulling a foot out at 1 cm/s ("the equivalent of that required to lift a medium-size car"), National Geographic ✔ (the 1 cm/s speed is not spoken)
+- Friends pulling hard could tear you apart: Bonn, via National Geographic ("could pull you into two pieces if they try hard to pull you out") ✔ (dramatized quote)
+- Wiggle your legs slowly to let water in and loosen the sand: Bonn, via National Geographic and Live Science ✔
+- Lean back and spread out to float free: Live Science's escape advice (lie back to increase surface area and let the legs come up) ✔
+- Near the sea the rising tide is the real killer: Bonn, via National Geographic ✔
+- Artistic license: the X-ray shots show sand grains hugely magnified (real grains are fractions of a millimetre) and the seeping water as glowing droplets; the tide reaching him in the last shot is a warning, not part of a specific real event.

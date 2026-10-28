@@ -1,0 +1,19 @@
+quicksand-survival — sound direction (mix.py synthesizes everything with numpy; cues are relative to beat times)
+
+Voice: Kokoro am_fenrir via the daily_render.ps1 fallback chain (ElevenLabs "Daniel" if a key/mp3 appears), pauses trimmed, about 190 wpm. Light compression, -3 dB under the music bus ducking.
+Music: dark synth drone (A1/E2) with a fast kick-pulse (110 -> 100 bpm) through beats 1-6; a warm A-major pad takes
+   over for the escape (beats 7-9); the drone and a faster pulse (120 bpm) return for the tide warning; ends on a low,
+   unresolved D note + sub boom. Near-silence dips just before the yank lock and before beat 10.
+Ambience: low surf swells and distant gulls on every beach shot; muted in the X-ray shots.
+
+Beat 1: thick sucking slurp, a panicked gasp, wet squelch as he flails.
+Beat 2: long slow slurp as he sinks, a soft low thud when he stops at the waist.
+Beat 3: whoosh into the X-ray, a soft buoyant low swell.
+Beat 4: dense granular grinding as the grains pack around the foot.
+Beat 5 (money moment): grinding build, whoosh, then at the lock a huge low-passed suction, sub boom (38 Hz) and crackle.
+Beat 6: reverse whoosh out; on each rope jerk a taut rope twang (thump + creak + fibre snap) and a strained grunt.
+Beat 7: whoosh in; a gentle squelch on every slow circle (0.75 Hz).
+Beat 8: bubbly water trickle with little blips, grains loosening.
+Beat 9: reverse whoosh out, relieved exhale, a soft release slurp.
+Beat 10: a wave washes in across the flat (rising roar then fizz), a rising sting, the pulse returns, a low final note.
+Loudness: -14 LUFS integrated, -1 dBTP (ffmpeg loudnorm at mux time).

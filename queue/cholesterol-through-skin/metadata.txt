@@ -1,0 +1,44 @@
+YOUTUBE SHORT METADATA: "Cholesterol Through Skin"
+Video file: cholesterol-through-skin.mp4 (1080x1920, 30 fps, ~32 s incl. tail; narration ~31 s at 190 wpm)
+Narration: queue narration.wav / Kokoro am_fenrir per daily_render.ps1's fallback chain (owner-approved 2026-10-27), pauses trimmed, word-for-word verified against script.txt.
+
+TITLE (pick one; first is recommended)
+1. His Cholesterol Leaked Through His Skin 😳
+2. The Carnivore Diet That Backfired Badly 😨
+3. Too Much Cheese Nearly Wrecked His Arteries 😱
+
+DESCRIPTION
+A man in his 40s spent about eight months on a strict carnivore diet, by his own account eating large daily amounts of cheese, butter and fatty beef. He said he felt great: more energy, a clearer head, and weight loss. Then painless yellow nodules appeared on his palms, soles and elbows. Blood tests found his total cholesterol had shot past 1000 mg/dL, roughly five times the healthy threshold of under 200 mg/dL. Doctors diagnosed cutaneous xanthoma: visible deposits of lipid-laden cells pushed into the skin because his blood was carrying far more fat than his body could clear.
+
+Extremely high cholesterol like this is strongly linked to accelerated plaque buildup in the arteries (atherosclerosis), the process behind most heart attacks and strokes. The case was published in JAMA Cardiology in January 2025 (correction issued August 2025 clarifying the diagnosis as xanthoma, not xanthelasma).
+
+Source: JAMA Cardiology case report, Jan 2025 (AMA Ed Hub CME summary). Covered by Gray Media local-news affiliates (13abc, WCAX, WAFB and others) and Gigazine.
+https://edhub.ama-assn.org/jn-learning/module/2828915
+https://www.13abc.com/2025/02/06/man-develops-yellow-nodules-skin-after-eating-6-9-pounds-cheese-butter-every-day/
+https://gigazine.net/gsc_news/en/20250123-butter-cheese-beef-cholesterol-body
+
+This is a 3D animated dramatization made for education and entertainment. It is not medical advice.
+
+#shorts #cholesterol #carnivorediet #medicalfacts #humanbody #didyouknow #3danimation
+
+TAGS (comma-separated, paste into the Tags field)
+carnivore diet cholesterol, high cholesterol skin, xanthoma, cholesterol 1000, carnivore diet side effects, yellow skin bumps, cholesterol facts, medical facts, crazy medical cases, human body facts, 3d animation, animated explainer, atherosclerosis, science shorts, didyouknow
+
+UPLOAD SETTINGS
+- Category: Education
+- Audience: Not made for kids
+- Altered or synthetic content: the narration is AI text-to-speech and the scene is a 3D dramatization of a real case. Recommended answer: "Yes". The animation is clearly stylized, but it realistically depicts a real medical case, so disclosure is the safe choice.
+- Language: English
+- Comments: On
+- Suggested pinned comment: "Would you try the carnivore diet? 👀 (Maybe get a lipid panel first.)"
+
+FACT CHECK (every claim in the narration, with its source)
+- Man in his 40s, carnivore diet for about 8 months: JAMA Cardiology case report via AMA Ed Hub CME summary ✔
+- Large daily quantities of cheese and butter (reported as roughly 6-9 lb / day across multiple wire-syndicated outlets, e.g. 13abc, WCAX, WAFB, WDBJ7, WKYT): Gray Media local-news coverage of the case ✔ (reported patient-stated intake, not independently measured)
+- He reported feeling better: more energy, weight loss, clearer thinking: AMA Ed Hub CME summary ✔
+- Painless yellow nodules on palms, soles, and elbows, ~3-week history at presentation: JAMA Cardiology case report ✔
+- Total cholesterol exceeded 1000 mg/dL: JAMA Cardiology case report ✔
+- "Nearly five times what doctors call healthy": standard desirable total cholesterol is under 200 mg/dL (AHA/NIH guidance); 1000 mg/dL is about 5x that threshold ✔
+- Diagnosis is cutaneous xanthoma (lipid deposits in the skin): JAMA Cardiology case report; a correction published Aug 6, 2025 fixed an earlier "xanthelasma" mislabel to "xanthoma" ✔
+- Artistic license: the narration and visuals describe the fat as "leaking through his skin" and being "pushed straight out of his blood" for dramatic, visual storytelling. Clinically, xanthomas form as lipid-laden macrophages (foam cells) accumulate in the dermis from circulating lipoproteins over time; it is not a literal leak or eruption.
+- "His arteries were quietly in danger" is a reasonable inference from the well-established medical link between extreme hypercholesterolemia and accelerated atherosclerosis, not a specific finding reported for this patient's arteries at the time of the case report.

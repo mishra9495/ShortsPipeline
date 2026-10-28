@@ -1,0 +1,83 @@
+cholesterol-through-skin — scene direction (v3 toolkit: kit.py + actor.py + shot.py, one Actor, one set)
+
+Cast: him = blend/char_hero.blend (opened as the main file). No second character needed.
+Set: ONE location, "Home" — a small dining nook (kit.room + an inline dining table/chair), built once.
+   An "Anatomy" prop group (vessel + plaque + crystal) sits coincident with his right palm in world
+   space (same point, macro scale), hidden by hide_render except during beats 6-8. The camera's
+   plunge_in/plunge_out moves use that shared world point so the "fly into the skin" cut reads as
+   continuous even though it is a hard cut between two Blender collections.
+Frame 1 (thumbnail): his right palm, already resting up on the table, 3-4 small yellow nodules
+   clearly lit and in focus — the whole premise visible before a word is spoken.
+
+Beat 1 (0.0-B1) — HOOK. "This man ate so much cheese, cholesterol started leaking through his skin."
+  Camera: PalmHookECU, 85mm macro, slow push-in on his right palm (already in motion at frame 1).
+  Character: right hand resting palm-up on the table edge, fingers relaxed and open (not curled) so
+    the nodules read clearly; idle breathing/sway only.
+  Visual: 3-4 pale-yellow waxy nodule clusters (xanthoma) on the palm, subtle sheen.
+  Shots: 1 (PalmHookECU, ~2.2s), then a quick 10-15deg orbit tightening the push (PalmHookOrbit, ~1.3s).
+
+Beat 2 (B1-B2) — "He was eight months into an all-meat carnivore diet."
+  Camera: KitchenWide, 35mm, slow push/orbit, establishes him seated at the dining table.
+  Character: seated, relaxed posture, left hand reaches for the cheese wheel.
+  Props in frame: cheese wheel, butter stick on a dish, a plate with a raw-looking steak, fork+knife.
+  Shots: 1 (KitchenWide, ~2.6s).
+
+Beat 3 — "Up to nine pounds of cheese and butter, every day."
+  Camera: FoodInsertCU, 60mm, push-in insert on the food pile (no character in frame).
+  Visual: the cheese wedge, butter stick with a bite/scoop missing, steak — "hero props" detail.
+  Shots: 1 (FoodInsertCU, ~2.6s).
+
+Beat 4 — "He said he'd never felt better: more energy, less weight."
+  Camera: FaceMedium, 50mm, slow orbit, face on the upper-third line.
+  Character: left hand brings a piece of food to his mouth (bite cycle), content restrained smile
+    (mouthSmileLeft/Right, cheekSquint), slight head tilt up ("feeling good").
+  Shots: 1 (FaceMedium, ~2.9s).
+
+Beat 5 — "Then yellow lumps appeared on his palms, soles, and elbows."
+  Camera: PalmShockECU, 85mm, push-in, returns to the SAME right palm as frame 1.
+  Character: head turns and tilts down toward his own hand, brows up (browInnerUp), small jawOpen —
+    a beat of surprise at something he is noticing for the first time (he "touches" it with his
+    gaze, not his hand, so the palm framing stays clean). Eating motion pauses.
+  Shots: 1 (PalmShockECU, ~2.6s).
+
+Beat 6 — "Doctors ran his blood work and were stunned."
+  Camera: VialInsert, 85mm, neutral dark tabletop (no new room — Zack D "object explainer" style),
+    push-in as a gloved hand (forearm only, in frame edge) lifts a blood-draw vial into the light.
+  Visual: the vial's blood has visibly separated — a thick, pale creamy-yellow layer floating on
+    top of the dark red serum (lipemic blood: the real, true visual sign of extreme hypercholesterolemia;
+    no on-screen numbers/text, the visual itself carries the shock).
+  Shots: 1 (VialInsert, ~2.6s).
+
+Beat 7 — "His cholesterol had shot past one thousand milligrams per deciliter." REVEAL BEGINS.
+  Camera: PlungeIn, 100mm macro orbit, hard cut from the vial insert (whoosh SFX + a brief exposure
+    spike sell the "zoom into the bloodstream" jump — no literal camera plunge_in/out between the two
+    sets, since they are not spatially coincident). Arrives on a glowing, translucent arteriole
+    (edge_glow wall material) with bright red flowing "blood" inside.
+  Visual: yellow plaque blobs along the inner vessel wall grow in number/size continuously from this
+    beat into the next (bake scale 0->1, staggered starts) — the core "process" transformation.
+  Shots: 1 (PlungeIn/VesselMacro, ~2.6s).
+
+Beat 8 — "That's nearly five times what doctors call healthy."
+  Camera: PlaqueOrbit, 100mm, orbit continues around the vessel; plaque is now thick, narrowing the
+    glowing red "blood flow" core to a thin strand against the yellow-crusted wall.
+  Shots: 1 (PlaqueOrbit, ~2.6s).
+
+Beat 9 — "Those yellow bumps were pure fat, pushed straight out of his blood." MONEY MOMENT (slow-mo).
+  Camera: EruptBuildCU, 100mm, fast push onto the single largest plaque mass as it swells (~0.9s),
+    then EruptSlomo, same lens, holds as that mass breaks through the translucent vessel wall and
+    bulges outward (shape-key / scale pop with a bright flash + whoosh), timewarped to about 0.35x
+    for ~1.1s of screen time — the one slow-motion beat in the short. Cut (hard cut, not continuous)
+    back to Home immediately after.
+  Shots: 2 (EruptBuildCU ~0.9s, EruptSlomo ~2.0s).
+
+Beat 10 — "He felt incredible. His arteries were quietly in danger." CLOSER (loops to frame 1).
+  Camera: CloserPull, 85mm, hard cut back from the eruption to the SAME right palm (echoing frame
+    1's framing almost exactly), then a slow pull-back revealing him in the soft background, still
+    eating, relaxed and smiling, nodules now reading plainly on his palm.
+  Shots: 1 (CloserPull, ~3.0s) + hold through the +36 frame tail.
+
+Total: 12 shots, 1.9-3.0 s each, mean ~2.6 s — inside the 12-20 shot / 1.5-3 s Zack D target.
+Lighting: warm daylight interior (key ~320W warm area light, soft fill) for Home; the Anatomy void
+  uses near-black world strength ~0.03, a blood-red ambient tint, strong rim + emissive glow on the
+  vessel/plaque, matching STYLE_GUIDE section 5.
+No on-screen text anywhere. No captions. Daniel/Kokoro narration only.

@@ -1,0 +1,33 @@
+cholesterol-through-skin — sound design direction (numpy + soundfile, matches mix_template.py style)
+
+Voice: queue narration.wav / Kokoro am_fenrir per daily_render.ps1's fallback chain. One narrator.
+Music: quiet, slightly ominous synth/drone bed under beats 1-6 (curiosity + unease, not horror),
+  warming into a brighter major pad from beat 9 (the closer) — mirrors brain-leaking-nose's
+  dark-to-resolve arc but inverted irony: the "resolve" chord lands UNDER a line that is actually
+  a warning ("arteries were quietly in danger"), so keep it warm/pleasant, not triumphant.
+  -18 dB under the voice, -12 dB in gaps. Dip to near-silence ~0.3-0.5s before the vial reveal
+  (beat 6) and again right before the eruption (beat 9), per the "hard dip before reveal" rule.
+
+Per-beat SFX (cue every effect from beat times + fractions, same at(i, frac) pattern as scene.py;
+keep the fraction constants literally in sync with scene.py's SYNC block):
+1. Hook (palm ECU): a soft, wet "squelch" under the push-in (something unpleasant, already there);
+   low sub-hum under the whole hook.
+2. Kitchen wide: ambient room tone, a soft knife/scrape as he cuts cheese, a chair creak.
+3. Food insert: a louder cheese-cut "thwack", a soft butter-knife scrape, meat squelch on the steak.
+4. Face medium (feels great): a contented exhale/hum (non-verbal), a soft chew/swallow foley.
+5. Palm shock: a sharp little "huh" breath-catch cue (foley, not VO), a soft low sting (rising tone)
+   starting ~0.1s before the line ends, same `sting()` synth style as brain-leaking-nose's mix.py.
+6. Vial insert: glass clink as the vial lifts, a soft pour/gurgle for the separating layers, a low
+   uneasy drone swell.
+7. Plunge into vessel (reveal begins): whoosh in (rising), then a steady, slightly sped-up heartbeat
+   under the vessel orbit (bpm ~95, tenser than resting).
+8. Plaque orbit: continuing heartbeat (bpm creeping to ~105), a low crackly "building pressure" rumble.
+9. MONEY MOMENT (eruption, slow-mo): whoosh build into a wet pop/burst transient at the exact erupt
+   frame, time-stretched slightly to match the slow-mo visual, then a sub-boom; heartbeat cuts out
+   for the slomo window itself (silence sells slow motion) and resumes right after.
+10. Closer: heartbeat settles back to resting (bpm 70), a warm major chime/pluck resolve under
+   "he felt incredible", then a single low uneasy drone note lands under "quietly in danger" —
+   the music should NOT resolve fully; leave a small dissonant tail into the +36 frame hold.
+
+Master: -14 LUFS integrated, -1 dBTP (ffmpeg loudnorm at mux, as in every other queue item).
+No spoken call to action; pinned-comment prompt only (see metadata.txt).

@@ -2,7 +2,7 @@
 through his skin" (JAMA Cardiology case report, Jan 2025 -- carnivore-diet xanthoma, cholesterol > 1000 mg/dL).
 
 Run (daily_render.ps1): blender -b --python scene.py -- <ROOT>/blend/<slug>.blend vo=<wav> beats=<json> fps=30
-Optional: stills=1,200 pct=100 samples=64 device=gpu|cpu root=<ROOT>
+Optional: stills=1,200 pct=100 samples=128 device=gpu|cpu root=<ROOT>
 
 v3 toolkit: every model is built in Blender from code (scripts/kit.py), the character acts
 procedurally on the mixamorig bones (scripts/actor.py) and every camera is a moving spline that is
@@ -38,7 +38,7 @@ SCRIPTS = os.path.join(ROOT, "scripts")
 AUDIO = os.path.join(ROOT, "audio")
 FPS = int(opts.get("fps", 30))
 PCT = int(opts.get("pct", 100))
-SAMPLES = int(opts.get("samples", 64))
+SAMPLES = int(opts.get("samples", 128))       # final quality: 2x the usual, tighter noise threshold below
 DEVICE = opts.get("device", "gpu").lower()
 STILLS = [int(f) for f in opts["stills"].split(",")] if opts.get("stills") else []
 BEATS_JSON = opts.get("beats") or os.path.join(AUDIO, f"{SLUG}_vo.json")
@@ -101,6 +101,7 @@ ACT_A, ACT_B = SLO_A, SLO_A + (SLO_B - SLO_A) * 0.4
 print("TIMELINE", [round(b, 2) for b in B], "END", END, "ERUPT", round(ERUPT, 2))
 
 S.setup_render(scene, fps=FPS, end=END, pct=PCT, samples=SAMPLES, device=DEVICE)
+scene.cycles.adaptive_threshold = 0.015 if SAMPLES >= 96 else 0.03   # cleaner skin, glass and dark X-ray gradients
 
 
 def bake(idb, path, values, index=None, interp="LINEAR"):

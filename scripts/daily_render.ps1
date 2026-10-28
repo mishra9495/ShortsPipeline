@@ -6,6 +6,8 @@
 #               PREVIEW (comma separated; empty = 12 evenly spaced). Stills, the voice and the log are pushed to
 #               previews/<slug>/ for review. Delete PREVIEW (after review) to allow the full render.
 #   (none)   -> full render of the oldest such item: narration, scene, frames, mix, MP4, upload (PUBLIC).
+#               After a successful video the run starts the next ready item by itself, up to 2 per night
+#               (env SHORTS_MAX_PER_NIGHT overrides), so the owner never has to start a render by hand.
 #
 # Owner's standing rules: NEVER captions/subtitles. Voice: queue narration.wav > narration.mp3 (ElevenLabs website)
 #   > ElevenLabs API key > free Kokoro am_fenrir (owner approved the free voice on 2026-10-27).
@@ -41,9 +43,8 @@ function Stash-LocalEdits {
     }
 }
 
-# Push this run's log (plus any preview files) to GitHub, then exit. Called on every exit path.
-function Finish([int]$code, [string]$summary) {
-    Log "=== $summary (exit $code) ==="
+# Push this run's log (plus any preview files and the Completed commit) to GitHub.
+function Push-Log([string]$summary) {
     Set-Location $ROOT
     & $GIT add "logs/$LOGNAME" 2>&1 | Out-Null
     foreach ($p in $script:EXTRA_ADD) { & $GIT add -A $p 2>&1 | Out-Null }
@@ -52,6 +53,12 @@ function Finish([int]$code, [string]$summary) {
     Stash-LocalEdits
     & $GIT pull --no-edit --no-rebase origin main 2>&1 | Out-Null
     & $GIT push origin main 2>&1 | Out-Null
+}
+
+# Push the log, then exit. Called on every exit path.
+function Finish([int]$code, [string]$summary) {
+    Log "=== $summary (exit $code) ==="
+    Push-Log $summary
     exit $code
 }
 
@@ -271,4 +278,21 @@ if (Test-Path $credsFile) {
     Log "YouTube credentials not found - skipping upload. Run scripts\youtube_auth.py once to enable."
 }
 
+# 10. Another finished item waiting? Render it now in a fresh run (it pulls first and picks the oldest again).
+$doneTonight = 1
+if ($env:SHORTS_DONE_TONIGHT) { $doneTonight = [int]$env:SHORTS_DONE_TONIGHT + 1 }
+$maxTonight = 2
+if ($env:SHORTS_MAX_PER_NIGHT) { $maxTonight = [int]$env:SHORTS_MAX_PER_NIGHT }
+$next = @(Get-ChildItem "$ROOT\queue" -Directory -ErrorAction SilentlyContinue | Where-Object {
+    -not (Test-Path "$($_.FullName)\HOLD") -and -not (Test-Path "$($_.FullName)\PREVIEW") -and
+    (Test-Path "$($_.FullName)\script.txt") -and (Test-Path "$($_.FullName)\scene.py") -and (Test-Path "$($_.FullName)\mix.py") })
+if (($next.Count -gt 0) -and ($doneTonight -lt $maxTonight)) {
+    Log "=== Done: $slug -> $titleDir\$videoTitle.mp4 ==="
+    Log "Next ready: $(($next | ForEach-Object { $_.Name }) -join ', ') - starting video $($doneTonight + 1) of $maxTonight tonight"
+    Push-Log "Done: $slug -> $titleDir\$videoTitle.mp4"
+    $env:SHORTS_DONE_TONIGHT = "$doneTonight"
+    $env:SHORTS_REEXEC = $null
+    & powershell -NoProfile -ExecutionPolicy Bypass -File $PSCommandPath
+    exit $LASTEXITCODE
+}
 Finish 0 "Done: $slug -> $titleDir\$videoTitle.mp4"

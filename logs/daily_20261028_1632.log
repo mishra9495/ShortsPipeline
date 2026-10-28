@@ -1,0 +1,36 @@
+16:32:32  === Daily pipeline start ===
+16:32:32  Sleep blocked while the pipeline runs
+16:32:34  From https://github.com/mishra9495/ShortsPipeline
+16:32:34   * branch            main       -> FETCH_HEAD
+16:32:34     63e4633..feb7f5d  main       -> origin/main
+16:32:34  Updating 63e4633..feb7f5d
+16:32:34  Fast-forward
+16:32:34   queue/cholesterol-through-skin/metadata.txt    |  44 ++
+16:32:34   queue/cholesterol-through-skin/mix.py          | 276 ++++++++++
+16:32:34   queue/cholesterol-through-skin/mix_notes.txt   |  33 ++
+16:32:34   queue/cholesterol-through-skin/scene.py        | 687 +++++++++++++++++++++++++
+16:32:34   queue/cholesterol-through-skin/scene_notes.txt |  83 +++
+16:32:34   queue/cholesterol-through-skin/script.txt      |  10 +
+16:32:34   6 files changed, 1133 insertions(+)
+16:32:34   create mode 100644 queue/cholesterol-through-skin/metadata.txt
+16:32:34   create mode 100644 queue/cholesterol-through-skin/mix.py
+16:32:34   create mode 100644 queue/cholesterol-through-skin/mix_notes.txt
+16:32:34   create mode 100644 queue/cholesterol-through-skin/scene.py
+16:32:34   create mode 100644 queue/cholesterol-through-skin/scene_notes.txt
+16:32:34   create mode 100644 queue/cholesterol-through-skin/script.txt
+16:32:34  Full render: tooth-in-eye
+16:32:34  [tooth-in-eye] Narration: free Kokoro am_fenrir voice (no ElevenLabs key)
+16:32:41  am_fenrir speed 1.000: 100 words in 30.90s = 194 wpm
+16:32:41  am_fenrir: 30.90s, 10 beats -> D:\ShortsPipeline\audio\tooth-in-eye_vo.wav
+16:32:41  [tooth-in-eye] Building Blender scene (30 fps)...
+16:32:48  00:06.735  blend            | Read blend: "D:\ShortsPipeline\blend\char_hero.blend"
+16:32:48  00:07.125  cycles           | WARNING HIPEW initialization failed: Error opening HIP dynamic library
+16:37:18  ARGS out=D:\ShortsPipeline\blend\tooth-in-eye.blend fps=30 pct=100 samples=64 device=gpu beats=D:\ShortsPipeline\audio\tooth-in-eye_vo.json
+16:37:18  CHAR D:\ShortsPipeline\blend\char_hero.blend
+16:37:18  WARN shot lengths outside (0.9, 3.4) [('Closer', 4.09)]
+16:37:18  Info: Saved as "tooth-in-eye.blend"
+16:37:18  SAVED D:\ShortsPipeline\blend\tooth-in-eye.blend END 964 FPS 30 SHOTS [(0.0, 'EyeECU'), (1.95, 'FacePull'), (4.07, 'PillCU'), (5.52, 'CloudEyes'), (7.22, 'ClinicOrbit'), (8.44, 'GraftECU'), (9.66, 'ORWide'), (10.85, 'XJaw'), (13.37, 'TrayMacro'), (15.34, 'LensMacro'), (16.96, 'CheekX'), (18.86, 'VesselMacro'), (20.41, 'EyeSeat'), (22.09, 'Immune'), (25.11, 'POVFocus'), (26.7, 'TwoShot'), (28.0, 'Closer')]
+16:37:19  Rendering frames (this takes several hours)...
+16:37:21  00:02.093  cycles           | WARNING HIPEW initialization failed: Error opening HIP dynamic library
+16:37:21  RANGE 1 964
+16:52:37  FRAME 100

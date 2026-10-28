@@ -21,8 +21,8 @@ The nightly render only picks up a `queue/<slug>/` folder that contains all of t
 
 - `script.txt`: exactly 10 narration lines, one beat per line, 90-100 words.
 - `metadata.txt`: in the format of `final/sneeze_short_youtube_metadata.txt`.
-- `scene.py`: the Blender scene builder. Adapt it from `templates/scene_template.py`.
-- `mix.py`: the sound design. Adapt it from `templates/mix_template.py`.
+- `scene.py`: the Blender scene builder. Adapt it from the newest v3 scene in `queue/` or `completed/` (e.g. `cholesterol-through-skin`); `templates/scene_template.py` is v1 and was rejected for quality.
+- `mix.py`: the sound design. Adapt it from the newest `mix.py` (or `templates/mix_template.py`).
 
 Folders without `scene.py` or `mix.py` are skipped forever. When you queue a topic, write those two files too. If you find an existing queue item without them, write them before adding a new topic.
 

@@ -1,0 +1,21 @@
+03:04:40  === Daily pipeline start ===
+03:04:40  Sleep blocked while the pipeline runs
+03:04:41  From https://github.com/mishra9495/ShortsPipeline
+03:04:41   * branch            main       -> FETCH_HEAD
+03:04:41  Already up to date.
+03:04:41  Full render: quicksand-survival
+03:04:41  [quicksand-survival] Narration: free Kokoro am_fenrir voice (no ElevenLabs key)
+03:04:53  am_fenrir speed 1.000: 99 words in 28.44s = 209 wpm
+03:04:53  am_fenrir re-read at speed 0.910: 30.23s = 196 wpm
+03:04:53  am_fenrir: 30.23s, 10 beats -> D:\ShortsPipeline\audio\quicksand-survival_vo.wav
+03:04:53  [quicksand-survival] Building Blender scene (30 fps)...
+03:05:01  00:07.266  blend            | Read blend: "D:\ShortsPipeline\blend\char_hero.blend"
+03:05:01  00:07.485  cycles           | WARNING HIPEW initialization failed: Error opening HIP dynamic library
+03:05:07  ARGS out=D:\ShortsPipeline\blend\quicksand-survival.blend fps=30 pct=100 samples=128 device=gpu beats=D:\ShortsPipeline\audio\quicksand-survival_vo.json
+03:05:07  CHAR D:\ShortsPipeline\blend\char_hero.blend
+03:05:07  Info: Saved as "quicksand-survival.blend"
+03:05:07  SAVED D:\ShortsPipeline\blend\quicksand-survival.blend END 944 FPS 30 SHOTS [(0.0, 'PanicMed'), (1.58, 'PanicOrbit'), (2.87, 'BeachWide'), (4.44, 'WaistCU'), (5.72, 'XrayLeg'), (9.0, 'XrayFoot'), (11.49, 'YankBuild'), (12.51, 'YankSlomo'), (14.89, 'RopeLow'), (16.29, 'RopeFace'), (17.68, 'XrayCircles'), (20.72, 'XrayWater'), (23.83, 'LeanBack'), (26.38, 'TideWide'), (28.31, 'CloserPush')]
+03:05:08  Rendering frames (this takes several hours)...
+03:05:09  00:00.969  cycles           | WARNING HIPEW initialization failed: Error opening HIP dynamic library
+03:05:09  RANGE 1 944
+03:12:53  FRAME 100

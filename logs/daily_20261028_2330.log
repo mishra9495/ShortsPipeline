@@ -45,3 +45,32 @@
 01:55:17  FRAME 700
 02:04:20  FRAME 800
 02:25:29  FRAME 900
+02:50:40  Frames rendered: 991
+03:04:19  Mixing audio...
+03:04:20  MIX D:\ShortsPipeline\audio\cholesterol-through-skin_mix.wav 33.51 s  beats [0.0, 4.32, 7.24, 9.96, 12.9, 16.09, 18.28, 22.24, 25.11, 28.39] peak 0.718
+03:04:20  Assembling final video...
+03:04:33  Output: stream|width=1080|height=1920|r_frame_rate=30/1 stream|r_frame_rate=0/0 format|duration=33.033333
+03:04:33  [main 6162348] Completed: cholesterol-through-skin
+03:04:33   7 files changed, 44 insertions(+)
+03:04:33   rename {queue => completed}/cholesterol-through-skin/metadata.txt (100%)
+03:04:33   rename {queue => completed}/cholesterol-through-skin/mix.py (100%)
+03:04:33   rename {queue => completed}/cholesterol-through-skin/mix_notes.txt (100%)
+03:04:33   rename {queue => completed}/cholesterol-through-skin/scene.py (100%)
+03:04:33   rename {queue => completed}/cholesterol-through-skin/scene_notes.txt (100%)
+03:04:33   rename {queue => completed}/cholesterol-through-skin/script.txt (100%)
+03:04:33   create mode 100644 final/cholesterol-through-skin_youtube_metadata.txt
+03:04:33  Saved to: C:\Users\ANKIT MISHRA\Videos\CONTENT\3D SHORTS ANIMATION\Animation\His Cholesterol Leaked Through His Skin 😳\His Cholesterol Leaked Through His Skin 😳.mp4
+03:04:33  Uploading to YouTube...
+03:04:35  C:\Users\ANKIT MISHRA\AppData\Local\Programs\Python\Python311\Lib\site-packages\google\api_core\_python_version_support.py:254: FutureWarning: You are using a Python version (3.11.9) which Google will stop supporting in new releases of google.api_core once it reaches its end of life (2027-10-24). Please upgrade to the latest Python version, or at least Python 3.12, to continue receiving updates for google.api_core past that date.
+03:04:35    warnings.warn(message, FutureWarning)
+03:04:36  Traceback (most recent call last):
+03:04:36    File "D:\ShortsPipeline\scripts\upload_youtube.py", line 138, in <module>
+03:04:36      upload(sys.argv[1], sys.argv[2])
+03:04:36    File "D:\ShortsPipeline\scripts\upload_youtube.py", line 92, in upload
+03:04:36      print(f"Uploading: {title}")
+03:04:36    File "C:\Users\ANKIT MISHRA\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1252.py", line 19, in encode
+03:04:36      return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+03:04:36             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+03:04:36  UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f633' in position 51: character maps to <undefined>
+03:04:36  === Done: cholesterol-through-skin -> C:\Users\ANKIT MISHRA\Videos\CONTENT\3D SHORTS ANIMATION\Animation\His Cholesterol Leaked Through His Skin 😳\His Cholesterol Leaked Through His Skin 😳.mp4 ===
+03:04:36  Next ready: quicksand-survival - starting video 2 of 2 tonight

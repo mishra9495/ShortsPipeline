@@ -1,0 +1,39 @@
+23:30:01  === Daily pipeline start ===
+23:30:01  Sleep blocked while the pipeline runs
+23:30:03  From https://github.com/mishra9495/ShortsPipeline
+23:30:03   * branch            main       -> FETCH_HEAD
+23:30:03     1721173..92cafe7  main       -> origin/main
+23:30:03  Updating 1721173..92cafe7
+23:30:03  Fast-forward
+23:30:03   CLAUDE.md                                |   4 +-
+23:30:03   queue/quicksand-survival/metadata.txt    |  48 +++
+23:30:03   queue/quicksand-survival/mix.py          | 368 ++++++++++++++++
+23:30:03   queue/quicksand-survival/mix_notes.txt   |  19 +
+23:30:03   queue/quicksand-survival/scene.py        | 701 +++++++++++++++++++++++++++++++
+23:30:03   queue/quicksand-survival/scene_notes.txt |  39 ++
+23:30:03   queue/quicksand-survival/script.txt      |  10 +
+23:30:03   templates/ROUTINE_PROMPT.md              |  93 ++--
+23:30:03   8 files changed, 1233 insertions(+), 49 deletions(-)
+23:30:03   create mode 100644 queue/quicksand-survival/metadata.txt
+23:30:03   create mode 100644 queue/quicksand-survival/mix.py
+23:30:03   create mode 100644 queue/quicksand-survival/mix_notes.txt
+23:30:03   create mode 100644 queue/quicksand-survival/scene.py
+23:30:03   create mode 100644 queue/quicksand-survival/scene_notes.txt
+23:30:03   create mode 100644 queue/quicksand-survival/script.txt
+23:30:04  Full render: cholesterol-through-skin
+23:30:04  [cholesterol-through-skin] Narration: free Kokoro am_fenrir voice (no ElevenLabs key)
+23:30:17  am_fenrir speed 1.000: 98 words in 32.94s = 178 wpm
+23:30:17  am_fenrir re-read at speed 1.065: 31.81s = 185 wpm
+23:30:17  am_fenrir: 31.81s, 10 beats -> D:\ShortsPipeline\audio\cholesterol-through-skin_vo.wav
+23:30:17  [cholesterol-through-skin] Building Blender scene (30 fps)...
+23:30:23  00:05.797  blend            | Read blend: "D:\ShortsPipeline\blend\char_hero.blend"
+23:30:24  00:06.125  cycles           | WARNING HIPEW initialization failed: Error opening HIP dynamic library
+23:30:27  ARGS out=D:\ShortsPipeline\blend\cholesterol-through-skin.blend fps=30 pct=100 samples=128 device=gpu beats=D:\ShortsPipeline\audio\cholesterol-through-skin_vo.json
+23:30:27  CHAR D:\ShortsPipeline\blend\char_hero.blend
+23:30:27  WARN shot lengths outside (0.9, 3.4) [('VesselOrbit', 3.96), ('CloserPull', 4.63)]
+23:30:27  Info: Saved as "cholesterol-through-skin.blend"
+23:30:27  SAVED D:\ShortsPipeline\blend\cholesterol-through-skin.blend END 991 FPS 30 SHOTS [(0.0, 'PalmHookECU'), (2.38, 'PalmHookOrbit'), (4.32, 'KitchenWide'), (7.24, 'FoodInsertCU'), (9.96, 'FaceMedium'), (12.9, 'PalmShockECU'), (16.09, 'VialInsert'), (18.28, 'VesselOrbit'), (22.24, 'PlaqueOrbit'), (25.11, 'EruptBuildCU'), (26.58, 'EruptSlomo'), (28.39, 'CloserPull')]
+23:30:28  Rendering frames (this takes several hours)...
+23:30:28  00:00.829  cycles           | WARNING HIPEW initialization failed: Error opening HIP dynamic library
+23:30:29  RANGE 1 991
+00:02:15  FRAME 100

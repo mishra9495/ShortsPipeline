@@ -42,3 +42,32 @@
 18:18:17  FRAME 700
 18:29:11  FRAME 800
 18:43:29  FRAME 900
+18:53:01  Frames rendered: 964
+18:53:01  Mixing audio...
+18:53:02  MIX D:\ShortsPipeline\audio\tooth-in-eye_mix.wav 32.6 s  beats [0.0, 4.07, 7.22, 9.66, 13.37, 16.96, 20.41, 22.09, 25.11, 28.0] peak 0.696
+18:53:02  Assembling final video...
+18:53:12  Output: stream|width=1080|height=1920|r_frame_rate=30/1 stream|r_frame_rate=0/0 format|duration=32.133333
+18:53:12  [main ef418db] Completed: tooth-in-eye
+18:53:12   8 files changed, 1293 insertions(+)
+18:53:12   rename {queue => completed}/tooth-in-eye/metadata.txt (100%)
+18:53:12   rename {queue => completed}/tooth-in-eye/mix.py (100%)
+18:53:12   rename {queue => completed}/tooth-in-eye/mix_notes.txt (100%)
+18:53:12   rename {queue => completed}/tooth-in-eye/scene.py (100%)
+18:53:12   rename {queue => completed}/tooth-in-eye/scene_notes.txt (100%)
+18:53:12   create mode 100644 completed/tooth-in-eye/scene_v1_rejected.py
+18:53:12   rename {queue => completed}/tooth-in-eye/script.txt (100%)
+18:53:12   create mode 100644 final/tooth-in-eye_youtube_metadata.txt
+18:53:12  Saved to: C:\Users\ANKIT MISHRA\Videos\CONTENT\3D SHORTS ANIMATION\Animation\Doctors Put His Tooth In His Eye 😳\Doctors Put His Tooth In His Eye 😳.mp4
+18:53:12  Uploading to YouTube...
+18:53:14  C:\Users\ANKIT MISHRA\AppData\Local\Programs\Python\Python311\Lib\site-packages\google\api_core\_python_version_support.py:254: FutureWarning: You are using a Python version (3.11.9) which Google will stop supporting in new releases of google.api_core once it reaches its end of life (2027-10-24). Please upgrade to the latest Python version, or at least Python 3.12, to continue receiving updates for google.api_core past that date.
+18:53:14    warnings.warn(message, FutureWarning)
+18:53:14  Traceback (most recent call last):
+18:53:14    File "D:\ShortsPipeline\scripts\upload_youtube.py", line 138, in <module>
+18:53:14      upload(sys.argv[1], sys.argv[2])
+18:53:14    File "D:\ShortsPipeline\scripts\upload_youtube.py", line 92, in upload
+18:53:14      print(f"Uploading: {title}")
+18:53:14    File "C:\Users\ANKIT MISHRA\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1252.py", line 19, in encode
+18:53:14      return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+18:53:14             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+18:53:14  UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f633' in position 44: character maps to <undefined>
+18:53:14  === Done: tooth-in-eye -> C:\Users\ANKIT MISHRA\Videos\CONTENT\3D SHORTS ANIMATION\Animation\Doctors Put His Tooth In His Eye 😳\Doctors Put His Tooth In His Eye 😳.mp4 (exit 0) ===

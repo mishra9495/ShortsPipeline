@@ -1,6 +1,6 @@
 # ShortsPipeline
 
-3D animated medical and science YouTube Shorts. A cloud agent queues topics. A Windows PC renders one finished queue item each night at 23:30 IST with `scripts/daily_render.ps1`, then uploads it to YouTube as public.
+3D animated medical and science YouTube Shorts. A cloud agent queues topics. A Windows PC renders finished queue items each night from 23:30 IST with `scripts/daily_render.ps1` (oldest first, up to 2 per night: after each video it starts the next ready item by itself), then uploads each to YouTube as public.
 
 ## Owner's standing rules (never break these)
 

@@ -24,7 +24,7 @@ import sys
 import warnings
 
 import bpy
-from mathutils import Vector
+from mathutils import Quaternion, Vector
 
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
@@ -66,6 +66,10 @@ CAST = K.coll("Cast")
 him = A.Actor.from_scene("Him")
 him.measure()
 him.setup_ik(CAST)
+# seated with forearms on a table: elbows drop down and back (kit's default pole sits out to the side and gives
+# a chicken-wing elbow when the hand target is low and close)
+for side, sx in (("Left", 1), ("Right", -1)):
+    bpy.data.objects[f"{him.name}.Pole_{side}"].location = (him.x0 + 0.28 * sx, him.hips0.y + 0.45, him.hips0.z + 0.12)
 print("CAST", him.rig.name, "height", round(him.top, 3))
 
 # ---------------------------------------------------------------- timeline (seconds)
@@ -160,14 +164,21 @@ cheese_m = K.plastic("Cheese", (0.92, 0.72, 0.22), 0.45)
 rind_m = K.plastic("CheeseRind", (0.85, 0.80, 0.70), 0.55)
 butter_m = K.plastic("Butter", (0.95, 0.86, 0.52), 0.30)
 plate_m = K.ceramic("Plate", (0.95, 0.95, 0.93))
-steak_m = K.plastic("Steak", (0.42, 0.14, 0.09), 0.55, sss=0.25)
+steak_m = K.plastic("Steak", (0.30, 0.10, 0.06), 0.42, coat=0.25, sss=0.2)
 # all food sits on his LEFT (+X, the eating hand's side); his right hand rests empty on the -X side of the table
 CHEESE_C = TABLE + Vector((0.36, 0.06, TOP_Z + 0.035))
 K.cyl("CheeseWheel", HOME, 0.095, 0.07, CHEESE_C, cheese_m, verts=40, bevel=0.006)
 K.rbox("CheeseWedge", HOME, (0.05, 0.09, 0.07), CHEESE_C + Vector((-0.13, -0.07, 0.0)), rind_m, bevel=0.006)
 PLATE_C = TABLE + Vector((0.06, 0.02, TOP_Z + 0.006))
 K.cyl("Plate", HOME, 0.14, 0.012, PLATE_C, plate_m, verts=40, bevel=0.003)
-K.sphere("Steak", HOME, 0.07, PLATE_C + Vector((0.0, 0.0, 0.018)), steak_m, scale=(1.0, 0.72, 0.28), subdiv=3)
+steak = K.sphere("Steak", HOME, 0.07, PLATE_C + Vector((0.0, 0.0, 0.016)), steak_m, scale=(1.0, 0.70, 0.22), subdiv=4)
+sear_tex = bpy.data.textures.new("SteakSear", "CLOUDS")
+sear_tex.noise_scale = 0.03
+sd = steak.modifiers.new("Sear", "DISPLACE")
+sd.texture, sd.texture_coords, sd.strength = sear_tex, "GLOBAL", 0.006
+fat_m = K.plastic("SteakFat", (0.92, 0.85, 0.72), 0.5, sss=0.3)
+K.tube("SteakFatRim", HOME, [PLATE_C + Vector((-0.06, 0.035, 0.022)), PLATE_C + Vector((0.0, 0.05, 0.024)),
+                              PLATE_C + Vector((0.06, 0.035, 0.022))], 0.007, fat_m, res=4)
 BUTTER_C = TABLE + Vector((0.24, -0.20, TOP_Z + 0.006))
 K.cyl("ButterDish", HOME, 0.065, 0.012, BUTTER_C, plate_m, verts=32, bevel=0.003)
 K.rbox("ButterStick", HOME, (0.085, 0.034, 0.034), BUTTER_C + Vector((0.0, 0.0, 0.025)), butter_m, bevel=0.004)
@@ -177,12 +188,11 @@ K.rbox("Knife", HOME, (0.012, 0.16, 0.004), PLATE_C + Vector((0.17, -0.02, 0.0))
 FOOD_C = (CHEESE_C + PLATE_C + BUTTER_C) / 3
 
 # his right hand (palm, resting on the table edge -- the hook/closer hero shot) and left hand (eats)
-RIGHT_WORLD = TABLE + Vector((-0.30, 0.18, TOP_Z + 0.05))
-LEFT_REST_WORLD = TABLE + Vector((0.28, 0.12, TOP_Z + 0.10))
-MOUTH_WORLD = SEAT_HOME + Vector((0.0, 0.05, 0.46))
+RIGHT_WORLD = TABLE + Vector((-0.22, 0.25, TOP_Z + 0.04))
+LEFT_REST_WORLD = TABLE + Vector((0.22, 0.24, TOP_Z + 0.07))
 RIGHT_LOCAL = to_local(RIGHT_WORLD)
 LEFT_REST_LOCAL = to_local(LEFT_REST_WORLD)
-LEFT_MOUTH_LOCAL = to_local(MOUTH_WORLD)
+LEFT_MOUTH_LOCAL = him.mouth + Vector((0.04, -0.13, -0.08))     # wrist target: the hand then reaches the lips
 
 # palm_pt rides on the hand bone (middle of the hand); the nodules are placed on the real skin surface after the
 # performance is baked (ray cast from the camera side), so they sit on any hand shape instead of inside it
@@ -197,16 +207,37 @@ LAB = K.coll("Lab")
 slab_m = K.plastic("LabSlab", (0.05, 0.05, 0.055), 0.35)
 K.rbox("LabSlab", LAB, (0.5, 0.4, 0.04), LABP + Vector((0, 0, -0.02)), slab_m, bevel=0.01)
 VIAL = LABP + Vector((0.0, 0.0, 0.09))
-vial_glass = K.glass("VialGlass", (0.95, 0.97, 1.0), rough=0.02)
+
+
+def thin_glass(name):
+    """Thin-walled glass: transparent + Fresnel gloss. Real refractive glass around liquids renders their layers as
+    dark smears at these sample counts; a thin tube wall barely bends light anyway."""
+    m = bpy.data.materials.new(name)
+    m.use_nodes = True
+    N, L = m.node_tree.nodes, m.node_tree.links
+    N.clear()
+    out, tr, gl = N.new("ShaderNodeOutputMaterial"), N.new("ShaderNodeBsdfTransparent"), N.new("ShaderNodeBsdfGlossy")
+    gl.inputs["Roughness"].default_value = 0.03
+    fr = N.new("ShaderNodeFresnel")
+    fr.inputs["IOR"].default_value = 1.5
+    mx = N.new("ShaderNodeMixShader")
+    L.new(fr.outputs[0], mx.inputs[0])
+    L.new(tr.outputs[0], mx.inputs[1])
+    L.new(gl.outputs[0], mx.inputs[2])
+    L.new(mx.outputs[0], out.inputs["Surface"])
+    return m
+
+
+vial_glass = thin_glass("VialGlass")
 # a hollow tube (thin wall) so the contents read through the glass instead of through a solid glass block
 K.lathe("Vial", LAB, [(0.0, -0.045), (0.013, -0.045), (0.016, -0.040), (0.016, 0.045)], VIAL, vial_glass, steps=48,
         thickness=0.0012, subsurf=1)
-serum_m = K.plastic("LipemicSerum", (0.40, 0.02, 0.015), 0.15, sss=0.3)
+serum_m = K.plastic("LipemicSerum", (0.22, 0.008, 0.008), 0.2, sss=0.3)
 K.cyl("Serum", LAB, 0.0145, 0.050, VIAL + Vector((0, 0, -0.018)), serum_m, verts=40)
 # lipemic blood: a thick, milky fat layer floating on the serum (the true sign of extreme blood fats)
 cream_m = K.plastic("LipemicCream", (0.96, 0.90, 0.68), 0.45, sss=0.5)
 cream = K.cyl("CreamLayer", LAB, 0.0145, 0.024, VIAL + Vector((0, 0, 0.019)), cream_m, verts=40, bevel=0.002)
-cap_m = K.plastic("VialCap", (0.55, 0.04, 0.05), 0.45)
+cap_m = K.plastic("VialCap", (0.80, 0.58, 0.12), 0.35)          # gold top: the serum tube a lipid panel is drawn into
 K.cyl("VialCap", LAB, 0.0165, 0.016, VIAL + Vector((0, 0, 0.053)), cap_m, verts=40, bevel=0.002)
 glove_m = K.plastic("Glove", (0.70, 0.85, 0.72), 0.5)
 K.sphere("GloveHint", LAB, 0.05, VIAL + Vector((0.0, 0.22, -0.08)), glove_m, scale=(1.0, 1.4, 0.7), subdiv=2)
@@ -242,14 +273,20 @@ def xglow(name, color, strength, blend=0.3, core=0.03):
 VESSEL_PTS = [ANATP + Vector((-0.09, 0.015, -0.01)), ANATP + Vector((-0.02, -0.01, 0.005)),
               ANATP + Vector((0.05, 0.02, -0.005)), ANATP + Vector((0.11, -0.01, 0.01))]
 wall_m = xglow("VesselWall", (1.0, 0.30, 0.22), 1.6, blend=0.3, core=0.04)
-blood_m = K.emissive("VesselBlood", (0.75, 0.03, 0.02), 1.3)
+blood_m = xglow("VesselPlasma", (0.95, 0.10, 0.06), 1.2, blend=0.4, core=0.10)     # see-through plasma, cells inside
+rbc_m = K.plastic("RedCell", (0.55, 0.02, 0.02), 0.35, sss=0.5)
+rbc_bsdf = rbc_m.node_tree.nodes["Principled BSDF"]
+rbc_bsdf.inputs["Emission Color"].default_value = (0.9, 0.05, 0.03, 1)
+rbc_bsdf.inputs["Emission Strength"].default_value = 0.6
 wall = K.tube("VesselWall", ANAT, VESSEL_PTS, 0.021, wall_m, res=12)
 blood = K.tube("VesselBlood", ANAT, VESSEL_PTS, 0.0135, blood_m, res=10)
+for o in (wall, blood):          # X-ray shells glow for the camera only; lighting what's inside washes it to cream
+    o.visible_diffuse = o.visible_glossy = o.visible_transmission = False
 # plaque: waxy yellow crusts hugging the inside of the wall (flattened along the radius), lumpy surface
-plaque_m = K.plastic("Plaque", (0.95, 0.72, 0.18), 0.4, sss=0.4)
+plaque_m = K.plastic("Plaque", (0.95, 0.55, 0.05), 0.45, sss=0.25)
 plaque_bsdf = plaque_m.node_tree.nodes["Principled BSDF"]
-plaque_bsdf.inputs["Emission Color"].default_value = (1.0, 0.75, 0.2, 1)
-plaque_bsdf.inputs["Emission Strength"].default_value = 0.35
+plaque_bsdf.inputs["Emission Color"].default_value = (1.0, 0.55, 0.04, 1)
+plaque_bsdf.inputs["Emission Strength"].default_value = 0.4
 lump_tex = bpy.data.textures.new("PlaqueLumps", "CLOUDS")
 lump_tex.noise_scale = 0.004
 
@@ -262,19 +299,30 @@ def lumpy(o, amount):
     return o
 
 
+def vessel_point(u):
+    """Catmull-Rom through VESSEL_PTS, u in 0..1."""
+    pts = [VESSEL_PTS[0]] + VESSEL_PTS + [VESSEL_PTS[-1]]
+    n = len(VESSEL_PTS) - 1
+    u = min(max(u, 0.0), 1.0) * n
+    i = min(int(u), n - 1)
+    t = u - i
+    p0, p1, p2, p3 = pts[i], pts[i + 1], pts[i + 2], pts[i + 3]
+    return 0.5 * ((2 * p1) + (-p0 + p2) * t + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t * t + (-p0 + 3 * p1 - 3 * p2 + p3) * t ** 3)
+
+
 PLAQUE = []
 rng2 = random.Random(5)
-for i in range(11):
-    u = (i + 0.5) / 11
-    seg = min(int(u * (len(VESSEL_PTS) - 1)), len(VESSEL_PTS) - 2)
-    p0, p1 = VESSEL_PTS[seg], VESSEL_PTS[seg + 1]
-    centre = p0.lerp(p1, (u * (len(VESSEL_PTS) - 1)) - seg)
-    ang = rng2.uniform(0, 2 * math.pi)
+# crusts hug the inner wall (radius 0.0155 of a 0.021 wall), flattened along the radius and stretched along the vessel;
+# kept off the camera-facing (-Y) side so the narrowing lumen and the red cells stay visible through the X-ray wall
+for i in range(22):
+    u = 0.06 + 0.88 * (i + rng2.uniform(0.1, 0.9)) / 22
+    centre = vessel_point(u)
+    ang = rng2.uniform(-1.9, 1.9)
     radial = Vector((0.0, math.cos(ang), math.sin(ang)))
-    size = rng2.uniform(0.0045, 0.0065)
-    o = K.sphere(f"PlaqueCell{i}", ANAT, size, centre + radial * 0.0175, plaque_m, scale=(1.7, 1.25, 0.75), subdiv=4)
+    size = rng2.uniform(0.0035, 0.0055)
+    o = K.sphere(f"PlaqueCell{i}", ANAT, size, centre + radial * 0.0155, plaque_m, scale=(2.2, 1.4, 0.6), subdiv=4)
     o.rotation_euler = radial.to_track_quat("Z", "X").to_euler()
-    lumpy(o, 0.0012)
+    lumpy(o, 0.0010)
     start = GROW_A + rng2.uniform(0.0, (GROW_B - GROW_A) * 0.75)
     PLAQUE.append((o, start, GROW_A, GROW_B))
 # the eruption cell: the biggest, facing the camera side (the +Y offset so it faces -Y-ish toward the orbit cameras)
@@ -282,8 +330,25 @@ erupt_centre = VESSEL_PTS[1].lerp(VESSEL_PTS[2], 0.4) + Vector((0.0, -0.017, 0.0
 erupt_cell = lumpy(K.sphere("EruptCell", ANAT, 0.0065, erupt_centre, plaque_m, scale=(1.3, 0.85, 1.15), subdiv=4), 0.0014)
 flash_m = K.emissive("EruptFlash", (1.0, 0.95, 0.65), 0.0)
 flash = K.sphere("EruptFlash", ANAT, 0.006, erupt_centre + Vector((0, -0.006, 0)), flash_m, subdiv=3)
+
+
+# red blood cells: biconcave discs tumbling down the lumen (constant motion in every X-ray frame)
+RBC_PROFILE = [(0.0, 0.0007), (0.0018, 0.0011), (0.0032, 0.0010), (0.0040, 0.0), (0.0032, -0.0010), (0.0018, -0.0011),
+               (0.0, -0.0007)]
+RBCS = []
+rng4 = random.Random(21)
+for k in range(26):
+    o = K.lathe(f"RedCell{k}", ANAT, RBC_PROFILE, ANATP, rbc_m, steps=24, subsurf=1)
+    RBCS.append((o, rng4.random(), rng4.uniform(0.55, 1.0), rng4.uniform(0, 2 * math.pi), rng4.uniform(0.15, 0.9),
+                 Vector((rng4.uniform(-1, 1), rng4.uniform(-1, 1), rng4.uniform(-1, 1))).normalized(), rng4.uniform(1.5, 4.0)))
 ejecta_m = K.plastic("Ejecta", (0.95, 0.82, 0.25), 0.4)
 ejecta = K.shards(ANAT, 7, ejecta_m, erupt_centre, size=(0.0015, 0.004), seed=2, name="Ejecta", spread=0.004)
+
+# ---------------------------------------------------------------- subsurface depth to real scale
+# kit.plastic(sss=...) keeps Blender's default 5 cm scatter, which turns these millimetre props translucent grey/tan
+for m_, sc_ in ((nodule_m, 0.0015), (plaque_m, 0.0015), (cream_m, 0.003), (serum_m, 0.003), (rbc_m, 0.0008),
+                (steak_m, 0.003), (fat_m, 0.002)):
+    m_.node_tree.nodes["Principled BSDF"].inputs["Subsurface Scale"].default_value = sc_
 
 # ---------------------------------------------------------------- shots (names, start times, set)
 SHOTS = [
@@ -311,11 +376,14 @@ SET_OF = [s[2] for s in SH]
 
 # ---------------------------------------------------------------- performance (channels, 0..1 envelopes over time)
 BLINKS = [1.0 + 2.9 * k for k in range(60) if 1.0 + 2.9 * k < DUR]
+BITES = [B[1] + 0.7 + 2.3 * k for k in range(20) if B[1] + 0.7 + 2.3 * k < B[3] + 0.6]
 
 
 def channels(t):
     ch = {}
-    ch["eat"] = env(t, B[1] + 0.15, B[1] + 0.5, B[3] + 0.2, B[3] + 0.6) * (0.5 + 0.5 * math.sin(2 * math.pi * t / 1.15))
+    ch["eat"] = max((env(t, bt - 0.6, bt - 0.12, bt + 0.2, bt + 0.75) for bt in BITES), default=0.0)   # food up to the mouth
+    ch["chew"] = (max((env(t, bt, bt + 0.2, bt + 1.4, bt + 1.8) for bt in BITES), default=0.0)
+                  * (0.5 + 0.5 * math.sin(2 * math.pi * 3.0 * t)))
     ch["smile"] = max(env(t, B[3] - 0.1, B[3] + 0.3, B[4] + 0.05, B[4] + 0.4), 0.75 * ramp(t, B[9] + 0.35, B[9] + 0.9))
     ch["shock"] = env(t, B[4] + 0.05, B[4] + 0.35, B[5] - 0.25, B[5])
     ch["blink"] = max((env(t, b_ - 0.03, b_, b_ + 0.05, b_ + 0.12) for b_ in BLINKS), default=0.0)
@@ -360,7 +428,7 @@ for i, t in enumerate(T):
         sh[f"eyeBlink{side}"] = min(1.0, ch["blink"])
         sh[f"mouthSmile{side}"] = 0.8 * ch["smile"]
     sh["browInnerUp"] = 0.6 * ch["shock"]
-    sh["jawOpen"] = 0.16 * ch["eat"] + 0.18 * ch["shock"]
+    sh["jawOpen"] = 0.12 * ch["chew"] + 0.10 * spike(t, max([bt for bt in BITES if bt <= t + 0.1], default=-9), 0.1, 0.15) + 0.18 * ch["shock"]
     ikl = LEFT_REST_LOCAL.lerp(LEFT_MOUTH_LOCAL, ch["eat"])
     ikr = RIGHT_LOCAL + Vector((0.0, 0.002 * wobble(t, 15, 0.4), 0.0))
     him.record(rots, sh, ikl, ikr, aim=(0.0, 0.0))
@@ -416,7 +484,22 @@ for o, start, ga, gb in PLAQUE:
     s0 = o.scale.copy()
     vals = [ramp(t, start, end) for t in T]
     bake_vec(o, "scale", [(s0.x * v, s0.y * v, s0.z * (0.4 + 0.6 * v) * v) for v in vals])
-bake(blood.data, "bevel_depth", [0.0135 - 0.0095 * ramp(t, GROW_A, GROW_B) for t in T])
+LUMEN = [0.0135 - 0.0095 * ramp(t, GROW_A, GROW_B) for t in T]
+bake(blood.data, "bevel_depth", LUMEN)
+for o, ph, spd, ang, rr, axis, spin in RBCS:
+    u, locs, rots, scl = ph, [], [], []
+    for i, t in enumerate(T):
+        lum = LUMEN[i]
+        u = (u + spd * 0.18 * (0.35 + 0.65 * lum / 0.0135) / FPS) % 1.0       # cells slow and bunch as it narrows
+        c = vessel_point(u)
+        a_ = ang + 0.6 * t
+        locs.append(c + Vector((0.0, math.cos(a_), math.sin(a_))) * (lum - 0.004) * rr)
+        rots.append(Quaternion(axis, spin * t).to_euler())
+        edge = smooth(min(u, 1 - u) / 0.07)
+        scl.append(edge * (0.7 + 0.3 * lum / 0.0135))
+    bake_vec(o, "location", locs)
+    bake_vec(o, "rotation_euler", rots)
+    bake_vec(o, "scale", [(v, v, v) for v in scl])
 
 burst = [ramp(warp(t), ACT_A, ACT_A + (ACT_B - ACT_A) * 0.5) * (1 - ramp(warp(t), ACT_A + (ACT_B - ACT_A) * 0.7, ACT_B))
          + ramp(warp(t), ACT_A + (ACT_B - ACT_A) * 0.7, ACT_B) for t in T]
@@ -426,6 +509,7 @@ bake_vec(erupt_cell, "scale", [(es0.x * v, es0.y * v, es0.z * v) for v in erupt_
 out_dir = Vector((0.0, -1.0, 0.0))     # straight out through the wall, toward the cameras
 bake_vec(erupt_cell, "location", [erupt_centre + out_dir * (0.011 * b) for b in burst])
 flash_vals = [spike(warp(t), ACT_A + (ACT_B - ACT_A) * 0.45, 0.04, 0.12) for t in T]
+bake_vec(flash, "scale", [(min(1.0, 4 * v),) * 3 for v in flash_vals])
 bake(flash.data.materials[0].node_tree, 'nodes["Principled BSDF"].inputs["Emission Strength"].default_value',
      [40.0 * v for v in flash_vals])
 for k, o in enumerate(ejecta):
@@ -497,8 +581,8 @@ LIGHTS = {
              _area("WindowSpill", HOME, Vector(WIN_LOC) + Vector((0, 0.3, 0)), HEAD_HOME, 220, 1.2, (0.85, 0.92, 1.0))],
     "lab": [_area("LabKey", LAB, VIAL + Vector((0.3, -0.35, 0.4)), VIAL, 90, 0.4, (1.0, 0.98, 0.95)),
             _area("LabFill", LAB, VIAL + Vector((-0.35, -0.2, 0.25)), VIAL, 45, 0.7, (0.82, 0.90, 1.0))],
-    "xray": [_area("XKey", ANAT, ANATP + Vector((0.08, -0.06, 0.07)), ANATP, 11, 0.06, (1.0, 0.85, 0.82)),
-             _area("XFill", ANAT, ANATP + Vector((-0.06, 0.05, -0.03)), ANATP, 5, 0.08, (0.55, 0.65, 1.0))],
+    "xray": [_area("XKey", ANAT, ANATP + Vector((0.08, -0.06, 0.07)), ANATP, 0.25, 0.06, (1.0, 0.85, 0.82)),
+             _area("XFill", ANAT, ANATP + Vector((-0.06, 0.05, -0.03)), ANATP, 0.10, 0.08, (0.55, 0.65, 1.0))],
 }
 BASE = {l.name: l.data.energy for ls in LIGHTS.values() for l in ls}
 for set_name, ls in LIGHTS.items():

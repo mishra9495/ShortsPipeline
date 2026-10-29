@@ -27,3 +27,31 @@
 05:38:02  FRAME 700
 05:49:31  FRAME 800
 05:56:30  FRAME 900
+06:00:25  Frames rendered: 944
+06:00:26  Mixing audio...
+06:00:28  MIX D:\ShortsPipeline\audio\quicksand-survival_mix.wav 31.93 s  beats [0.0, 2.87, 5.72, 9.0, 11.49, 14.89, 17.68, 20.72, 23.83, 26.38] peak 0.713
+06:00:28  Assembling final video...
+06:00:40  Output: stream|width=1080|height=1920|r_frame_rate=30/1 stream|r_frame_rate=0/0 format|duration=31.466667
+06:00:41  [main db443bd] Completed: quicksand-survival
+06:00:41   7 files changed, 48 insertions(+)
+06:00:41   rename {queue => completed}/quicksand-survival/metadata.txt (100%)
+06:00:41   rename {queue => completed}/quicksand-survival/mix.py (100%)
+06:00:41   rename {queue => completed}/quicksand-survival/mix_notes.txt (100%)
+06:00:41   rename {queue => completed}/quicksand-survival/scene.py (100%)
+06:00:41   rename {queue => completed}/quicksand-survival/scene_notes.txt (100%)
+06:00:41   rename {queue => completed}/quicksand-survival/script.txt (100%)
+06:00:41   create mode 100644 final/quicksand-survival_youtube_metadata.txt
+06:00:41  Saved to: C:\Users\ANKIT MISHRA\Videos\CONTENT\3D SHORTS ANIMATION\Animation\How To Actually Survive Quicksand 😱\How To Actually Survive Quicksand 😱.mp4
+06:00:41  Uploading to YouTube...
+06:00:43  C:\Users\ANKIT MISHRA\AppData\Local\Programs\Python\Python311\Lib\site-packages\google\api_core\_python_version_support.py:254: FutureWarning: You are using a Python version (3.11.9) which Google will stop supporting in new releases of google.api_core once it reaches its end of life (2027-10-24). Please upgrade to the latest Python version, or at least Python 3.12, to continue receiving updates for google.api_core past that date.
+06:00:43    warnings.warn(message, FutureWarning)
+06:00:43  Traceback (most recent call last):
+06:00:43    File "D:\ShortsPipeline\scripts\upload_youtube.py", line 138, in <module>
+06:00:43      upload(sys.argv[1], sys.argv[2])
+06:00:43    File "D:\ShortsPipeline\scripts\upload_youtube.py", line 92, in upload
+06:00:43      print(f"Uploading: {title}")
+06:00:43    File "C:\Users\ANKIT MISHRA\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1252.py", line 19, in encode
+06:00:43      return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+06:00:43             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+06:00:43  UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f631' in position 45: character maps to <undefined>
+06:00:43  === Done: quicksand-survival -> C:\Users\ANKIT MISHRA\Videos\CONTENT\3D SHORTS ANIMATION\Animation\How To Actually Survive Quicksand 😱\How To Actually Survive Quicksand 😱.mp4 (exit 0) ===

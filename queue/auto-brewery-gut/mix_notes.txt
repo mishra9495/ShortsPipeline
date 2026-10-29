@@ -1,6 +1,11 @@
-auto-brewery-gut: sound design
-Music: tense minimal pulse, dark electronic/suspense, drops to warm hopeful pad at beat 8-10.
-1 police siren chirp, car idle, radio squelch. 2 breathalyzer beep, digit ticker, alarm hit. 3 cuff clicks x2, door slam.
-4 whoosh + low rumble into wet gut ambience. 5 bubbling, glugging, yeast pops. 6 hospital monitor beeps, IV drip.
-7 riser, slow-mo bass drop, bubble swarm swell, impact. 8 drip, bubbles fade out, power-down. 9 clipboard rustle. 10 soft chime.
-Voice: Daniel / fallback chain per CLAUDE.md, pauses trimmed, tempo +15%. No captions.
+auto-brewery-gut: sound design (see mix.py; cues are fractions of beats, SYNC with scene.py)
+Music: dark pulsing drone + kick pulse through beat 7 (drops out for the slow-mo, near-silence before the hit),
+   a warm major pad from the antifungal onward, a low final note.
+Ambience: night crickets + idling engines on the road; wet gut gurgle in the X-ray; room tone + vitals monitor
+   beeps on the ward.
+1 siren whoop, police radio. 2 long blow into the mouthpiece, counter ticks, triple alarm beep + sting on 0.41.
+3 palm slap thud on the roof, radio crackle. 4 whoosh + X-ray hum, whoosh into the gut, squelch.
+5 fizz and popping bubbles. 6 whoosh to the ward, two gulps.
+7 riser, sub boom on the sugar hit, slowed fizz eruption, crack; then a detuned woozy drone.
+8 IV drip blips, whoosh into the gut, power-down sweep. 9-10 soft swell, fizz shimmer, warm chime on the smile.
+Voice: Daniel or the owner-approved fallback chain in CLAUDE.md, pauses trimmed, tempo +15%. No captions.

@@ -1,13 +1,32 @@
-auto-brewery-gut: scene direction (v3 kit + actor + shot; hero = blend/char_hero.blend; sets: ROADSIDE night, XRAY gut)
-Frame 1 (thumbnail): police-light-lit medium close-up of the man at a car door, hands on roof, flashing red/blue on his shocked face.
-1 HOOK "Arrested for drunk driving..." RoadWide 28mm push on patrol lights, then FaceCU 75mm orbit; he shakes his head. Night, red/blue strobe. 1.7+1.3 s.
-2 "Breathalyzer read 0.41" BreathalyzerCU 50mm rack focus; digits spin up to 0.41, red flash. Extreme push-in on screen. 2.5 s.
-3 "Arrested twice, swore he was sober" HandcuffLow 35mm low angle, cuffs click; then two-shot cut: second night, same pose, 55mm. 1.4+1.4 s.
-4 "Culprit living in his gut" Whip-pan to XRAY: plunge_in through torso into blue X-ray gut. Exposure spike on cut. 2.5 s.
-5 "Yeast fermenting food into alcohol" GutOrbit 40mm slow orbit, glowing yeast cells budding, bubbles rise, tiny brewing vats made of villi. Amber glow. 2.8 s.
-6 "Proved it in hospital with sugar" HospitalMed 35mm push: bed, IV pole, sugar drink, no bottles; nurse-less. Then DrinkCU 60mm. 1.6+1.3 s.
-7 MONEY MOMENT "Blood alcohol shot past 0.4" Timewarp 0.4x: sugar hits gut, yeast explodes into bubble swarm, bloodstream turns amber, camera kick on peak. 3 s.
-8 "Antifungal drugs shut brewery down" IVDrip 45mm, then XRAY: yeast cells go grey and still, bubbles stop, lights dim. 1.5+1.5 s.
-9 "Called auto-brewery syndrome" Title-less stylized beat: pull-back from gut to man, now calm in clinic, doctor's clipboard CU. 2.5 s.
-10 "Believe the sober patient" Slow push on his relieved face, warm light, nod to camera. 3 s. No on-screen text anywhere.
-Total shots 17, every shot moving, one slow-motion moment (7).
+auto-brewery-gut: scene direction (v3 toolkit: kit.py + actor.py + shot.py; one Actor, three sets; see scene.py)
+
+Cast: him = blend/char_hero.blend. No second character (the officer and the doctors stay off-screen).
+Sets: ROAD (night traffic stop: his navy sedan parked at the kerb, a white police car behind it with a strobing
+   red/blue light bar and headlights on him, street lamps, trees, two traffic cones), HOSP (hospital room: bed,
+   IV pole with drip chamber, vitals monitor, window, nightstand; he sits on the bed edge) and XRAY (a cutaway of
+   his small intestine: glowing wall, villi, budding yeast cells, crumbs, golden ethanol bubbles, a vessel below).
+   Set changes are hard cuts with a whoosh and an exposure spike. No on-screen text; the breathalyzer reading is a
+   7-segment prop display made of geometry.
+Frame 1 (thumbnail): medium close-up of his startled face, lit red and blue by the light bar behind him.
+
+Beat 1 HOOK "Arrested for drunk driving..."  LightsFace (50mm push-in, strobe on his face) -> RoadWide (28mm, him,
+   his car, the police car, lamps).
+Beat 2 "A breathalyzer read 0.41..."  BlowMed (45mm: he blows, cheeks puffed) -> MeterECU (85mm insert on the
+   device; the display counts up to 0.41 and flashes red; camera kick on the reading).
+Beat 3 "He'd been arrested twice..."  RoofLow (28mm low angle, palms slap onto the car roof, lights behind) ->
+   SoberFace (60mm: he turns to camera and shakes his head).
+Beat 4 "The culprit was living inside his gut."  BodyX (his body turns X-ray blue, his belly glows amber with
+   bubbles; the camera plunges into the belly) -> GutDive (arrive inside the gut, pull back to reveal it).
+Beat 5 "Yeast down there was fermenting his food into alcohol."  YeastOrbit (40mm orbit, bubbles rising off the
+   cells) -> YeastMacro (85mm on one budding cell).
+Beat 6 "Doctors proved it in hospital by feeding him sugar..."  HospWide (28mm, him on the bed, IV, monitor) ->
+   DrinkCU (55mm: he gulps an orange glucose drink, two gulps).
+Beat 7 MONEY MOMENT "His blood alcohol shot past 0.4 percent..."  SugarSlomo (timewarp ~0.4x: sugar crystals flood
+   in, hit the yeast, the cells swell and flare, a burst of golden bubbles, the vessel turns amber; camera kick) ->
+   DizzyCU (55mm orbit: drunk sway, heavy eyelids, a loose smile).
+Beat 8 "Antifungal drugs finally shut the brewery down."  IVDrip (85mm on the drip chamber) -> YeastDie (blue
+   drug particles reach the cells, they grey and shrink, the bubbles stop).
+Beat 9 "It's called auto-brewery syndrome..."  HospOrbit (35mm orbit, him recovered on the bed).
+Beat 10 "Your gut can be a brewery, so believe the sober patient."  BreweryX (X-ray body, belly glowing) -> Closer
+   (55mm push-in to his relieved smile).
+19 shots, every one moving; one slow-motion moment (beat 7).

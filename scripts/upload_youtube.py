@@ -4,6 +4,14 @@ Usage: python upload_youtube.py <video.mp4> <metadata.txt>
 Credentials must be set up first via: python youtube_auth.py
 """
 import sys, os, json, re
+
+# Windows consoles default to cp1252 and crash on emoji titles (daily_20261029_0304.log)
+for _s in (sys.stdout, sys.stderr):
+    try:
+        _s.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 from google.oauth2.credentials import Credentials

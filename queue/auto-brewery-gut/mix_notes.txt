@@ -1,0 +1,6 @@
+auto-brewery-gut: sound design
+Music: tense minimal pulse, dark electronic/suspense, drops to warm hopeful pad at beat 8-10.
+1 police siren chirp, car idle, radio squelch. 2 breathalyzer beep, digit ticker, alarm hit. 3 cuff clicks x2, door slam.
+4 whoosh + low rumble into wet gut ambience. 5 bubbling, glugging, yeast pops. 6 hospital monitor beeps, IV drip.
+7 riser, slow-mo bass drop, bubble swarm swell, impact. 8 drip, bubbles fade out, power-down. 9 clipboard rustle. 10 soft chime.
+Voice: Daniel / fallback chain per CLAUDE.md, pauses trimmed, tempo +15%. No captions.

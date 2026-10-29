@@ -1,6 +1,6 @@
 # Queue item templates
 
-**Rebuilt pipeline status.** The v2 reference scene is `completed/brain-leaking-nose/scene.py` (rendered and uploaded 2026-10-27). It uses `scripts/kit.py` (every model built in Blender) and `scripts/actor.py` (character acting). The newest scene on the full v3 toolkit (kit + actor + shot) is `queue/tooth-in-eye/scene.py` (reviewed with per-shot stills 2026-10-28); read it before writing a new one. The older `scene_template.py` and `mix_template.py` are v1 and were rejected for quality.
+**Rebuilt pipeline status: APPROVED (owner, 2026-10-29).** New queue items ship with `scene.py` and `mix.py`, tested with `run_test.sh`, and no `HOLD` file. The v2 reference scene is `completed/brain-leaking-nose/scene.py` (rendered and uploaded 2026-10-27). It uses `scripts/kit.py` (every model built in Blender) and `scripts/actor.py` (character acting). The newest scene on the full v3 toolkit (kit + actor + shot) is `queue/tooth-in-eye/scene.py` (reviewed with per-shot stills 2026-10-28); read it before writing a new one. The older `scene_template.py` and `mix_template.py` are v1 and were rejected for quality.
 
 **v3 helpers (from the Zack D research in `STYLE_GUIDE.md`).** New scenes should use them instead of copying the v2 camera code:
 

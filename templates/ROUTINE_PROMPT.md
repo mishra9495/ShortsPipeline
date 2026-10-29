@@ -4,8 +4,8 @@ Keep ONE routine: **Daily Shorts Topic + Script Prep (v2, render-ready)** (trig_
 Delete the old **Daily Shorts Topic + Script Prep** (trig_012vtm7c7Fdr1Mwxt6psfby4): it never writes `scene.py` /
 `mix.py`, so the nightly render skips everything it queues, and it fires at the same minute as v2.
 
-To update v2: open it under Scheduled tasks, edit the prompt, and paste everything below the line. Agents are not
-allowed to edit routines themselves.
+Applied to v2 on 2026-10-29 at the owner's request (no HOLD on new items). To change it again: open it under
+Scheduled tasks, edit the prompt, and paste everything below the line.
 
 Changes from the prompt v2 had on 2026-10-28:
 

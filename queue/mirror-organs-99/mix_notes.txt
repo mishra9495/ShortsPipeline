@@ -1,0 +1,8 @@
+mirror-organs-99: sound design (see mix.py; cues are fractions of beats, SYNC with scene.py)
+Music: warm wistful pad (home), mysterious minor pad + sub from the organ reveal, a near-silent breath before the swap, a bright major pad
+   from beat 7 on, a low final note.
+Ambience: room tone (home), lab ventilation, wet low organ gurgle with a steady 75 bpm heartbeat under every organ shot, shimmer for the dots.
+1 X-ray sweep + soft ping. 2 five soft frame ticks, swim splashes. 3 low note, whoosh to the lab, sheet rustle. 4 instrument clinks.
+5 whoosh into the organs, sting + chime as the vessels flash amber. 6 riser, sub boom on the swap, wet slides, crack, chime.
+7 firm heart thump, whoosh, warm hum. 8 whoosh, shimmer, rising tone and bright chime on the amber dot. 9 heart thump, whoosh home. 10 whoosh, warm chime.
+Voice: Daniel or the owner-approved fallback chain in CLAUDE.md, pauses trimmed, tempo +15%. No captions.

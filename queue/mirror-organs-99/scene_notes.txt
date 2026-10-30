@@ -1,0 +1,22 @@
+mirror-organs-99: scene direction (v3 toolkit: kit.py + actor.py + shot.py; one Actor = char_heroine, four sets; see scene.py)
+
+Cast: her = blend/char_heroine.blend (never replaced by the male hero). No other character.
+Sets: HOME (sunny living room, five photo frames on the wall, window right), LAB (anatomy lab: steel table under a sheet, lamp,
+   bench with skull, instrument tray; she is not shown), ORGAN (her torso organs parented to her spine on a black void:
+   ribs, spine, translucent lungs, heart, liver, stomach, spleen, bowel, aorta, vena cava, flowing beads), GRID (22,000 glowing
+   dots on a mirror floor and one amber dot). No on-screen text. Set changes are hard cuts with a whoosh + exposure spike.
+Frame 1 (thumbnail): her body is an X-ray shell in the living room with the organs glowing inside (liver on her left); the X-ray fades
+   so she turns into a normal, smiling woman by beat 1's second half.
+
+Beat 1 HOOK "She lived ninety-nine years..."  XThumb (42mm push-in, X-ray body) -> HomeWide (28mm).
+Beat 2 "Rose Bentley raised five kids, loved swimming..."  Photos (50mm truck along the five frames) -> SwimMed (35mm, she mimes a stroke).
+Beat 3 "She died in 2017 and donated her body..."  WindowSun (50mm push-in, warm window light, a quiet look down) -> LabTable (32mm, sheet-draped table).
+Beat 4 "Medical students in Oregon..."  LabTray (60mm push-in on clinking instruments).
+Beat 5 "They examined her heart, the blood vessels looked wrong."  HeartOrbit (orbit around the heart) -> VesselMacro (70mm, the vessels flash amber).
+Beat 6 MONEY MOMENT "Her liver and stomach had swapped sides..."  SwapSlomo (timewarp 0.4x: normal anatomy, liver and stomach slide across each other,
+   camera kick, light flare) -> MirrorCU (orbit round the mirrored organs).
+Beat 7 "Only her heart sat normally..."  HeartBeat (60mm macro, beating) -> BodyXFull (home, X-ray body pull-back).
+Beat 8 "One in twenty-two thousand births."  GridRise (low skim over 22,000 dots, crane up) -> OneAmber (push onto the one amber dot).
+Beat 9 "Usually heart defects, yet the oldest known case."  HeartPulse (orbit, strong heartbeat) -> HomeOrbit (35mm orbit, she smiles).
+Beat 10 "Her last gift taught future doctors..."  LabLamp (orbit under the lamp) -> Closer (50mm push-in on her X-ray torso).
+19 shots, every one moving; one slow-motion moment (beat 6).

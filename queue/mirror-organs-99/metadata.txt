@@ -1,0 +1,46 @@
+YOUTUBE SHORT METADATA: "Mirror Organs At 99"
+Video file: mirror-organs-99.mp4 (1080x1920, 30 fps, ~32 s incl. tail; narration ~31 s at 190 wpm)
+Narration: queue narration.wav / Kokoro am_fenrir per daily_render.ps1's fallback chain, pauses trimmed, word-for-word verified against script.txt.
+
+TITLE (pick one; first is recommended)
+1. Her Organs Were On Backwards 😳
+2. She Never Knew For 99 Years 😱
+3. Born With Organs On The Wrong Side 🫀
+
+DESCRIPTION
+Rose Marie Bentley lived to 99 and never knew her liver and stomach were on the opposite sides of her body. First-year medical students at Oregon Health & Science University found out when they examined her heart in their gross anatomy class after she donated her body to science.
+
+Her condition was situs inversus with levocardia: the liver, stomach and other abdominal organs were mirrored right to left, while the heart stayed on the normal left side. It occurs in about 1 in 22,000 births and often comes with life-threatening heart problems, yet she became the oldest known person with it.
+
+Source: OHSU News, "Body donor's rare anatomy offers valuable lessons" (8 April 2019). Also CNN Health, "Rose Marie Bentley lived for 99 years with organs in all the wrong places and never knew it" (8 April 2019).
+https://news.ohsu.edu/2019/04/08/body-donors-rare-anatomy-offers-valuable-lessons
+
+This is a 3D animated dramatization made for education and entertainment. It is not medical advice.
+
+#shorts #situsinversus #medicalmystery #science #didyouknow #humanbody #3danimation
+
+TAGS (comma-separated, paste into the Tags field)
+situs inversus, organs on wrong side, Rose Marie Bentley, mirrored organs, levocardia, medical mystery, weird medical cases, human body facts, science facts, did you know, anatomy, 3d animation, animated explainer, medical shorts, science shorts, body facts
+
+UPLOAD SETTINGS
+- Category: Education
+- Audience: Not made for kids
+- Altered or synthetic content: narration is AI text-to-speech and the scene is a 3D dramatization. Recommended answer: "Yes".
+- Language: English
+- Comments: On
+- Suggested pinned comment: "Would you want to know if your organs were flipped? 👀"
+
+FACT CHECK (every claim in the narration, with its source)
+- She lived ninety-nine years with her organs on the wrong side: Bentley died aged 99 (11 Oct 2017); her liver, stomach and other abdominal organs were transposed right to left (OHSU; CNN) ✔
+- Rose Bentley raised five kids, loved swimming, suspected nothing: five children, an avid swimmer, and she and her family had no idea of the condition (OHSU/CNN coverage; one surgeon who removed her appendix noted its unusual position, she was never diagnosed) ✔
+- She died in 2017 and donated her body to science: died 11 October 2017, donated her body to OHSU (OHSU) ✔
+- Medical students in Oregon began studying her body: first-year medical students in a gross anatomy class at OHSU in Portland (OHSU) ✔
+- They examined her heart, and the blood vessels looked wrong: Cameron Walker said the class was examining the heart when they noticed the blood vessels were different (CNN/OHSU) ✔
+- Her liver and stomach had swapped sides, like a mirror image: abdominal organs transposed right to left (OHSU) ✔
+- Only her heart sat normally: heart remained on the left side of her chest, i.e. levocardia (OHSU) ✔
+- So the secret stayed hidden: she and her family never knew (CNN/OHSU) ✔
+- About one in twenty-two thousand births: situs inversus with levocardia occurs in about 1 in 22,000 births (OHSU) ✔
+- Usually it brings heart defects: often associated with life-threatening cardiac ailments (OHSU) ✔
+- She's the oldest known case: the OHSU team believes she is the oldest known patient with the condition (OHSU) ✔
+- Her last gift taught future doctors to expect the unexpected: closer; OHSU's own framing is that her case offers valuable lessons for students ✔
+- Artistic license: the heroine is a generic animated woman, not a likeness. Organ positions are schematic. The slow-motion swap from normal to mirrored anatomy is a visual metaphor, and the dots show the 1-in-22,000 odds (22,000 dots, one amber).

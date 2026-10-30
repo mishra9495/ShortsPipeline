@@ -1,0 +1,47 @@
+YOUTUBE SHORT METADATA: "Auto-Brewery Gut"
+Video file: auto-brewery-gut.mp4 (1080x1920, 30 fps, ~32 s incl. tail; narration ~31 s at 190 wpm)
+Narration: queue narration.wav / Kokoro am_fenrir per daily_render.ps1's fallback chain, pauses trimmed, word-for-word verified against script.txt.
+
+TITLE (pick one; first is recommended)
+1. He Got Drunk Without Drinking 🍺
+2. His Gut Brewed Its Own Alcohol 😳
+3. Arrested Sober With 0.41 Alcohol 😱
+
+DESCRIPTION
+A man arrested for drunk driving had not touched alcohol in about 20 years. The reason: yeast in his gut was fermenting carbohydrates into ethanol, a rare condition called auto-brewery syndrome (gut fermentation syndrome).
+
+In a documented 2019 case, a 45-year-old man had two drunk-driving arrests with blood alcohol two to three times the legal limit, and a breathalyzer reading of 0.41% on the second. Doctors found Saccharomyces cerevisiae (brewer's yeast) in his stool and other fermenting microbes in his gut. A monitored carbohydrate challenge, with no alcohol allowed, sent his blood alcohol above 400 mg/dl. An eight-week course of the antifungal micafungin made his alcohol undetectable.
+
+The condition is rare and likely underdiagnosed, and has no standard diagnostic criteria. A monitored sugar challenge is the key test.
+
+Source: "A Case of Auto-brewery Syndrome Treated with Micafungin", Cureus 2019 (PMC6853272). Also StatPearls, Auto-Brewery Syndrome (NBK513346).
+https://pmc.ncbi.nlm.nih.gov/articles/PMC6853272/
+https://www.ncbi.nlm.nih.gov/books/NBK513346/
+
+This is a 3D animated dramatization made for education and entertainment. It is not medical or legal advice.
+
+#shorts #autobrewerysyndrome #medicalmystery #science #didyouknow #humanbody #3danimation
+
+TAGS (comma-separated, paste into the Tags field)
+auto-brewery syndrome, gut fermentation syndrome, drunk without drinking, gut yeast, medical mystery, weird medical cases, human body facts, science facts, did you know, microbiome, 3d animation, animated explainer, medical shorts, science shorts, body facts
+
+UPLOAD SETTINGS
+- Category: Education
+- Audience: Not made for kids
+- Altered or synthetic content: narration is AI text-to-speech and the scene is a 3D dramatization. Recommended answer: "Yes".
+- Language: English
+- Comments: On
+- Suggested pinned comment: "Would anyone have believed him? 👀"
+
+FACT CHECK (every claim in the narration, with its source)
+- Arrested for drunk driving, hadn't drunk in twenty years: case report says he abstained from alcohol for about 20 years and had two DWI arrests (PMC6853272) ✔
+- Breathalyzer read 0.41, over five times the legal limit: breathalyzer 0.41% at the second arrest; 0.41 / 0.08 = 5.1 (US limit) ✔
+- Arrested twice, swore he was sober: two arrests, blood alcohol two to three times the limit; he denied drinking (PMC6853272) ✔
+- Culprit living in his gut: gut microbes ferment carbohydrates into ethanol (StatPearls NBK513346) ✔
+- Yeast fermenting food into alcohol: S. cerevisiae in stool by PCR, Candida intermedia in gastric and jejunal samples (PMC6853272). Other cases involve bacteria such as Klebsiella; narration says yeast, matching this case ✔
+- Proven in hospital by feeding him sugar with zero alcohol: monitored carbohydrate challenge, the key diagnostic test (PMC6853272; StatPearls) ✔
+- Blood alcohol past 0.4 percent from sugar alone: over 400 mg/dl one hour into a carbohydrate challenge at another institution, test stopped (PMC6853272) ✔
+- Antifungal drugs shut it down: IV micafungin for eight weeks made breath and blood alcohol undetectable; fluconazole alone had failed (PMC6853272) ✔
+- Called auto-brewery syndrome, doctors still miss it: StatPearls calls it rare and likely underdiagnosed ✔
+- Believe the sober patient: closer, opinion drawn from the diagnostic delay in the case ✔
+- Artistic license: the gut and yeast are shown hugely magnified; brewery equipment is a visual metaphor.

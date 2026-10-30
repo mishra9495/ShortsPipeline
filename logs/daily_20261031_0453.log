@@ -1,0 +1,20 @@
+04:53:06  === Daily pipeline start ===
+04:53:06  Sleep blocked while the pipeline runs
+04:53:07  From https://github.com/mishra9495/ShortsPipeline
+04:53:07   * branch            main       -> FETCH_HEAD
+04:53:07  Already up to date.
+04:53:07  Full render: mirror-organs-99
+04:53:07  [mirror-organs-99] Narration: free Kokoro am_fenrir voice (no ElevenLabs key)
+04:53:19  am_fenrir speed 1.000: 99 words in 35.42s = 168 wpm
+04:53:19  am_fenrir re-read at speed 1.133: 33.11s = 179 wpm
+04:53:19  am_fenrir: 33.11s, 10 beats -> D:\ShortsPipeline\audio\mirror-organs-99_vo.wav
+04:53:19  [mirror-organs-99] Building Blender scene (30 fps)...
+04:53:27  00:07.156  blend            | Read blend: "D:\ShortsPipeline\blend\char_heroine.blend"
+04:53:27  00:07.484  cycles           | WARNING HIPEW initialization failed: Error opening HIP dynamic library
+04:53:27  Traceback (most recent call last):
+04:53:27    File "D:\ShortsPipeline\queue\mirror-organs-99\scene.py", line 183, in <module>
+04:53:27  ValueError: min() iterable argument is empty
+04:53:27  ARGS out=D:\ShortsPipeline\blend\mirror-organs-99.blend fps=30 pct=100 samples=128 device=gpu beats=D:\ShortsPipeline\audio\mirror-organs-99_vo.json
+04:53:27  CHAR D:\ShortsPipeline\blend\char_heroine.blend
+04:53:28  [mirror-organs-99] ERROR: scene build failed
+04:53:28  === ERROR: could not prepare mirror-organs-99 (see the narration/scene lines above) (exit 1) ===

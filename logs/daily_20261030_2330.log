@@ -1,0 +1,46 @@
+23:30:02  === Daily pipeline start ===
+23:30:02  Sleep blocked while the pipeline runs
+23:30:06  From https://github.com/mishra9495/ShortsPipeline
+23:30:06   * branch            main       -> FETCH_HEAD
+23:30:06     982cf99..5c9cde9  main       -> origin/main
+23:30:06  Updating 982cf99..5c9cde9
+23:30:06  Fast-forward
+23:30:06   queue/auto-brewery-gut/HOLD            |   1 -
+23:30:06   queue/auto-brewery-gut/mix.py          | 419 ++++++++++++++
+23:30:06   queue/auto-brewery-gut/mix_notes.txt   |  17 +-
+23:30:06   queue/auto-brewery-gut/scene.py        | 962 +++++++++++++++++++++++++++++++++
+23:30:06   queue/auto-brewery-gut/scene_notes.txt |  45 +-
+23:30:06   queue/mirror-organs-99/metadata.txt    |  46 ++
+23:30:06   queue/mirror-organs-99/mix.py          | 425 +++++++++++++++
+23:30:06   queue/mirror-organs-99/mix_notes.txt   |   8 +
+23:30:06   queue/mirror-organs-99/scene.py        | 792 +++++++++++++++++++++++++++
+23:30:06   queue/mirror-organs-99/scene_notes.txt |  22 +
+23:30:06   queue/mirror-organs-99/script.txt      |  10 +
+23:30:06   templates/README.md                    |   2 +-
+23:30:06   templates/ROUTINE_PROMPT.md            |   4 +-
+23:30:06   13 files changed, 2730 insertions(+), 23 deletions(-)
+23:30:06   delete mode 100644 queue/auto-brewery-gut/HOLD
+23:30:06   create mode 100644 queue/auto-brewery-gut/mix.py
+23:30:06   create mode 100644 queue/auto-brewery-gut/scene.py
+23:30:06   create mode 100644 queue/mirror-organs-99/metadata.txt
+23:30:06   create mode 100644 queue/mirror-organs-99/mix.py
+23:30:06   create mode 100644 queue/mirror-organs-99/mix_notes.txt
+23:30:06   create mode 100644 queue/mirror-organs-99/scene.py
+23:30:06   create mode 100644 queue/mirror-organs-99/scene_notes.txt
+23:30:06   create mode 100644 queue/mirror-organs-99/script.txt
+23:30:06  Full render: auto-brewery-gut
+23:30:06  [auto-brewery-gut] Narration: free Kokoro am_fenrir voice (no ElevenLabs key)
+23:30:18  am_fenrir speed 1.000: 97 words in 34.80s = 167 wpm
+23:30:18  am_fenrir re-read at speed 1.136: 32.54s = 179 wpm
+23:30:18  am_fenrir: 32.54s, 10 beats -> D:\ShortsPipeline\audio\auto-brewery-gut_vo.wav
+23:30:18  [auto-brewery-gut] Building Blender scene (30 fps)...
+23:30:27  00:08.031  blend            | Read blend: "D:\ShortsPipeline\blend\char_hero.blend"
+23:30:27  00:08.250  cycles           | WARNING HIPEW initialization failed: Error opening HIP dynamic library
+23:30:38  ARGS out=D:\ShortsPipeline\blend\auto-brewery-gut.blend fps=30 pct=100 samples=128 device=gpu beats=D:\ShortsPipeline\audio\auto-brewery-gut_vo.json
+23:30:38  CHAR D:\ShortsPipeline\blend\char_hero.blend
+23:30:38  Info: Saved as "auto-brewery-gut.blend"
+23:30:38  SAVED D:\ShortsPipeline\blend\auto-brewery-gut.blend END 1013 FPS 30 SHOTS [(0.0, 'LightsFace'), (1.81, 'RoadWide'), (3.62, 'BlowMed'), (5.69, 'MeterECU'), (8.22, 'RoofLow'), (9.55, 'SoberFace'), (10.88, 'BodyX'), (11.85, 'GutDive'), (12.83, 'YeastOrbit'), (14.25, 'YeastMacro'), (15.66, 'HospWide'), (17.81, 'DrinkCU'), (19.96, 'SugarSlomo'), (22.47, 'DizzyCU'), (24.01, 'IVDrip'), (25.15, 'YeastDie'), (26.54, 'HospOrbit'), (29.58, 'BreweryX'), (30.82, 'Closer')]
+23:30:39  Rendering frames (this takes several hours)...
+23:30:40  00:01.250  cycles           | WARNING HIPEW initialization failed: Error opening HIP dynamic library
+23:30:40  RANGE 1 1013
+23:45:44  FRAME 100

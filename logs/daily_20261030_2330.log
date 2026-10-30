@@ -53,3 +53,29 @@
 03:48:40  FRAME 800
 04:18:45  FRAME 900
 04:48:49  FRAME 1000
+04:52:22  Frames rendered: 1013
+04:52:22  Mixing audio...
+04:52:24  MIX D:\ShortsPipeline\audio\auto-brewery-gut_mix.wav 34.24 s  beats [0.0, 3.62, 8.22, 10.88, 12.83, 15.66, 19.96, 24.01, 26.54, 29.58] peak 0.708
+04:52:24  Assembling final video...
+04:52:38  Output: stream|width=1080|height=1920|r_frame_rate=30/1 stream|r_frame_rate=0/0 format|duration=33.766667
+04:52:38  [main edd3605] Completed: auto-brewery-gut
+04:52:38   7 files changed, 47 insertions(+)
+04:52:38   rename {queue => completed}/auto-brewery-gut/metadata.txt (100%)
+04:52:38   rename {queue => completed}/auto-brewery-gut/mix.py (100%)
+04:52:38   rename {queue => completed}/auto-brewery-gut/mix_notes.txt (100%)
+04:52:38   rename {queue => completed}/auto-brewery-gut/scene.py (100%)
+04:52:38   rename {queue => completed}/auto-brewery-gut/scene_notes.txt (100%)
+04:52:38   rename {queue => completed}/auto-brewery-gut/script.txt (100%)
+04:52:38   create mode 100644 final/auto-brewery-gut_youtube_metadata.txt
+04:52:38  Saved to: C:\Users\ANKIT MISHRA\Videos\CONTENT\3D SHORTS ANIMATION\Animation\He Got Drunk Without Drinking ğŸº\He Got Drunk Without Drinking ğŸº.mp4
+04:52:38  Uploading to YouTube...
+04:52:40  C:\Users\ANKIT MISHRA\AppData\Local\Programs\Python\Python311\Lib\site-packages\google\api_core\_python_version_support.py:254: FutureWarning: You are using a Python version (3.11.9) which Google will stop supporting in new releases of google.api_core once it reaches its end of life (2027-10-24). Please upgrade to the latest Python version, or at least Python 3.12, to continue receiving updates for google.api_core past that date.
+04:52:40    warnings.warn(message, FutureWarning)
+04:53:02  Uploading: He Got Drunk Without Drinking =ƒì¦
+04:53:02  File: C:\Users\ANKIT MISHRA\Videos\CONTENT\3D SHORTS ANIMATION\Animation\He Got Drunk Without Drinking +¦++-ì-¦\He Got Drunk Without Drinking +¦++-ì-¦.mp4 (23 MB)
+04:53:02    Upload 43%
+04:53:02    Upload 86%
+04:53:02  SUCCESS: https://youtu.be/U20u1-eY1Ks (visibility: public)
+04:53:02  Studio: https://studio.youtube.com/video/U20u1-eY1Ks/edit
+04:53:02  === Done: auto-brewery-gut -> C:\Users\ANKIT MISHRA\Videos\CONTENT\3D SHORTS ANIMATION\Animation\He Got Drunk Without Drinking ğŸº\He Got Drunk Without Drinking ğŸº.mp4 ===
+04:53:02  Next ready: mirror-organs-99 - starting video 2 of 2 tonight

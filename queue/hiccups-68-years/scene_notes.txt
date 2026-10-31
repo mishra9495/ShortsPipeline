@@ -1,0 +1,21 @@
+hiccups-68-years: scene direction (v3 toolkit: kit.py + actor.py + shot.py; one Actor, five sets; see scene.py)
+
+Cast: him = blend/char_hero.blend. No second character.
+Sets: HOME (sunny living room, eight photo frames on the wall, window right), BARN (1922 wooden barn, hay bales, lantern, a pink hog built in code),
+   BRAIN (X-ray brain in a dark void, brain stem with a red vessel that bursts and an amber "off switch" that dies),
+   CHEST (X-ray rib cage: lungs, trachea, vocal cords, red diaphragm dome that snaps down), TALLY (a wall of glowing dots that pop one by one).
+   Set changes are hard cuts with a whoosh and an exposure spike. No on-screen text.
+Frame 1 (thumbnail): tight face, mid-hiccup, home set, eyes wide.
+
+Beat 1 HOOK "Charles Osborne hiccuped..."  HookFace (50mm push-in, hic jolt) -> HookWide (28mm, him hiccuping in the living room).
+Beat 2 "It began in 1922, on a Nebraska farm."  BarnWide (28mm, warm lantern, him beside the hog) -> PigCU (50mm push-in on the hog).
+Beat 3 "He slipped while lifting a hog..."  LiftMed (45mm, he strains at the hog) -> FallLow (low 24mm, slips, crashes backward, kick on impact, first hic).
+Beat 4 "A tiny blood vessel burst..."  BrainOrbit (X-ray brain, orbit) -> BurstMacro (85mm on the vessel; it bursts, red cloud).
+Beat 5 "That likely damaged the spot..."  OffSwitch (amber nucleus pulses, signals run down the nerve) -> SignalLost (it flickers and greys out, signals stop).
+Beat 6 MONEY MOMENT "So his diaphragm kept snapping..."  HicSlomo (slow motion ~0.4x: air rushes down the trachea, the diaphragm snaps flat, lungs jolt)
+   -> CordsCU (85mm: vocal cords slam shut with a white flash, repeated).
+Beat 7 "That's roughly four hundred thirty million..."  TallyFly (camera flies through a wall of dots popping in a wave) -> WearyFace (55mm, tired, hiccup jolts).
+Beat 8 "Yet he married twice and raised eight children."  FamilyWide (28mm orbit, eight frames) -> FramesTruck (50mm truck along the frames, him smiling through a hic).
+Beat 9 "In 1990, they stopped suddenly..."  LastHicFace (the last hic, then stillness, eyes open, surprise) -> ChestCalm (diaphragm and lungs now breathe smoothly).
+Beat 10 "He died at ninety-seven, ..."  HomeOrbit (35mm orbit) -> Closer (55mm push-in to a calm smile).
+20 shots, every one moving; one slow-motion moment (beat 6).

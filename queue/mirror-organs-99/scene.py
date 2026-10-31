@@ -179,7 +179,17 @@ SH_L, SH_R = him.bone_rest_head("LeftArm"), him.bone_rest_head("RightArm")
 Z0 = REST_HIPS.z
 TZ = max(0.4, SH_L.z - Z0)                                    # hips to shoulder joints
 WX = 0.85 * abs(SH_L.x - him.x0)                              # torso half width
-mid_ = [v for v in VERTS if abs(v.x - him.x0) < 0.05 and Z0 + 0.6 * TZ < v.z < Z0 + 0.9 * TZ]
+mid_ = []
+for _hw in (0.05, 0.10, 0.20, 0.40):                          # widen the midline band until the mesh is found (heroine rig differs)
+    for _z0, _z1 in ((0.6, 0.9), (0.4, 1.0), (0.0, 1.2)):
+        mid_ = [v for v in VERTS if abs(v.x - him.x0) < _hw and Z0 + _z0 * TZ < v.z < Z0 + _z1 * TZ]
+        if len(mid_) >= 6:
+            break
+    if len(mid_) >= 6:
+        break
+if not mid_:
+    print("TORSO WARN: no body vertices near the torso; using bone-based depth", len(VERTS), tuple(him.hips0), SH_L[:])
+    mid_ = [Vector((him.x0, him.hips0.y - 0.10, Z0 + 0.7 * TZ)), Vector((him.x0, him.hips0.y + 0.10, Z0 + 0.7 * TZ))]
 YF, YB = min(v.y for v in mid_), max(v.y for v in mid_)       # chest front / back
 YC, DY = (YF + YB) / 2, (YB - YF) / 2
 X0 = him.x0

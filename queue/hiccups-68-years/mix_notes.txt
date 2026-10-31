@@ -1,0 +1,6 @@
+hiccups-68-years: sound design (see mix.py; cues are fractions of beats, SYNC with scene.py)
+Music: warm uneasy pad (home), low rural drone + creak (barn), cold sub pulse in the X-ray sets, a near-silent breath just before the slow-mo snap, a bright major pad after the hiccups stop (beat 9), low final note.
+Ambience: room tone (home), wind + wood creaks (barn), brain hum, wet chest rumble with a heartbeat, shimmer for the dots.
+Every hiccup in the picture has a "hic" (glottal click + short inhale). 1 hic + whoosh. 2 hog grunt, hay rustle. 3 strain, slip, thud on impact, first hic. 4 whoosh, vessel pop, wet splash.
+5 amber pulse tone that falls out of tune and dies. 6 riser, silence dip, boom + hic in slow-mo. 7 shimmer run of pops. 8 warm chime. 9 the last hic, silence, relieved exhale, chime. 10 whoosh, warm low note.
+Voice: Daniel or the owner-approved fallback chain in CLAUDE.md, pauses trimmed, tempo +15%. No captions.

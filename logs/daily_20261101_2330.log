@@ -1,0 +1,49 @@
+23:30:01  === Daily pipeline start ===
+23:30:01  Sleep blocked while the pipeline runs
+23:30:04  From https://github.com/mishra9495/ShortsPipeline
+23:30:04   * branch            main       -> FETCH_HEAD
+23:30:04     1009599..af48214  main       -> origin/main
+23:30:04  Updating 1009599..af48214
+23:30:04  Fast-forward
+23:30:04   queue/frozen-heart-anna/metadata.txt          |   43 ++
+23:30:04   queue/frozen-heart-anna/mix.py                |  478 ++++++++++++
+23:30:04   queue/frozen-heart-anna/mix_notes.txt         |    3 +
+23:30:04   queue/frozen-heart-anna/scene.py              |  850 ++++++++++++++++++++
+23:30:04   queue/frozen-heart-anna/scene_notes.txt       |   14 +
+23:30:04   queue/frozen-heart-anna/script.txt            |   10 +
+23:30:04   queue/titanium-heart-100-days/metadata.txt    |   47 ++
+23:30:04   queue/titanium-heart-100-days/mix.py          |  397 ++++++++++
+23:30:04   queue/titanium-heart-100-days/mix_notes.txt   |   13 +
+23:30:04   queue/titanium-heart-100-days/scene.py        | 1022 +++++++++++++++++++++++++
+23:30:04   queue/titanium-heart-100-days/scene_notes.txt |   40 +
+23:30:04   queue/titanium-heart-100-days/script.txt      |   10 +
+23:30:04   templates/test/run_test.sh                    |    2 +
+23:30:04   13 files changed, 2929 insertions(+)
+23:30:04   create mode 100644 queue/frozen-heart-anna/metadata.txt
+23:30:04   create mode 100644 queue/frozen-heart-anna/mix.py
+23:30:04   create mode 100644 queue/frozen-heart-anna/mix_notes.txt
+23:30:04   create mode 100644 queue/frozen-heart-anna/scene.py
+23:30:04   create mode 100644 queue/frozen-heart-anna/scene_notes.txt
+23:30:04   create mode 100644 queue/frozen-heart-anna/script.txt
+23:30:04   create mode 100644 queue/titanium-heart-100-days/metadata.txt
+23:30:04   create mode 100644 queue/titanium-heart-100-days/mix.py
+23:30:04   create mode 100644 queue/titanium-heart-100-days/mix_notes.txt
+23:30:04   create mode 100644 queue/titanium-heart-100-days/scene.py
+23:30:04   create mode 100644 queue/titanium-heart-100-days/scene_notes.txt
+23:30:04   create mode 100644 queue/titanium-heart-100-days/script.txt
+23:30:04  Full render: mirror-organs-99
+23:30:04  [mirror-organs-99] Narration: free Kokoro am_fenrir voice (no ElevenLabs key)
+23:30:16  am_fenrir speed 1.000: 99 words in 35.42s = 168 wpm
+23:30:16  am_fenrir re-read at speed 1.133: 33.11s = 179 wpm
+23:30:16  am_fenrir: 33.11s, 10 beats -> D:\ShortsPipeline\audio\mirror-organs-99_vo.wav
+23:30:17  [mirror-organs-99] Building Blender scene (30 fps)...
+23:30:25  00:07.485  blend            | Read blend: "D:\ShortsPipeline\blend\char_heroine.blend"
+23:30:25  00:07.750  cycles           | WARNING HIPEW initialization failed: Error opening HIP dynamic library
+23:30:28  ARGS out=D:\ShortsPipeline\blend\mirror-organs-99.blend fps=30 pct=100 samples=128 device=gpu beats=D:\ShortsPipeline\audio\mirror-organs-99_vo.json
+23:30:28  CHAR D:\ShortsPipeline\blend\char_heroine.blend
+23:30:28  Info: Saved as "mirror-organs-99.blend"
+23:30:28  SAVED D:\ShortsPipeline\blend\mirror-organs-99.blend END 1030 FPS 30 SHOTS [(0.0, 'XThumb'), (1.6, 'HomeWide'), (3.19, 'Photos'), (5.15, 'SwimMed'), (7.11, 'WindowSun'), (9.12, 'LabTable'), (11.13, 'LabTray'), (14.2, 'HeartOrbit'), (15.49, 'VesselMacro'), (17.07, 'SwapSlomo'), (19.09, 'MirrorCU'), (20.32, 'HeartBeat'), (21.88, 'BodyXFull'), (23.43, 'GridRise'), (24.77, 'OneAmber'), (26.11, 'HeartPulse'), (27.9, 'HomeOrbit'), (29.69, 'LabLamp'), (31.13, 'Closer')]
+23:30:28  Rendering frames (this takes several hours)...
+23:30:31  00:02.141  cycles           | WARNING HIPEW initialization failed: Error opening HIP dynamic library
+23:30:31  RANGE 1 1030
+00:23:33  FRAME 100

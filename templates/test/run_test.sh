@@ -16,6 +16,8 @@ if [ ! -x "$VENV/bin/python" ]; then
 fi
 PY="$VENV/bin/python"
 [ -f "$WORK/root/blend/char_hero.blend" ] || "$PY" "$REPO/templates/test/make_standin.py" -- "$WORK/root/blend/char_hero.blend"
+# scenes with a female lead open blend/char_heroine.blend; the test uses the same stand-in mannequin for her
+[ -f "$WORK/root/blend/char_heroine.blend" ] || cp "$WORK/root/blend/char_hero.blend" "$WORK/root/blend/char_heroine.blend"
 A="$WORK/root/audio/$SLUG"
 "$PY" "$REPO/templates/test/fake_vo.py" "$REPO/queue/$SLUG/script.txt" "${A}_vo"
 cp "${A}_vo.json" "${A}_beats.json"; cp "${A}_vo.wav" "${A}_vo_final.wav"

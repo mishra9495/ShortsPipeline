@@ -1,0 +1,43 @@
+YOUTUBE SHORT METADATA: "Her Heart Stopped For Hours"
+Video file: frozen-heart-anna.mp4 (1080x1920, 30 fps, ~33 s incl. tail; narration ~31 s at 190 wpm)
+Narration: queue narration.wav / Kokoro am_fenrir per daily_render.ps1's fallback chain, pauses trimmed, word-for-word verified against script.txt.
+
+TITLE (pick one; first is recommended)
+1. Her Heart Stopped For Hours And She Lived 😱
+2. She Survived A Frozen Heart For Hours 🧊
+3. The Woman Who Came Back From Frozen 🤯
+
+DESCRIPTION
+In May 1999, 29-year-old skier Anna Bagenholm fell through the ice of a frozen stream in Norway and was trapped under it for about 80 minutes. She found an air pocket and kept breathing for roughly 40 minutes, then the freezing water stopped her heart. When she reached the hospital her body temperature was just 13.7 degrees Celsius (normal is about 37). Doctors connected her to a heart-lung machine that warmed her blood outside her body. Her heart started beating again after 2 hours and 35 minutes without a beat. She woke ten days later, paralyzed at first, and went on to recover almost completely. Doctors say the cold slowed her brain so much it needed very little oxygen, which is why the old medical saying holds: nobody is dead until they are warm and dead.
+
+Sources: Gilbert M et al., "Resuscitation from accidental hypothermia of 13.7 C with circulatory arrest", The Lancet 2000; 355(9201):375-376; Wikipedia, "Anna Bagenholm"; ScienceAlert, "This woman survived the lowest body temperature ever recorded".
+https://en.wikipedia.org/wiki/Anna_B%C3%A5genholm
+https://www.sciencealert.com/this-woman-survived-the-lowest-body-temperature-ever-recorded
+
+This is a 3D animated dramatization made for education and entertainment. It is not medical advice.
+
+#shorts #hypothermia #medicalmystery #humanbody #didyouknow #3danimation #science
+
+TAGS (comma-separated, paste into the Tags field)
+Anna Bagenholm, hypothermia survival, heart stopped for hours, lowest body temperature survived, frozen under ice, nobody is dead until warm and dead, heart-lung machine, cardiopulmonary bypass, medical miracle, human body facts, medical facts, true survival story, 3d animation, animated explainer, science shorts
+
+UPLOAD SETTINGS
+- Category: Education
+- Audience: Not made for kids
+- Altered or synthetic content: narration is AI text-to-speech and the scene is a 3D dramatization of a real case. Recommended answer: "Yes".
+- Language: English
+- Comments: On
+- Suggested pinned comment: "Would you have survived 80 minutes under the ice? 🧊"
+
+FACT CHECK (every claim in the narration, with its source)
+- Her heart stopped for hours and she lived: no heartbeat for 2 h 35 min (19:40 to 22:15), she survived (Wikipedia "Anna Bagenholm"; Lancet 2000 report) ✔
+- 1999, skier Anna Bagenholm, frozen Norwegian stream: 20 May 1999, age 29, fell into a frozen stream while skiing near Narvik, Norway (Wikipedia; ScienceAlert) ✔
+- Trapped, found an air pocket and breathed: trapped under about 20 cm of ice, found an air pocket and stayed conscious about 40 minutes (Wikipedia) ✔
+- Forty minutes later the cold stopped her heart: circulatory arrest about 40 minutes after the fall, 80 minutes in total in the water before rescue (Wikipedia; USC Scribe) ✔
+- Body temperature 13.7 degrees Celsius: core temperature on arrival at hospital, 13.7 C (56.7 F) (Lancet 2000 title; Wikipedia) ✔ (stated as what her temperature fell to, not as a record)
+- Heart-lung machine drew out her blood, warmed it and returned it: cardiopulmonary bypass warmed her blood outside the body and returned it to her veins (Wikipedia) ✔
+- After two and a half hours her heart beat again: no heartbeat for 2 h 35 min until the first beat at 22:15 (Wikipedia) ✔ (rounded to two and a half hours)
+- The cold slowed her brain so it barely needed oxygen: standard explanation of hypothermic brain protection (ScienceAlert; Live Science on cold slowing metabolism) ✔
+- Woke ten days later, nearly fully recovered: arrested 20 May, woke 30 May paralyzed from the neck down, no permanent brain damage, almost full recovery with minor hand and foot symptoms (Wikipedia, as of 2009) ✔
+- Doctors now say nobody is dead until they are warm and dead: long-standing resuscitation saying quoted by Dr. Mads Gilbert's team and cold-water-drowning guidance ✔
+- Artistic license: the hero is a generic animated woman, not a likeness; the stream, ice hole, operating room and machines are invented, schematic settings; the thermometer and X-ray heart are symbolic and the heartbeat is shown at a readable pace.

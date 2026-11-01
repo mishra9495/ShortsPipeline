@@ -1,0 +1,3 @@
+frozen-heart-anna mix: cold, thin pad plus low drone until the heart restarts, then warm pad. Ambience per set: wind (ice), muffled rumble (under), shimmer (thermo), room hum (OR), wet chest gurgle (heart).
+SFX: flatline tone in the hook; ice creak + crack + splash at the fall; bubbles under the ice; heart slows (lub-dub gaps grow) and power-down at the stop; falling glissando and frost crackle with the thermometer; roller-pump whump and warming rise for the machine; near-silence before the restart then a big boom, crack and chime; monitor beeps after; cold ticks in the brain; soft inhale and chime when she wakes; chime on her smile.
+Voice: Kokoro am_fenrir per the render chain, sidechain duck under the voice. SYNC constants at the top of mix.py mirror scene.py.

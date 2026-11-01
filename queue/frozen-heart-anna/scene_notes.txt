@@ -1,0 +1,14 @@
+frozen-heart-anna: scene direction (v3 toolkit: kit.py + actor.py + shot.py; one Actor = char_heroine, seven sets; see scene.py)
+Cast: her = blend/char_heroine.blend (never replaced by the male hero). No other character.
+Look: cold blue vs warm red. Frozen = pale blue, hard rim light; warm = red/orange. Frame 1 (thumbnail) = the icy blue, stopped heart in an X-ray chest.
+Beat 1 (hook) HookHeart: icy blue heart, perfectly still, slow push-in. HookOR: she lies on the OR table, camera tracks past, a tube snakes to a machine.
+Beat 2 SkiWide: skier on the frozen stream, mountains and pines, orbit-ish drift. IceBreak: low cam, ice cracks, she tilts backward into the hole and sinks; splash kick; hard cut.
+Beat 3 UnderWide: dark teal water, glowing ice ceiling with cracks, bright entry hole, she floats face-up. AirPocket: macro of her head, silver air pocket above, bubbles rise.
+Beat 4 UnderEyes: over-the-head close-up, eyes close. HeartStop: X-ray heart beats slower and slower, turns icy blue, stops.
+Beat 5 ThermoDrop: giant glowing thermometer, red fill falls past the green 37 mark, turns blue. ThermoCU: cyan ring locks at 13.7.
+Beat 6 MachineWide: OR, table, her, two tubes to a heart-lung machine, beads of blood flowing. TubeCU: red oxygenator, orange warming coil heats up.
+Beat 7 (money moment, slow motion) RestartHeart: icy heart, silence, one huge beat, flash, colour floods back to red. MonitorCU: green trace appears.
+Beat 8 BrainCold: dim blue X-ray brain, a few amber oxygen sparks drift. BrainMacro: close on the folds.
+Beat 9 WakeFace: her eyes open slowly (OR). RecoverWide: sunny home, she stands, orbit.
+Beat 10 FinalHeart: strong warm heartbeat orbit. Closer: her smiling face push-in.
+Slow-mo window B[6]..60% of beat 7 (heart restart at 40% of that window). 20 shots, every shot moving, set changes are hard cuts.

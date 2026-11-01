@@ -1,0 +1,13 @@
+titanium-heart-100-days: sound design (see mix.py; cues are fractions of beats, SYNC with scene.py)
+Music: tense low medical drone with a soft pulsing arpeggio from beat 4, near-silence just before the slow-mo reveal, then a warm,
+   hopeful major pad from the moment the doors open (beat 7) to the end, landing on a low final note. Genre: cinematic tech/ambient.
+Ambience: quiet room tone (ward, OR), outdoor air and birdsong once the doors part (exit), workshop hum. The pump has its own smooth
+   electric whirr under every titanium-heart shot (pitched down 0.4x in the slow-motion window); no clicks, nothing that rubs.
+1 hook: magnetic power-up swell, pump whirr. 2 weak, irregular heartbeat and monitor beeps, three laboured breaths. 3 OR monitor beeps,
+   whoosh into the X-ray, deep boom + metallic seat on the swap. 4 metallic shimmer as the device turns. 5 riser and silence dip, magnetic
+   swell + sub boom when the rings flare, slow whirr, reverse whoosh out. 6 wet flowing squelches as blood leaves the pump.
+7 automatic door servo, outdoor air and birds swell in, deep breath, warm chime. 8 trolley wheels rattle, a clink as it stops, a strong
+   healthy heartbeat starts with the donor heart (boom). 9 wrench clink, small prototype whirr. 10 warm chime, low final note.
+Every set change gets a whoosh.
+Voice: Daniel or the owner-approved fallback chain in CLAUDE.md (Kokoro am_fenrir), pauses trimmed, about 190 wpm, calm and matter-of-fact.
+   No modulation on the voice. No captions.

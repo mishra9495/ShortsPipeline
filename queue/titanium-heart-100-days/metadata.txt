@@ -1,0 +1,47 @@
+YOUTUBE SHORT METADATA: "He Lived With A Titanium Heart"
+Video file: titanium-heart-100-days (1080x1920, 30 fps, ~32 s)
+Narration: ElevenLabs "Daniel" when available, otherwise the owner-approved Kokoro am_fenrir voice (CLAUDE.md fallback chain), pauses trimmed, ~190 wpm.
+
+TITLE (pick one; first is recommended)
+1. 100 Days With A Titanium Heart 😮
+2. The Heart That Floats On Magnets 😯
+3. How A Titanium Heart Works 🤔
+
+DESCRIPTION
+An Australian man in his 40s was dying of heart failure, and no donor heart was available. In November 2024, surgeons at St Vincent's Hospital in Sydney replaced his heart with the BiVACOR Total Artificial Heart: a titanium pump with just one moving part, a rotor held floating by magnets, so there are no valves or bearings to wear out. It pumps blood to both the body and the lungs.
+
+He lived with it for more than 100 days, and in February 2025 he became the first person in the world to walk out of hospital with this device. In March 2025, a donor heart became available and he had a successful transplant. The device was invented by Queensland engineer Daniel Timms, who started working on it after his father died of heart failure. It is still in clinical trials.
+
+Sources: St Vincent's Hospital Sydney / Monash University announcement (March 2025), reported by CNN and ZME Science.
+https://krdo.com/news/2025/03/12/man-lives-for-100-days-with-artificial-titanium-heart-in-new-trial/
+https://zmescience.com/medicine/australian-man-lived-with-a-fully-artificial-heart-for-over-100-days-heres-how-it-saved-his-life
+https://clinicaltrials.gov/study/NCT06174103
+
+This is a 3D animated dramatization made for education and entertainment. It is not medical advice.
+
+#shorts #artificialheart #titaniumheart #medicaltechnology #humanbody #3danimation #science
+
+TAGS (comma-separated, paste into the Tags field)
+titanium heart, artificial heart, bivacor, total artificial heart, magnetic levitation heart, man lives 100 days artificial heart, heart failure, heart transplant, medical technology, future of medicine, medical breakthrough, 3d animation, animated explainer, science shorts, human body facts
+
+UPLOAD SETTINGS
+- Category: Education
+- Audience: Not made for kids
+- Visibility: Public (owner's standing rule)
+- Altered or synthetic content: the narration is AI text-to-speech and the scene is a 3D dramatization of a real event. Recommended answer: "Yes".
+- Language: English
+- Comments: On
+- Suggested pinned comment: "Would you trust a titanium heart that floats on magnets? 🤔"
+
+FACT CHECK (every claim in the narration, with its source)
+- "Lived over a hundred days with a titanium heart": he lived with the BiVACOR device for more than 100 days; it is constructed from titanium (CNN via KRDO, ZME Science) ✔
+- "His own heart was failing, with no donor in sight": severe heart failure, implanted as a bridge while waiting for a donor heart (CNN, ZME Science) ✔
+- "In 2024, surgeons in Sydney replaced it completely": implanted 22 November 2024 at St Vincent's Hospital Sydney in a six-hour operation; it is a total artificial heart that replaces both ventricles (CNN, ZME Science) ✔
+- "One moving part, a spinning rotor": "one moving part, a magnetically suspended rotor" (CNN) ✔
+- "Magnets keep it floating, so nothing rubs or wears out": magnetic levitation suspends the rotor; no valves or mechanical bearings that could wear out (CNN, ZME Science) ✔
+- "It pumps blood to his body and lungs": it replaces both ventricles, pumping blood to the body and the lungs (CNN) ✔
+- "In February, he walked out of the hospital with it": discharged in February 2025, the first person worldwide to leave hospital with the device (CNN, ZME Science) ✔
+- "Then a donor heart arrived, and he got his transplant": donor heart in March 2025, successful transplant (CNN, ZME Science) ✔
+- "Its inventor made it after his dad died of heart failure": Daniel Timms; his father, a plumber, developed heart failure and died (ZME Science; CNN says "heart disease") ✔
+- "Someday, hearts like this could end the wait for donors": phrased as a possibility. 23 million people have heart failure and about 6,000 get donor hearts a year (ZME Science); the device is still in trials (ClinicalTrials.gov NCT06174103) ✔
+- Artistic license: the cutaway housing is transparent so the floating rotor is visible, the magnet glow and blood-flow particles are stylized, and the inventor's workshop is implied by props only.

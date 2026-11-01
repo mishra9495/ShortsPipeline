@@ -1,0 +1,40 @@
+titanium-heart-100-days: scene direction (v3 toolkit: kit.py + actor.py + shot.py; one Actor, six sets; see scene.py)
+
+Cast: him = blend/char_hero.blend. No second character (surgeons and the inventor are implied by props only).
+Animation: procedural on the mixamorig bones with scripts/actor.py (CLAUDE.md: the Mixamo retarget is unvalidated).
+   Closest Mixamo clips in animation_manifest.txt, for reference only, NOT used: "Injured Hurting Idle.fbx" (beat 2),
+   "Laying Mild Cough.fbx" (beats 3 and 8, lying on the table), "Waving.fbx" (beat 7).
+Sets: WARD (cardiac ward corner: bed, vital monitor, IV pole, privacy curtain, window), OR (table, lamp, monitor, tray, a donor-heart
+   cooler on a steel trolley), EXIT (hospital lobby, automatic glass doors onto a sunny forecourt with trees), WORKSHOP (the inventor's
+   bench: brass pump prototypes, copper pipe, pegboard tools, a framed photo, a warm lamp, a glass prototype heart),
+   DEVICE (the titanium heart alone in a deep-blue void, glass front so the floating rotor shows),
+   XRAY (his body as a glowing blue shell; ribs, spine, lungs, aorta, pulmonary arteries, and whichever heart is in him).
+   Set changes are hard cuts with a whoosh and an exposure spike. No on-screen text.
+The titanium heart: a 70 mm drum with two inflow cuffs at the back, two grafts on top (aorta, pulmonary artery), one rotor with swept vanes
+   on both faces, two cyan magnet rings above and below its rim and a glowing levitation gap. Blood cells spiral in and out of it.
+Frame 1 (thumbnail): the titanium heart glowing in his X-ray chest, rotor spinning, camera pushing in.
+
+Beat 1 HOOK "This man lived over a hundred days with a titanium heart."  HookX (50mm push-in on the X-ray chest, cool, dramatic)
+   -> HookFace (ward, 50mm, he looks down at his chest, hand flat over his heart, eyes wide). ~1.6 s each.
+Beat 2 "His own heart was failing, with no donor in sight."  WardWide (32mm slow orbit: slumped, short of breath, hand on chest, monitor;
+   cold daylight) -> SickX (60mm push on the dull, weak, irregularly beating heart; flow dots crawl).
+Beat 3 "So in 2024, surgeons in Sydney replaced it completely."  ORWide (30mm high angle, he lies sedated, plunge toward his chest)
+   -> SwapX (X-ray: the failing heart lifts out toward camera, the titanium heart slides in; boom, camera kick, exposure flash).
+Beat 4 "The new heart has one moving part, a spinning rotor."  DeviceOrbit (85mm orbit round the device, key + cyan rim)
+   -> RotorMacro (100mm push-in through the glass on the spinning rotor).
+Beat 5 MONEY MOMENT "Magnets keep it floating, so nothing rubs or wears out."  FloatSlomo (slow motion ~0.4x on the rotor and blood:
+   100mm three-quarter orbit, the magnet rings flare cyan, the gap glows; music dips to silence before it). ~3 s.
+Beat 6 "It pumps blood to his body and lungs."  FlowX (X-ray, 40mm: red dots stream up the aorta, plum dots out to both lungs)
+   -> FlowMacro (85mm from above: red and plum cells spiral round the rotor and out of the two grafts).
+Beat 7 "In February, he walked out of the hospital with it."  ExitWide (28mm from behind: the glass doors glide apart, sunlight floods in,
+   controller bag at his hip) -> ExitFace (50mm reverse from the doorway: warm sun on his face, deep breath, smile).
+Beat 8 "Then a donor heart arrived, and he got his transplant."  CoolerCU (40mm: the cooler trolley rolls in and settles; he lies in the
+   OR behind) -> DonorX (X-ray, 55mm: the titanium heart shrinks away and a rosy, strongly beating donor heart takes its place).
+Beat 9 "Its inventor made it after his dad died of heart failure."  WorkshopWide (35mm, warm lamp, focus on the framed photo)
+   -> ProtoMacro (85mm orbit round the glass prototype, rotor turning).
+Beat 10 "Someday, hearts like this could end the wait for donors."  DeviceHero (85mm reverse orbit, hero light)
+   -> CloserX (X-ray push-in that matches frame 1, so the replay loops).
+19 shots, every one moving, 1.5-3 s each at the real narration pace; one slow-motion moment (beat 5).
+Lighting: cool clinical (ward, OR), dark blue void with cyan rims (X-ray, device), warm sunlight (exit), warm tungsten (workshop).
+Artistic license: the X-ray device is drawn ~40% larger than life and its housing glows so it reads; the macro housing is clear.
+Tested 2026-11-01 with templates/test/run_test.sh (19 shot stills checked; framing fixed on the X-ray, slow-mo and cooler shots).

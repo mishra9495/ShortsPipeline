@@ -1,0 +1,5 @@
+joy-smells-parkinsons: sound (see mix.py; cue fractions SYNC with scene.py)
+Music: warm curious pad, mysterious minor in the lab, bright hopeful pad from beat 8. Ambience: room tone, lab hum, void shimmer.
+1 soft sniff-whoosh + chime. 2 gentle ticks. 3 low note, whoosh to scent. 4 whoosh to lab, rustles. 5 riser, boom + chime on the amber bloom (slow-mo).
+6 card flips (clacks), amber chime. 7 wet drips. 8 swab swish, machine beeps. 9 dot pops, red dot sting. 10 whoosh home, warm chime.
+Voice: Daniel or the owner-approved fallback chain, pauses trimmed, tempo +15%. No captions.

@@ -1,0 +1,9 @@
+joy-smells-parkinsons: scene direction (v3 toolkit; heroine char_heroine.blend, four sets, see scene.py)
+Sets: HOME (sunny living room), LAB (counter with 12 T-shirts, one turns amber; swab machine with animated bar graph),
+ SCENT (dark void, skin patch with rising amber sebum beads, a swab), DOTS (dark void: 8 flip cards, then 20 dots: 19 green, 1 red).
+Frame 1 (thumbnail): her face in the sunny room, glowing scent wisps curling to her nose.
+B1 hook: NoseThumb (push-in, wisps) -> HomeWide. B2 FaceWin push-in -> HomeOrbit. B3 ScentMacro -> ScentPull (beads).
+B4 ShirtRow truck -> SniffMed (she leans over shirts). B5 MONEY MOMENT slow-mo: AmberSlomo (one shirt blooms amber, camera kick)
+ -> SniffWide. B6 CardsFlip (8 cards flip, last amber) -> CardAmber. B7 SebumMacro orbit -> SebumTop crane.
+B8 SwabCU -> MachineCU (bars). B9 DotsPush (19 green, 1 red) -> OneRed. B10 HomeClose push-in -> Closer orbit, wisps return.
+19 shots, every one moving, one slow-motion moment. No on-screen text.

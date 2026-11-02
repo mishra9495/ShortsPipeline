@@ -1,0 +1,43 @@
+YOUTUBE SHORT METADATA: "The Nurse Who Smelled Parkinson's"
+Video file: joy-smells-parkinsons.mp4 (1080x1920, 30 fps, ~32 s incl. tail; narration ~30 s at 190 wpm)
+Narration: queue narration.wav / Kokoro am_fenrir per daily_render.ps1's fallback chain, pauses trimmed, word-for-word verified against script.txt.
+
+TITLE (pick one; first is recommended)
+1. She Could Smell Parkinson's Disease 👃
+2. This Nurse Smelled Disease On Skin 😮
+3. Her Nose Beat The Doctors 🧠
+
+DESCRIPTION
+Joy Milne, a retired nurse from Perth, Scotland, noticed her husband Les's smell change about ten years before he was diagnosed with Parkinson's disease. When she later mentioned it to researchers, they tested her with T-shirts worn by people with and without Parkinson's. She picked out the Parkinson's shirts, and also flagged one person from the healthy group who was diagnosed about eight months later.
+
+The smell comes from sebum, the oily wax the skin makes. Chemists at the University of Manchester used her nose as a guide and developed a skin swab test using mass spectrometry that gives results in about three minutes and was about 95% accurate in laboratory conditions (2022). It is still being validated and is not yet a clinical test.
+
+Sources: University of Manchester news, "'Sniffing out' Parkinson's: Three-minute skin swab breakthrough" (7 Sept 2022); Parkinson's UK, "Researchers move closer to a test that can sniff out Parkinson's"; ACS Central Science (2019) "Sebum as a source of Parkinson's disease biomarkers".
+
+This is a 3D animated dramatization made for education and entertainment. It is not medical advice. If you are worried about symptoms, see a doctor.
+
+#shorts #parkinsons #medicalmystery #science #didyouknow #humanbody #3danimation
+
+TAGS (comma-separated, paste into the Tags field)
+Parkinson's disease, Joy Milne, smell Parkinson's, super smeller, sebum, skin swab test, early detection, medical mystery, weird medical cases, human body facts, science facts, did you know, 3d animation, animated explainer, medical shorts, science shorts, body facts
+
+UPLOAD SETTINGS
+- Category: Education
+- Audience: Not made for kids
+- Altered or synthetic content: narration is AI text-to-speech and the scene is a 3D dramatization. Recommended answer: "Yes".
+- Language: English
+- Comments: On
+- Suggested pinned comment: "Would you want a smell test for diseases? 👃"
+
+FACT CHECK (every claim in the narration, with its source)
+- She could smell Parkinson's disease before doctors could: Milne noticed the change in her husband about a decade before his diagnosis (ScienceAlert, Manchester news) ✔
+- Joy Milne, a Scottish nurse, noticed her husband's scent change: retired nurse from Perth, Scotland (STV, Manchester news) ✔
+- A musky odor appeared ten years before his diagnosis: "musky" smell, 10 years before diagnosis (ScienceAlert; Inverse) ✔
+- Scientists tested her with T-shirts worn by sick and healthy people: Manchester-led team had her smell T-shirts worn by people with and without Parkinson's (ZME Science; Parkinson's UK) ✔
+- She picked every Parkinson's shirt, plus one healthy person: she identified all the Parkinson's shirts and also flagged one from the control group (ZME Science; widely reported) ✔
+- Eight months later, that person was diagnosed too: that person was diagnosed with Parkinson's about eight months later (ZME Science) ✔
+- The scent comes from sebum, the oily wax in your skin: researchers traced the odor to sebum, a waxy lipid-rich skin secretion (ACS Central Science 2019; Manchester) ✔
+- Researchers built a three-minute skin swab test from her discovery: paper spray mass spectrometry on skin swabs, results in as little as three minutes (Manchester news 2022) ✔
+- In lab trials, it was about ninety-five percent accurate: reported as 95% accurate under laboratory conditions, 79 patients vs 71 controls; not yet clinically validated (Manchester news; ZME Science) ✔
+- Her nose may help catch Parkinson's years earlier, saving lives: "may", the team aims at earlier detection; Parkinson's UK and Manchester describe the goal (Parkinson's UK) ✔ (hedged opinion line)
+- Artistic license: the heroine is a generic animated woman, not a likeness of Joy Milne. The scent wisps, shirts, sebum beads and 20 dots (19 green, 1 red = 95%) are visual metaphors.
